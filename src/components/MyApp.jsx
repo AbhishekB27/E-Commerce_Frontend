@@ -30,7 +30,7 @@ const MyApp = () => {
   return (
     <div className='min-h-screen h-auto p-1 dark:bg-[#121212] text-[#5465ff] dark:text-gray-300 font-ubuntu '>
         <Header setTheme={setTheme} theme={theme}/>
-        <HeroSection/>
+        {/* <HeroSection/> */}
     </div>
   )
 }

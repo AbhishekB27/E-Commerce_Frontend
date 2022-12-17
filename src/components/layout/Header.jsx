@@ -1,19 +1,21 @@
 import React, { useState } from "react";
 import Hamburger from "./Hamburger";
 import ToggleMode from "./ToggleMode";
-import ShopBag from "../images/ShopBag.png";
 import { Link } from "react-router-dom";
+import EmptyCart from "../images/EmptyCart.gif";
 
 const Header = ({ setTheme, theme }) => {
   const [menu, setMenu] = useState(false);
-  const [follow, setFollow] = useState(false);
+  const [profile, setProfile] = useState(false);
+  const [cart, setCart] = useState(false);
+  const [isActive, setActive] = useState(false);
   const closeMobileMenu = () => {
     setMenu(!menu);
   };
   return (
     <header className="flex flex-col gap-1">
       <div className="flex justify-between items-center pb-1 border-b-2 border-[#5465ff]  dark:border-gray-300">
-        <div className="relative md:border-[3px] border-[#5465ff] dark:border-gray-300 cursor-pointer flex justify-center gap-2 items-center before:content-[''] before:absolute before:h-[95px] before:w-[60%] before:left-[-18px] overflow-hidden before:rotate-[-28deg] before:bg-gradient-to-l before:from-[#8C5CFF] before:via-[#4C4DFF] before:to-[#0CB6FF] dark:before:bg-gradient-to-l dark:before:to-gray-300 dark:before:from-gray-300 dark:before:text-[#121212]">
+        <div className="relative border-[2px] md:border-[3px] border-[#5465ff] dark:border-gray-300 cursor-pointer flex justify-center gap-2 items-center before:content-[''] before:absolute before:h-[95px] before:w-[60%] before:left-[-18px] overflow-hidden before:rotate-[-28deg] before:bg-gradient-to-l before:from-[#8C5CFF] before:via-[#4C4DFF] before:to-[#0CB6FF] dark:before:bg-gradient-to-l dark:before:to-gray-300 dark:before:from-gray-300 dark:before:text-[#121212]">
           <div className="flex justify-center gap-2 relative items-end z-50 p-1 ring-2 ring-inset ring-white dark:ring-[#121212]">
             <i className="fa-solid text-white dark:text-[#121212] pl-1 fa-bag-shopping md:text-2xl hover:scale-105 transition-all"></i>
             <span className="text-sm text-white dark:text-[#121212] font-medium md:text-lg tracking-wider lg:font-extrabold">
@@ -24,22 +26,146 @@ const Header = ({ setTheme, theme }) => {
             </span>
           </div>
         </div>
-        <div className="grid grid-cols-[60px_60px_35px_35px] md:grid-cols-[80px_80px_40px_40px] gap-3">
-        <button className="bg-gradient-to-l from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] text-white dark:bg-gradient-to-l dark:to-gray-300 dark:from-gray-300 dark:text-[#121212] rounded-md font-semibold text-sm md:text-base lg:text-lg">SignUp</button>
-        <button className="bg-gradient-to-l from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] text-white dark:bg-gradient-to-l dark:to-gray-300 dark:from-gray-300 dark:text-[#121212] rounded-md font-semibold text-sm md:text-base lg:text-lg">LogIn</button>
-        <div className={`grid place-items-center pt-[2px] pr-[2px] cursor-pointer relative w-auto h-auto gap-2 rounded-lg bg-[#e2fdff] dark:bg-gray-300 text-[#5465ff] dark:text-[#121212]`}>
-          <div className="absolute gri top-[-9px] right-[-9px] border-2 border-white dark:border-[#121212] bg-[#e2fdff] dark:bg-gray-300 text-[#5465ff] dark:text-[#121212] w-[20px] h-[20px] rounded-full text-xs font-extrabold">3</div>
-        <i class=" text-base md:text-lg lg:text-2xl fa-solid fa-cart-shopping"></i>
-        </div>
-        <ToggleMode setTheme={setTheme} theme={theme} />
+        <div
+          className={`grid ${
+            isActive
+              ? "grid-cols-[60px_60px_35px_35px] md:grid-cols-[80px_80px_40px_40px] gap-3"
+              : "grid-cols-[70px_35px_35px] md:grid-cols-[90px_40px_40px] gap-3"
+          }`}
+        >
+          {isActive ? (
+            <>
+              {" "}
+              <button className="bg-gradient-to-l from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] text-white dark:bg-gradient-to-l dark:to-gray-300 dark:from-gray-300 dark:text-[#121212] rounded-md font-semibold text-sm md:text-base lg:text-lg">
+                SignUp
+              </button>
+              <button className="bg-gradient-to-l from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] text-white dark:bg-gradient-to-l dark:to-gray-300 dark:from-gray-300 dark:text-[#121212] rounded-md font-semibold text-sm md:text-base lg:text-lg">
+                LogIn
+              </button>{" "}
+            </>
+          ) : (
+            <div className="relative grid place-items-center z-50 grid-cols-[auto_auto_25px] bg-gradient-to-l from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] text-white dark:bg-gradient-to-l dark:to-gray-300 dark:from-gray-300 dark:text-[#121212] rounded-md font-semibold text-sm md:text-base lg:text-lg">
+              <div className="rounded-full w-[25px] md:w-[30px] h-[25px] md:h-[30px] overflow-hidden">
+                {" "}
+                <i class="fa-solid fa-user"></i>{" "}
+              </div>{" "}
+              <span>AB</span>{" "}
+              <button
+                className="outline-none"
+                onBlur={() => {
+                  setProfile(
+                    profile === false ? false : profile ? false : true
+                  );
+                }}
+              >
+                {" "}
+                <i
+                  onClick={() => {
+                    setProfile(profile ? false : true);
+                  }}
+                  class={`fa-light fa-angle-down cursor-pointer ${
+                    profile ? "rotate-0" : "rotate-[-180deg]"
+                  } transition-all duration-300`}
+                ></i>{" "}
+              </button>
+              <div
+                className={`absolute flex flex-col justify-evenly items-start md:text-base top-[2.4rem] md:top-[3.03rem] overflow-hidden shadow-md dark:drop-shadow-[0_4px_6px_rgba(255,255,255,0.25)] bg-white dark:bg-[#121212] text-blue-500 dark:text-gray-300 w-[16.2rem] md:w-[18.6rem] ${
+                  profile ? "h-[10rem] md:h-[15rem]" : "h-[0rem]"
+                } transition-all duration-300`}
+              >
+                <div
+                  onClick={() => {
+                    setProfile(!profile);
+                  }}
+                  className="flex z-10 justify-start items-center gap-2 px-4 py-2 w-full cursor-pointer hover:bg-[#e2fdff]/50 dark:hover:bg-gray-300/30"
+                >
+                  {" "}
+                  <i class="fa-solid fa-user"></i> Profile
+                </div>
+                <div
+                  onClick={() => {
+                    setProfile(!profile);
+                  }}
+                  className="flex z-10 justify-start items-center gap-2 px-4 py-2 w-full cursor-pointer hover:bg-[#e2fdff]/50 dark:hover:bg-gray-300/30"
+                >
+                  {" "}
+                  <i class="fa-solid fa-box"></i> MyOrder
+                </div>
+                <div
+                  onClick={() => {
+                    setProfile(!profile);
+                  }}
+                  className="flex z-10 justify-start items-center gap-2 px-4 py-2 w-full cursor-pointer hover:bg-[#e2fdff]/50 dark:hover:bg-gray-300/30"
+                >
+                  {" "}
+                  <i class="fa-solid fa-gear"></i> Setting
+                </div>
+                <div
+                  onClick={() => {
+                    setProfile(!profile);
+                  }}
+                  className="flex z-10 justify-start items-center gap-2 px-4 py-2 w-full cursor-pointer hover:bg-[#e2fdff]/50 dark:hover:bg-gray-300/30"
+                >
+                  {" "}
+                  <i class="fa-solid fa-right-from-bracket"></i> Logout
+                </div>
+              </div>
+            </div>
+          )}
+          <button
+            onBlur={() => {
+              setCart(cart === false ? false : cart ? false : true);
+            }}
+            onClick={() => {
+              setCart(!cart);
+            }}
+            className={`grid outline-none place-items-center pt-[2px] z-50 pr-[2px] cursor-pointer relative w-auto h-auto gap-2 rounded-lg bg-[#e2fdff] dark:bg-gray-300 text-[#5465ff] dark:text-[#121212]`}
+          >
+            <div
+              className={`absolute flex flex-col justify-start items-start md:text-base top-[2.4rem] right-[-3.2rem] md:top-[3.03rem] md:right-[-3.2rem] overflow-hidden shadow-md dark:drop-shadow-[0_4px_6px_rgba(255,255,255,0.25)] bg-white dark:bg-[#121212] text-blue-500 dark:text-gray-300 w-[16.2rem] md:w-[18.6rem] ${
+                cart ? "h-[10rem] md:h-[15rem]" : "h-[0rem]"
+              } transition-all duration-300`}
+            >
+              {true ? (
+                <div className="flex w-full h-full flex-col justify-center items-center">
+                  {" "}
+                  <img
+                    className="h-[3rem] md:w-[5rem] w-[3rem] md:h-[5rem]"
+                    src={EmptyCart}
+                    alt=""
+                  />{" "}
+                  <span className="text-sm md:text-xl font-semibold">
+                    Your Cart Is Empty!
+                  </span>{" "}
+                </div>
+              ) : (
+                <div className="w-full h-full flex flex-col justify-start items-start px-3 py-2">
+                  {Array(3).fill(0).map((item,index) => {
+                    return <div key={index}>Cart {index + 1}</div>
+                  })}
+                </div>
+              )}
+            </div>
+            {!true ? (
+              <div className="absolute top-[-6px]  md:top-[-9px] right-[-9px] border-2 border-white dark:border-[#121212] bg-[#e2fdff] dark:bg-gray-300 text-[#5465ff] dark:text-[#121212] w-[19px] h-[15px] md:w-[20px] md:h-[20px] pb-4 rounded-full text-xs font-bold md:font-extrabold">
+                3
+              </div>
+            ) : (
+              ""
+            )}
+            <i class=" text-base md:text-lg lg:text-2xl fa-solid fa-cart-shopping"></i>
+          </button>
+          <ToggleMode setTheme={setTheme} theme={theme} />
         </div>
       </div>
       <div className="relative flex justify-between lg:flex-row-reverse">
         <Hamburger setMenu={setMenu} menu={menu} />
         {/* This layout is best for all time */}{" "}
         <ol
-          className={`top-[6.2rem] fixed right-0 left-0 lg:w-[50%] z-50 lg:static flex flex-col lg:flex-row justify-around bg-black/50 lg:bg-transparent w-full overflow-hidden transition-all duration-500 ${
-            !menu ? "h-[0] opacity-0" : "h-[88vh]"
+          className={`top-[5.6rem] md:top-[6.5rem] fixed right-0 left-0 lg:w-[50%] z-40 lg:static flex flex-col lg:flex-row justify-around w-full overflow-hidden transition-all duration-500 ${
+            !menu
+              ? "h-[0] opacity-0"
+              : "h-[88vh] bg-white lg:bg-transparent dark:bg-black lg:dark:bg-transparent"
           } lg:h-auto lg:opacity-100 `}
         >
           <Link to="/">
