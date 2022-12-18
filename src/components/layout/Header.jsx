@@ -4,6 +4,7 @@ import ToggleMode from "./ToggleMode";
 import { Link } from "react-router-dom";
 import EmptyCart from "../images/EmptyCart.gif";
 import ShoppingBag from "../images/shopping.png";
+import { motion } from "framer-motion";
 
 const Header = ({ setTheme, theme }) => {
   const [menu, setMenu] = useState(false);
@@ -15,7 +16,7 @@ const Header = ({ setTheme, theme }) => {
   };
   return (
     <header className="flex flex-col gap-1">
-      <div className="flex justify-between items-center pb-1 border-b-2 border-[#5465ff] dark:border-gray-300">
+      <div className="flex max-[380px]:flex-col max-[380px]:gap-2 sm:gap-0 sm:flex-row justify-between items-center pb-1 border-b-2 border-[#5465ff] dark:border-gray-300">
         <div className="relative border-[2px] group  md:border-[3px] border-[#5465ff] dark:border-gray-300 cursor-pointer flex justify-center gap-2 items-center before:content-[''] before:absolute before:h-[95px] before:w-[60%] before:left-[-18px] hover:before:translate-x-[100%] before:transition-all overflow-hidden before:rotate-[-28deg] before:bg-gradient-to-l before:from-[#8C5CFF] before:via-[#4C4DFF] before:to-[#0CB6FF] dark:before:bg-gradient-to-l dark:before:to-gray-300 dark:before:from-gray-300 dark:before:text-[#121212]">
           <div className="flex justify-center  gap-2 relative items-end z-50 p-1 ring-2 ring-inset ring-white dark:ring-[#121212]">
             <i className="fa-solid text-white group-hover:text-[#5465ff] dark:group-hover:text-gray-300 dark:text-[#121212] pl-1 fa-bag-shopping md:text-2xl hover:scale-105 transition-all"></i>
@@ -28,21 +29,27 @@ const Header = ({ setTheme, theme }) => {
           </div>
         </div>
         <div
-          className={`grid ${
+          className={`grid max-[380px]:w-full sm:w-auto ${
             isActive
-              ? "grid-cols-[60px_60px_35px_35px] md:grid-cols-[80px_80px_40px_40px] gap-3"
-              : "grid-cols-[70px_35px_35px] md:grid-cols-[90px_40px_40px] gap-3"
+              ? "grid-cols-[60px_60px_35px_35px] md:grid-cols-[80px_80px_40px_40px] max-[380px]:grid-cols-4 gap-3"
+              : "grid-cols-[70px_35px_35px] md:grid-cols-[90px_40px_40px] max-[380px]:grid-cols-3 gap-3"
           }`}
         >
           {isActive ? (
             <>
               {" "}
-              <button className="bg-gradient-to-l from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] text-white dark:bg-gradient-to-l dark:to-gray-300 dark:from-gray-300 dark:text-[#121212] rounded-md font-semibold text-sm md:text-base lg:text-lg">
+              <motion.button
+                whileTap={{ scale: 0.8 }}
+                className="bg-gradient-to-l from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] text-white dark:bg-gradient-to-l dark:to-gray-300 dark:from-gray-300 dark:text-[#121212] rounded-md font-semibold text-sm md:text-base lg:text-lg"
+              >
                 SignUp
-              </button>
-              <button className="bg-gradient-to-l from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] text-white dark:bg-gradient-to-l dark:to-gray-300 dark:from-gray-300 dark:text-[#121212] rounded-md font-semibold text-sm md:text-base lg:text-lg">
+              </motion.button>
+              <motion.button
+                whileTap={{ scale: 0.8 }}
+                className="bg-gradient-to-l from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] text-white dark:bg-gradient-to-l dark:to-gray-300 dark:from-gray-300 dark:text-[#121212] rounded-md font-semibold text-sm md:text-base lg:text-lg"
+              >
                 LogIn
-              </button>{" "}
+              </motion.button>{" "}
             </>
           ) : (
             <div className="relative grid place-items-center z-50 grid-cols-[auto_auto_25px] bg-gradient-to-l from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] text-white dark:bg-gradient-to-l dark:to-gray-300 dark:from-gray-300 dark:text-[#121212] rounded-md font-semibold text-sm md:text-base lg:text-lg">
@@ -63,6 +70,7 @@ const Header = ({ setTheme, theme }) => {
                 <i
                   onClick={() => {
                     setProfile(profile ? false : true);
+                    setCart(cart === false ? false : cart ? false : true);
                   }}
                   class={`fa-light fa-angle-down cursor-pointer ${
                     profile ? "rotate-0" : "rotate-[-180deg]"
@@ -113,19 +121,10 @@ const Header = ({ setTheme, theme }) => {
               </div>
             </div>
           )}
-          <button
-            onBlur={() => {
-              setCart(cart === false ? false : cart ? false : true);
-            }}
-            onClick={() => {
-              setCart(!cart);
-            }}
-            className={`grid outline-none place-items-center pt-[2px] z-50 pr-[2px] cursor-pointer relative w-auto h-auto gap-2 rounded-lg bg-[#e2fdff] dark:bg-gray-300 text-[#5465ff] dark:text-[#121212]`}
-          >
-            <div
-              className={`absolute flex flex-col justify-start items-start md:text-base top-[2.4rem] right-[-3.2rem] md:top-[3.03rem] md:right-[-3.2rem] overflow-hidden shadow-md dark:drop-shadow-[0_4px_6px_rgba(255,255,255,0.25)] bg-white dark:bg-[#121212] text-blue-500 dark:text-gray-300 w-[16.2rem] md:w-[18.6rem] ${
-                cart ? "h-[10rem] md:h-[15rem]" : "h-[0rem]"
-              } transition-all duration-300`}
+          <div className="relative grid place-items-center pt-[2px] z-50 pr-[2px]  w-auto h-auto gap-2 rounded-lg bg-[#e2fdff] dark:bg-gray-300 text-[#5465ff] dark:text-[#121212]">
+            <motion.div
+              animate={cart ? { height: "15.8rem" } : { height: "0rem" }}
+              className={`absolute flex flex-col z-50 justify-start items-start md:text-base top-[2.4rem] right-[-3.2rem] md:top-[3.03rem] md:right-[-3.2rem] overflow-hidden shadow-md dark:drop-shadow-[0_4px_6px_rgba(255,255,255,0.25)] bg-white dark:bg-[#121212] text-blue-500 dark:text-gray-300 w-[16.2rem] md:w-[18.6rem]`}
             >
               {true ? (
                 <div className="flex w-full h-full flex-col justify-center items-center">
@@ -140,22 +139,62 @@ const Header = ({ setTheme, theme }) => {
                   </span>{" "}
                 </div>
               ) : (
-                <div className="w-full h-full flex flex-col justify-evenly gap-1 items-start p-1 md:px-3 md:py-2">
-                  {Array(4).fill(0).map((item,index) => {
-                    return <div className="flex justify-between md:justify-evenly items-center gap-1 md:gap-2 bg-[#e2fdff] dark:bg-gray-300 dark:text-[#121212] text-blue-600 w-full rounded p-[2px] md:p-1" key={index}>
-                      <img className="md:w-[2rem] w-[1.5rem] md:p-1 p-[2px] md:h-[2rem] h-[1.5rem] bg-white rounded" src={ShoppingBag} alt="" />
-                      <div className="text-xs md:text-sm font-semibold truncate">Shoulder Bag</div>
-                      <div className="flex justify-start items-center gap-[1px] md:gap-[2px]"> <button className="bg-blue-600 dark:bg-black text-white rounded-sm px-[1px] w-[1rem] md:px-[2px] md:w-[1.5rem] text-xs md:text-base"><i class="fa-light fa-minus"></i></button> <span className="bg-blue-600 dark:bg-black text-white dark:text-gray-300 rounded-sm px-[1px] w-[1rem] md:px-[2px] md:w-[1.5rem] text-xs md:text-base">01</span> <button className="bg-blue-600 dark:bg-black text-white dark:text-gray-300 rounded-sm px-[1px] w-[1rem] md:px-[2px] md:w-[1.5rem] text-xs md:text-base"><i class="fa-light fa-plus"></i></button> </div>
-                      <div className="border-[2px] w-[1.5rem] text-xs md:text-base md:w-[2rem] h-[1.5rem] md:h-[2rem] grid place-items-center border-blue-600 dark:border-[#121212] rounded"> <i class="fa-solid fa-trash"></i> </div>
-                      </div>
-                  })}
-                  <div className="w-full grid grid-cols-2 gap-1 md:gap-2">
-                  <button className="bg-[#e2fdff] text-blue-600 dark:bg-gray-300 dark:text-[#121212] px-2 py-1 md:px-3 md:py-2 rounded w-full text-xs md:text-sm font-semibold">Go To Cart</button>
-                  <button className="bg-[#e2fdff] text-blue-600 dark:bg-gray-300 dark:text-[#121212] px-2 py-1 md:px-3 md:py-2 rounded w-full text-xs md:text-sm font-semibold">Continue Shop</button>
+                <div className="w-full h-full grid grid-cols-1 gap-1 place-items-center place-content-start p-1 md:px-3 md:py-2">
+                  <div className="text-left text-blue-600 dark:text-gray-300 font-medium md:font-semibold border-b-2 border-b-blue-500 dark:border-b-gray-300 w-full">
+                    Products:
+                  </div>
+                  {Array(1)
+                    .fill(0)
+                    .map((item, index) => {
+                      return (
+                        <div
+                          className="grid grid-cols-[auto_auto_2rem] place-items-center gap-1 md:gap-4 w-full rounded p-[2px] md:p-1"
+                          key={index}
+                        >
+                          <img
+                            className="rounded-full cursor-pointer bg-white p-1 w-[2.5rem] h-[2.5rem] md:w-[3.5rem] md:h-[3.5rem] dark:bg-gray-300"
+                            src={ShoppingBag}
+                            alt=""
+                          />
+                          <div className="text-gray-400 text-sm md:text-base w-full h-full">
+                            <div className="truncate text-left">
+                              {" "}
+                              Shoulder Bag{" "}
+                            </div>
+                            <div className="flex justify-start items-center gap-1">
+                              {" "}
+                              <span>Price:</span>
+                              <span>$100</span>{" "}
+                            </div>
+                            <div className="flex justify-start items-center gap-1">
+                              {" "}
+                              <span>Quantity:</span>
+                              <span>2</span>{" "}
+                            </div>
+                          </div>
+                          <div className="w-full h-full grid place-items-center">
+                            {" "}
+                            <i class="fa-regular text-red-400 cursor-pointer fa-trash"></i>{" "}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  <div className="grid grid-cols-2 w-full border-t-2 border-t-blue-600 dark:border-t-gray-300 py-1">
+                    <div className="text-left flex justify-start items-center gap-1 font-medium md:font-semibold">
+                      {" "}
+                      <span className="">Total:</span>
+                      <span className="text-sm">$245</span>
+                    </div>
+                    <div className="text-right">
+                      {" "}
+                      <button className="outline-none px-2 font-sans font-normal md:font-medium rounded-md bg-blue-600 dark:bg-gray-300 text-white dark:text-[#121212]">
+                        Go To Cart
+                      </button>{" "}
+                    </div>
                   </div>
                 </div>
               )}
-            </div>
+            </motion.div>
             {!true ? (
               <div className="absolute top-[-6px]  md:top-[-9px] right-[-9px] border-2 border-white dark:border-[#121212] bg-[#e2fdff] dark:bg-gray-300 text-[#5465ff] dark:text-[#121212] w-[19px] h-[15px] md:w-[20px] md:h-[20px] pb-4 rounded-full text-xs font-bold md:font-extrabold">
                 3
@@ -163,8 +202,15 @@ const Header = ({ setTheme, theme }) => {
             ) : (
               ""
             )}
-            <i class=" text-base md:text-lg lg:text-2xl fa-solid fa-cart-shopping"></i>
-          </button>
+            <button
+              onClick={() => {
+                setCart(!cart);
+              }}
+              className={`grid active:scale-90 transition-all outline-none place-items-center cursor-pointer `}
+            >
+              <i class=" text-base md:text-lg lg:text-2xl fa-solid fa-cart-shopping"></i>
+            </button>
+          </div>
           <ToggleMode setTheme={setTheme} theme={theme} />
         </div>
       </div>
@@ -172,7 +218,7 @@ const Header = ({ setTheme, theme }) => {
         <Hamburger setMenu={setMenu} menu={menu} />
         {/* This layout is best for all time */}{" "}
         <ol
-          className={`top-[5.6rem] md:top-[6.5rem] fixed right-0 left-0 lg:w-[50%] z-40 lg:static flex flex-col lg:flex-row justify-around w-full overflow-hidden transition-all duration-500 ${
+          className={`max-[380px]:top-[8rem] top-[5.6rem] md:top-[6.5rem] fixed right-0 left-0 lg:w-[50%] z-40 lg:static flex flex-col lg:flex-row justify-around w-full overflow-hidden transition-all duration-500 ${
             !menu
               ? "h-[0] opacity-0"
               : "h-[88vh] bg-white lg:bg-transparent dark:bg-black lg:dark:bg-transparent"
