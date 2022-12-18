@@ -3,25 +3,26 @@ import Hamburger from "./Hamburger";
 import ToggleMode from "./ToggleMode";
 import { Link } from "react-router-dom";
 import EmptyCart from "../images/EmptyCart.gif";
+import ShoppingBag from "../images/shopping.png";
 
 const Header = ({ setTheme, theme }) => {
   const [menu, setMenu] = useState(false);
   const [profile, setProfile] = useState(false);
   const [cart, setCart] = useState(false);
-  const [isActive, setActive] = useState(false);
+  const [isActive, setActive] = useState(!false);
   const closeMobileMenu = () => {
     setMenu(!menu);
   };
   return (
     <header className="flex flex-col gap-1">
-      <div className="flex justify-between items-center pb-1 border-b-2 border-[#5465ff]  dark:border-gray-300">
-        <div className="relative border-[2px] md:border-[3px] border-[#5465ff] dark:border-gray-300 cursor-pointer flex justify-center gap-2 items-center before:content-[''] before:absolute before:h-[95px] before:w-[60%] before:left-[-18px] overflow-hidden before:rotate-[-28deg] before:bg-gradient-to-l before:from-[#8C5CFF] before:via-[#4C4DFF] before:to-[#0CB6FF] dark:before:bg-gradient-to-l dark:before:to-gray-300 dark:before:from-gray-300 dark:before:text-[#121212]">
-          <div className="flex justify-center gap-2 relative items-end z-50 p-1 ring-2 ring-inset ring-white dark:ring-[#121212]">
-            <i className="fa-solid text-white dark:text-[#121212] pl-1 fa-bag-shopping md:text-2xl hover:scale-105 transition-all"></i>
-            <span className="text-sm text-white dark:text-[#121212] font-medium md:text-lg tracking-wider lg:font-extrabold">
+      <div className="flex justify-between items-center pb-1 border-b-2 border-[#5465ff] dark:border-gray-300">
+        <div className="relative border-[2px] group  md:border-[3px] border-[#5465ff] dark:border-gray-300 cursor-pointer flex justify-center gap-2 items-center before:content-[''] before:absolute before:h-[95px] before:w-[60%] before:left-[-18px] hover:before:translate-x-[100%] before:transition-all overflow-hidden before:rotate-[-28deg] before:bg-gradient-to-l before:from-[#8C5CFF] before:via-[#4C4DFF] before:to-[#0CB6FF] dark:before:bg-gradient-to-l dark:before:to-gray-300 dark:before:from-gray-300 dark:before:text-[#121212]">
+          <div className="flex justify-center  gap-2 relative items-end z-50 p-1 ring-2 ring-inset ring-white dark:ring-[#121212]">
+            <i className="fa-solid text-white group-hover:text-[#5465ff] dark:group-hover:text-gray-300 dark:text-[#121212] pl-1 fa-bag-shopping md:text-2xl hover:scale-105 transition-all"></i>
+            <span className="text-sm text-white group-hover:text-[#5465ff] dark:group-hover:text-gray-300 dark:text-[#121212] font-medium md:text-lg tracking-wider lg:font-extrabold">
               AB
             </span>
-            <span className="text-sm ml-6 font-medium md:text-lg tracking-wider lg:font-extrabold">
+            <span className="text-sm ml-6 font-medium group-hover:text-white dark:group-hover:text-[#121212] md:text-lg tracking-wider lg:font-extrabold">
               STORE
             </span>
           </div>
@@ -139,10 +140,19 @@ const Header = ({ setTheme, theme }) => {
                   </span>{" "}
                 </div>
               ) : (
-                <div className="w-full h-full flex flex-col justify-start items-start px-3 py-2">
-                  {Array(3).fill(0).map((item,index) => {
-                    return <div key={index}>Cart {index + 1}</div>
+                <div className="w-full h-full flex flex-col justify-evenly gap-1 items-start p-1 md:px-3 md:py-2">
+                  {Array(4).fill(0).map((item,index) => {
+                    return <div className="flex justify-between md:justify-evenly items-center gap-1 md:gap-2 bg-[#e2fdff] dark:bg-gray-300 dark:text-[#121212] text-blue-600 w-full rounded p-[2px] md:p-1" key={index}>
+                      <img className="md:w-[2rem] w-[1.5rem] md:p-1 p-[2px] md:h-[2rem] h-[1.5rem] bg-white rounded" src={ShoppingBag} alt="" />
+                      <div className="text-xs md:text-sm font-semibold truncate">Shoulder Bag</div>
+                      <div className="flex justify-start items-center gap-[1px] md:gap-[2px]"> <button className="bg-blue-600 dark:bg-black text-white rounded-sm px-[1px] w-[1rem] md:px-[2px] md:w-[1.5rem] text-xs md:text-base"><i class="fa-light fa-minus"></i></button> <span className="bg-blue-600 dark:bg-black text-white dark:text-gray-300 rounded-sm px-[1px] w-[1rem] md:px-[2px] md:w-[1.5rem] text-xs md:text-base">01</span> <button className="bg-blue-600 dark:bg-black text-white dark:text-gray-300 rounded-sm px-[1px] w-[1rem] md:px-[2px] md:w-[1.5rem] text-xs md:text-base"><i class="fa-light fa-plus"></i></button> </div>
+                      <div className="border-[2px] w-[1.5rem] text-xs md:text-base md:w-[2rem] h-[1.5rem] md:h-[2rem] grid place-items-center border-blue-600 dark:border-[#121212] rounded"> <i class="fa-solid fa-trash"></i> </div>
+                      </div>
                   })}
+                  <div className="w-full grid grid-cols-2 gap-1 md:gap-2">
+                  <button className="bg-[#e2fdff] text-blue-600 dark:bg-gray-300 dark:text-[#121212] px-2 py-1 md:px-3 md:py-2 rounded w-full text-xs md:text-sm font-semibold">Go To Cart</button>
+                  <button className="bg-[#e2fdff] text-blue-600 dark:bg-gray-300 dark:text-[#121212] px-2 py-1 md:px-3 md:py-2 rounded w-full text-xs md:text-sm font-semibold">Continue Shop</button>
+                  </div>
                 </div>
               )}
             </div>
