@@ -85,3 +85,14 @@ code {
     transform: rotateZ(5deg);
   }
 }
+.passLight{
+  animation: light infinite 1s linear
+}
+
+@keyframes light {
+  0%{transform: translateY(-3px);}
+  25%{transform: translateY(-5px);}
+  50%{transform: translateY(0px);}
+  75%{transform: translateY(3px);}
+  100%{transform: translateY(5px);}
+}

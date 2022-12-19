@@ -38,18 +38,22 @@ const Header = ({ setTheme, theme }) => {
           {isActive ? (
             <>
               {" "}
-              <motion.button
-                whileTap={{ scale: 0.8 }}
-                className="bg-gradient-to-l from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] text-white dark:bg-gradient-to-l dark:to-gray-300 dark:from-gray-300 dark:text-[#121212] rounded-md font-semibold text-sm md:text-base lg:text-lg"
-              >
-                SignUp
-              </motion.button>
-              <motion.button
-                whileTap={{ scale: 0.8 }}
-                className="bg-gradient-to-l from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] text-white dark:bg-gradient-to-l dark:to-gray-300 dark:from-gray-300 dark:text-[#121212] rounded-md font-semibold text-sm md:text-base lg:text-lg"
-              >
-                LogIn
-              </motion.button>{" "}
+              <Link to='/signUp'>
+                <motion.button
+                  whileTap={{ scale: 0.8 }}
+                  className="bg-gradient-to-l w-full h-full from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] text-white dark:bg-gradient-to-l dark:to-gray-300 dark:from-gray-300 dark:text-[#121212] rounded-md font-semibold text-sm md:text-base lg:text-lg"
+                >
+                  SignUp
+                </motion.button>
+              </Link>
+              <Link to='/login'>
+                <motion.button
+                  whileTap={{ scale: 0.8 }}
+                  className="bg-gradient-to-l w-full h-full from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] text-white dark:bg-gradient-to-l dark:to-gray-300 dark:from-gray-300 dark:text-[#121212] rounded-md font-semibold text-sm md:text-base lg:text-lg"
+                >
+                  LogIn
+                </motion.button>
+              </Link>{" "}
             </>
           ) : (
             <div className="relative grid place-items-center z-50 grid-cols-[auto_auto_25px] bg-gradient-to-l from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] text-white dark:bg-gradient-to-l dark:to-gray-300 dark:from-gray-300 dark:text-[#121212] rounded-md font-semibold text-sm md:text-base lg:text-lg">

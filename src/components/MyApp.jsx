@@ -2,7 +2,9 @@ import React, { useState } from 'react'
 import { useEffect } from 'react'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import HeroSection from './HomeSection/HeroSection'
+import { Route, Routes } from 'react-router-dom'
+import Login from './auth/Login'
+import SignUp from './auth/SignUp'
 import Header from './layout/Header'
 
 const MyApp = () => {
@@ -30,7 +32,10 @@ const MyApp = () => {
   return (
     <div className='min-h-screen h-auto p-1 dark:bg-[#121212] text-[#5465ff] dark:text-gray-300 font-ubuntu '>
         <Header setTheme={setTheme} theme={theme}/>
-        {/* <HeroSection/> */}
+        <Routes>
+            <Route path='/signUp' element={<SignUp/>}/>
+            <Route path='/login' element={<Login/>}/>
+        </Routes>
     </div>
   )
 }
