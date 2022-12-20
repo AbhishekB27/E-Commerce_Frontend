@@ -18,7 +18,7 @@ const Header = ({ setTheme, theme }) => {
     <header className="flex flex-col gap-1">
       <div className="flex max-[380px]:flex-col max-[380px]:gap-2 sm:gap-0 sm:flex-row justify-between items-center pb-1 border-b-2 border-[#5465ff] dark:border-gray-300">
         <div className="relative border-[2px] group  md:border-[3px] border-[#5465ff] dark:border-gray-300 cursor-pointer flex justify-center gap-2 items-center before:content-[''] before:absolute before:h-[95px] before:w-[60%] before:left-[-18px] hover:before:translate-x-[100%] before:transition-all overflow-hidden before:rotate-[-28deg] before:bg-gradient-to-l before:from-[#8C5CFF] before:via-[#4C4DFF] before:to-[#0CB6FF] dark:before:bg-gradient-to-l dark:before:to-gray-300 dark:before:from-gray-300 dark:before:text-[#121212]">
-          <div className="flex justify-center  gap-2 relative items-end z-50 p-1 ring-2 ring-inset ring-white dark:ring-[#121212]">
+          <div className="flex justify-center  gap-2 relative items-end z-40 p-1 ring-2 ring-inset ring-white dark:ring-[#121212]">
             <i className="fa-solid text-white group-hover:text-[#5465ff] dark:group-hover:text-gray-300 dark:text-[#121212] pl-1 fa-bag-shopping md:text-2xl hover:scale-105 transition-all"></i>
             <span className="text-sm text-white group-hover:text-[#5465ff] dark:group-hover:text-gray-300 dark:text-[#121212] font-medium md:text-lg tracking-wider lg:font-extrabold">
               AB
@@ -125,7 +125,7 @@ const Header = ({ setTheme, theme }) => {
               </div>
             </div>
           )}
-          <div className="relative grid place-items-center pt-[2px] z-50 pr-[2px]  w-auto h-auto gap-2 rounded-lg bg-[#e2fdff] dark:bg-gray-300 text-[#5465ff] dark:text-[#121212]">
+          <div className="relative grid place-items-center pt-[2px] z-40 pr-[2px]  w-auto h-auto gap-2 rounded-lg bg-[#e2fdff] dark:bg-gray-300 text-[#5465ff] dark:text-[#121212]">
             <motion.div
               animate={cart ? { height: "15.8rem" } : { height: "0rem" }}
               className={`absolute flex flex-col z-50 justify-start items-start md:text-base top-[2.4rem] right-[-3.2rem] md:top-[3.03rem] md:right-[-3.2rem] overflow-hidden shadow-md dark:drop-shadow-[0_4px_6px_rgba(255,255,255,0.25)] bg-white dark:bg-[#121212] text-blue-500 dark:text-gray-300 w-[16.2rem] md:w-[18.6rem]`}
@@ -222,10 +222,10 @@ const Header = ({ setTheme, theme }) => {
         <Hamburger setMenu={setMenu} menu={menu} />
         {/* This layout is best for all time */}{" "}
         <ol
-          className={`max-[380px]:top-[8rem] top-[5.6rem] md:top-[6.5rem] fixed right-0 left-0 lg:w-[50%] z-40 lg:static flex flex-col lg:flex-row justify-around w-full overflow-hidden transition-all duration-500 ${
+          className={`top-0 z-40 fixed right-0 left-0 lg:w-[50%] lg:static flex flex-col lg:flex-row justify-around w-full overflow-hidden transition-all duration-500 ${
             !menu
               ? "h-[0] opacity-0"
-              : "h-[88vh] bg-white lg:bg-transparent dark:bg-black lg:dark:bg-transparent"
+              : "h-[100vh] bg-white lg:bg-transparent dark:bg-black lg:dark:bg-transparent"
           } lg:h-auto lg:opacity-100 `}
         >
           <Link to="/">

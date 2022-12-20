@@ -7,7 +7,7 @@ const Hamburger = ({ setMenu, menu }) => {
   return (
     <div
       onClick={handleMenu}
-      className="relative lg:hidden flex gap-2 flex-col justify-between items-center w-[2.8rem] border-2 border-[#5465ff] dark:border-gray-300 rounded-md p-1 cursor-pointer"
+      className="relative lg:hidden z-50 flex gap-2 flex-col justify-between items-center w-[2.8rem] border-2 border-[#5465ff] dark:border-gray-300 rounded-md p-1 cursor-pointer"
     >
       <div
         className={`${
