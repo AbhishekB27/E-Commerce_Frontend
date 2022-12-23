@@ -1,11 +1,24 @@
-import { Field, Form, Formik } from "formik";
-import React, { useState } from "react";
+import { Form, Formik } from "formik";
+import React, { useEffect, useState } from "react";
 import { FormButton } from "./FormButton";
 import SignUpSchema from "./signUpSchema";
 import TextField from "./TextField";
 import SignUpI from "../images/SignUp.png";
+import { useDispatch, useSelector } from "react-redux";
+import { signUpUser } from "../../features/user/userAction";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+  const { loading, error, success } = useSelector((state) => state.user);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (success) {
+      navigate("/login");
+    }
+  }, [success]);
+
+  console.log(error);
+  const dispatch = useDispatch();
   const [eye, setEye] = useState(false);
   const initialValues = {
     userName: "",
@@ -17,7 +30,10 @@ const SignUp = () => {
     acceptTerms: false,
   };
   const handleSubmit = (data) => {
+    data.email = data.email.toLowerCase();
     console.log(data);
+    console.log(error);
+    dispatch(signUpUser(data));
   };
   return (
     <div className="w-full grid place-items-center mt-1 lg:mt-0">
@@ -104,7 +120,7 @@ const SignUp = () => {
                     ></i>
                   }
                 />
-                <FormButton name="Register" />
+                <FormButton name="Register" loading={loading ?? false} />
               </Form>
             )}
           </Formik>
