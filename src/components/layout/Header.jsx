@@ -73,10 +73,12 @@ const Header = ({ setTheme, theme }) => {
                 {" "}
                 <i class="fa-solid fa-user"></i>{" "}
               </div>{" "}
-              <span>{`${userInfo.firstName.charAt(0)}${userInfo.lastName.charAt(
-                0
-              )}`}</span>{" "}
-              <button
+              {
+                loading ? <Skeleton/> : <span>{`${userInfo.firstName.charAt(0).toUpperCase()}${userInfo.lastName.charAt(
+                  0
+                ).toUpperCase()}`}</span>
+  
+              }              <button
                 className="outline-none"
                 // onBlur={() => {
                 //   setProfile(

@@ -58,10 +58,10 @@ const UserProfile = () => {
               className={`flex relative flex-col gap-1 justify-center items-center md:items-start lg:translate-x-[3.5rem]`}
             >
               <span className="text-lg font-semibold md:text-2xl">
-                ABhishek Bahugana
+                {fullName}
               </span>
               <span className="text-xs translate-y-[-0.25rem] font-sans font-medium">
-                akbor332@gmail.com
+                {userInfo.email}
               </span>
               <button
                 disabled={loading ? true : false}
@@ -87,19 +87,19 @@ const UserProfile = () => {
                 >
                   <Link to="/user">
                     {" "}
-                    <button className="w-full lg:hover:bg-blue-600/30 cursor-pointer text-left max-[320px]:text-sm text-base md:text-lg font-semibold flex justify-start items-center gap-2 px-3 py-1">
+                    <button className="w-full outline-none border-b-2 border-b-transparent focus:border-blue-600 lg:hover:bg-blue-600/30 cursor-pointer text-left max-[320px]:text-sm text-base md:text-lg font-semibold flex justify-start items-center gap-2 px-3 py-1">
                       <i class="fa-solid fa-house"></i>Dashboard
                     </button>{" "}
                   </Link>
                   <Link to="/user/myOrders">
                     {" "}
-                    <button className="w-full lg:hover:bg-blue-600/30 cursor-pointer text-left max-[320px]:text-sm text-base md:text-lg font-semibold flex justify-start items-center gap-2 px-3 py-1">
+                    <button className="w-full outline-none border-b-2 border-b-transparent focus:border-blue-600 lg:hover:bg-blue-600/30 cursor-pointer text-left max-[320px]:text-sm text-base md:text-lg font-semibold flex justify-start items-center gap-2 px-3 py-1">
                       <i class="fa-light fa-box"></i>My Orders
                     </button>{" "}
                   </Link>
                   <Link to="/user/myAddresses">
                     {" "}
-                    <button className="w-full lg:hover:bg-blue-600/30 cursor-pointer text-left max-[320px]:text-sm text-base md:text-lg font-semibold flex justify-start items-center gap-2 px-3 py-1">
+                    <button className="w-full outline-none border-b-2 border-b-transparent focus:border-b-blue-600 lg:hover:bg-blue-600/30 cursor-pointer text-left max-[320px]:text-sm text-base md:text-lg font-semibold flex justify-start items-center gap-2 px-3 py-1">
                       <i class="fa-solid fa-location-dot"></i>My Address
                     </button>{" "}
                   </Link>
@@ -109,7 +109,7 @@ const UserProfile = () => {
           )}
 
           <div className="relative">
-            <div className="lg:absolute lg:rounded-md top-[-8rem] md:min-h-[27rem] md:shadow-xl bg-slate-100 lg:translate-x-[-0.5rem] md:rounded w-full">
+            <div className="lg:absolute pb-2 md:p-3 lg:rounded-md top-[-8rem] md:min-h-[27rem] md:shadow-xl bg-slate-100 lg:translate-x-[-0.5rem] md:rounded w-full">
               <Outlet />
             </div>
           </div>

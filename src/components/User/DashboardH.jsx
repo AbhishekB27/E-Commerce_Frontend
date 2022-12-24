@@ -29,7 +29,7 @@ const DashboardH = () => {
                 ) : (
                   <div className="border-2 flex items-start jus flex-col">
                     <span className="font-semibold text-sm md:text-base lg:text-xl text-left relative">
-                      Abhishek Bahuguna {userInfo.role === 1 ? <i class="fa-solid fa-user md:text-base text-sm"></i> : <i class="fa-solid fa-chess-king text-sm md:text-base"></i>}
+                      {fullName} {userInfo.role === 1 ? <i class="fa-solid fa-user md:text-base text-sm"></i> : <i class="fa-solid fa-chess-king text-sm md:text-base"></i>}
                     </span>
                     <p className="text-xs md:text-sm font-sans font-medium text-left">
                       Please make sure these details are up to date as they'll
@@ -137,7 +137,7 @@ const DashboardH = () => {
                 <span className="text-xs md:text-sm font-sans font-medium flex justify-end items-center">
                   Your data will be handled with care
                 </span>
-                <button disabled={loading ? true : false} className="bg-gradient-to-l from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] text-white py-1 md:py-2 rounded-md">
+                <button disabled={loading ? true : false} className="bg-gradient-to-l hover:bg-gradient-to-r from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] text-white py-1 md:py-2 rounded-md">
                   Update
                 </button>
               </div>
