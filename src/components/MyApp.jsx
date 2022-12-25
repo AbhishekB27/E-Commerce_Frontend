@@ -10,14 +10,13 @@ import "react-toastify/dist/ReactToastify.css";
 import { getUserProfile } from "../features/user/userAction";
 import { useDispatch, useSelector } from "react-redux";
 import Protected from "./Protected/Protected";
+import { getAddresses } from "../features/customerAddress/addressAction";
 
 const MyApp = () => {
   const [theme, setTheme] = useState(false);
-  const { userToken } = useSelector((state) => state.user);
+  const { userToken,userInfo,success } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const UserProfile = React.lazy(() => import("./User/UserProfile"));
-  // const SignUp = React.lazy(() => import("./auth/SignUp"));
-  // const Login = React.lazy(() => import("./auth/Login"));
   const About = React.lazy(() => import("./About"));
   const Contact = React.lazy(() => import("./Contact"));
   const Men = React.lazy(() => import("./Men"));
@@ -26,18 +25,18 @@ const MyApp = () => {
   const Dashboard = React.lazy(() => import("./User/DashboardH"));
   const MyOrders = React.lazy(() => import("./User/MyOrders"));
   const MyAddresses = React.lazy(() => import("./User/MyAddresses"));
-
-
-
-
-
-
   useEffect(() => {
     if (userToken) {
       dispatch(getUserProfile());
     }
   }, [userToken, dispatch]);
 
+  useEffect(() => {
+    if(success){
+      dispatch(getAddresses(userInfo._id))
+    }
+  }, [success])
+  
   const isDarkMode = window.matchMedia("(prefers-color-scheme:dark)").matches;
   console.log(isDarkMode);
   useEffect(() => {
@@ -68,7 +67,7 @@ const MyApp = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
           <Route element={<Protected />}>
-            <Route path="/user" element={<UserProfile />}>
+            <Route path="/user/:userId" element={<UserProfile />}>
               <Route index element={<Dashboard/>}/>
               <Route path='myOrders' element={<MyOrders/>}/>
               <Route path='myAddresses' element={<MyAddresses/>}/>

@@ -24,44 +24,44 @@ const userSlice = createSlice({
       state.success = false;
     },
   },
-  extraReducers: {
-    [signUpUser.pending]: (state) => {
+  extraReducers:(builder) =>{
+    builder.addCase(signUpUser.pending,(state) => {
       state.loading = true;
       state.error = null;
-    },
-    [signUpUser.fulfilled]: (state, { payload }) => {
+    });
+    builder.addCase(signUpUser.fulfilled,(state) => {
       state.loading = false;
       state.success = true; // registration successsful
-    },
-    [signUpUser.rejected]: (state, { payload }) => {
+    });
+    builder.addCase(signUpUser.rejected,(state, { payload }) => {
       state.loading = false;
       state.error = payload;
-    },
-    [userLogin.pending]: (state) => {
+    });
+    builder.addCase(userLogin.pending,(state) => {
       state.loading = true;
       state.error = null;
-    },
-    [userLogin.fulfilled]: (state, { payload }) => {
+    });
+    builder.addCase(userLogin.fulfilled,(state, { payload }) => {
       state.loading = false;
       state.userInfo = payload.user;
       state.userToken = payload.access_Token;
       state.success = true;
-    },
-    [userLogin.rejected]: (state, { payload }) => {
+    });
+    builder.addCase(userLogin.rejected,(state, { payload }) => {
       state.loading = false;
       state.error = payload;
-    },
-    [getUserProfile.pending]: (state) => {
+    });
+    builder.addCase(getUserProfile.pending,(state) => {
       state.loading = true;
-    },
-    [getUserProfile.fulfilled]: (state, { payload }) => {
+    });
+    builder.addCase(getUserProfile.fulfilled,(state, { payload }) => {
       state.loading = false;
       state.userInfo = payload;
       state.success = true;
-    },
-    [getUserProfile.rejected]: (state, { payload }) => {
+    });
+    builder.addCase(getUserProfile.rejected,(state, { payload }) => {
       state.loading = false;
-    },
+    });
   },
 });
 

@@ -1,29 +1,35 @@
 import React, { useState } from "react";
 import Skeleton from "react-loading-skeleton";
-import { useSelector } from "react-redux";
-import EmptyA from './EmptyA.png';
+import { useDispatch, useSelector } from "react-redux";
+import EmptyA from "./EmptyA.png";
 import { motion } from "framer-motion";
+import { useParams } from "react-router-dom";
+import { setUserAddress } from "../../features/customerAddress/addressAction";
 
 const MyAddresses = () => {
-  const {loading} = useSelector(state => state.user)
+  const { loadingA, addressInfo } = useSelector((state) => state.addresses);
+  const dispatch = useDispatch();
+  const { userId } = useParams();
   const [checked, setChecked] = useState({
     home: false,
     work: false,
   });
-  const [address, setAddress] = useState({})
+  const [address, setAddress] = useState({});
   const handleAddress = (event) => {
-    const name = event.target.name
-    const value = event.target.value
-    setAddress( (prev) =>  {
+    const name = event.target.name;
+    const value = event.target.value;
+    setAddress((prev) => {
       return {
-        ...prev,[name]:value
-      }
-    })
-  }
+        ...prev,
+        [name]: value,
+      };
+    });
+  };
   const handleData = (event) => {
-    event.preventDefault()
-    console.log(address)
-  }
+    event.preventDefault();
+    console.log(address);
+    dispatch(setUserAddress({ address, userId }));
+  };
   return (
     <form onSubmit={handleData} className="w-full px-2">
       <div className="md:text-2xl space-x-2 text-lg font-semibold text-left">
@@ -42,7 +48,7 @@ const MyAddresses = () => {
                 FullName
               </label>
               <input
-              onChange={handleAddress}
+                onChange={handleAddress}
                 className="rounded-md p-2 w-full shadow-md outline-none text-sm text-gray-400 font-semibold font-poppins"
                 type="text"
                 name="fullName"
@@ -57,10 +63,10 @@ const MyAddresses = () => {
                 Phone Number
               </label>
               <input
-              onChange={handleAddress}
+                onChange={handleAddress}
                 className="rounded-md p-2 w-full shadow-md outline-none text-sm text-gray-400 font-semibold font-poppins"
                 type="text"
-                name="phoneNumber"
+                name="mobileNumber"
                 id="pName"
               />
             </div>
@@ -73,7 +79,7 @@ const MyAddresses = () => {
                   Pincode
                 </label>
                 <input
-                onChange={handleAddress}
+                  onChange={handleAddress}
                   className="rounded-md p-2 w-full shadow-md outline-none text-sm text-gray-400 font-semibold font-poppins"
                   type="text"
                   name="pincode"
@@ -88,8 +94,10 @@ const MyAddresses = () => {
                   Use My Location
                 </label>
                 <motion.button
-                whileTap={{scale:0.8}}
-                className="rounded-md p-2 group w-full shadow-md bg-gradient-to-l hover:bg-gradient-to-r from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] text-white outline-none text-sm font-semibold font-poppins">
+                  whileTap={{ scale: 0.8 }}
+                  disabled
+                  className="rounded-md cursor-not-allowed p-2 group w-full shadow-md bg-gradient-to-l hover:bg-gradient-to-r from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] text-white outline-none text-sm font-semibold font-poppins"
+                >
                   <i class="fa-solid fa-location-crosshairs group-hover:scale-125 transition-all"></i>
                 </motion.button>
               </div>
@@ -105,7 +113,7 @@ const MyAddresses = () => {
                   State
                 </label>
                 <input
-                onChange={handleAddress}
+                  onChange={handleAddress}
                   className="rounded-md p-2 w-full shadow-md outline-none text-sm text-gray-400 font-semibold font-poppins"
                   type="text"
                   name="state"
@@ -120,7 +128,7 @@ const MyAddresses = () => {
                   City
                 </label>
                 <input
-                onChange={handleAddress}
+                  onChange={handleAddress}
                   className="rounded-md p-2 w-full shadow-md outline-none text-sm text-gray-400 font-semibold font-poppins"
                   type="text"
                   name="city"
@@ -136,7 +144,7 @@ const MyAddresses = () => {
                 House No., Building Name
               </label>
               <input
-              onChange={handleAddress}
+                onChange={handleAddress}
                 className="rounded-md p-2 w-full shadow-md outline-none text-sm text-gray-400 font-semibold font-poppins"
                 type="text"
                 name="houseNumber"
@@ -151,7 +159,7 @@ const MyAddresses = () => {
                 Road name, Area, Colony
               </label>
               <input
-              onChange={handleAddress}
+                onChange={handleAddress}
                 className="rounded-md p-2 w-full shadow-md outline-none text-sm text-gray-400 font-semibold font-poppins"
                 type="text"
                 name="areaName"
@@ -168,7 +176,7 @@ const MyAddresses = () => {
                 Type of Address
               </label>
               <input
-              onChange={handleAddress}
+                onChange={handleAddress}
                 className=" absolute peer appearance-none"
                 type="checkbox"
                 checked={checked.home}
@@ -186,7 +194,7 @@ const MyAddresses = () => {
             </div>
             <div className="flex relative flex-col gap-1 justify-end items-center">
               <input
-              onChange={handleAddress}
+                onChange={handleAddress}
                 className=" absolute peer appearance-none"
                 type="checkbox"
                 checked={checked.work}
@@ -199,7 +207,7 @@ const MyAddresses = () => {
                 }}
                 name="type"
                 id="work"
-                value='work'
+                value="work"
               />
               <label
                 className="rounded-md peer-checked:border-blue-600 peer-checked:text-blue-600 cursor-pointer border border-[#ccc] p-2 w-full outline-none text-sm text-gray-400 font-semibold font-poppins"
@@ -210,40 +218,94 @@ const MyAddresses = () => {
             </div>
             <div className="flex flex-col border border-transparent gap-1 justify-end items-center">
               <motion.button
-              whileTap={{scale:0.8}}
-              type="submit" className="rounded-md p-2 group w-full shadow-md bg-gradient-to-l hover:bg-gradient-to-r from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] text-white outline-none text-sm font-semibold font-poppins">
-                Add Address <i class="fa-solid fa-plus pl-1 group-hover:scale-125 transition-all"></i>
+                disabled={loadingA ? true : false}
+                whileTap={{ scale: 0.8 }}
+                type="submit"
+                className="rounded-md p-2 group w-full shadow-md bg-gradient-to-l hover:bg-gradient-to-r from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] text-white outline-none text-sm font-semibold font-poppins"
+              >
+                Add Address{" "}
+                <i class="fa-solid fa-plus pl-1 group-hover:scale-125 transition-all"></i>
               </motion.button>
             </div>
           </div>
         </div>
       </div>
       <div className="">
-        <div className="text-left font-semibold text-blue-600 text-lg md:text-2xl">Saved Addresses :</div>
+        <div className="text-left font-semibold text-blue-600 text-lg md:text-2xl">
+          Saved Addresses :
+        </div>
         <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
-          {
-            loading ? <div className="w-full min-h-[10.5rem]">
-              <span className="leading-[1] block w-full h-full"> <Skeleton baseColor="#c0c2c9" highlightColor="#E2E8F0" width='100%' height='100%'/> </span>
-            </div> : (true ? <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{
-              duration: 0.8,
-              delay: 0.5,
-              ease: [0, 0.71, 0.2, 1.01]
-            }}
-            className="sm:max-w-[30rem] w-full flex flex-col justify-center items-start px-3 py-2 border-2 border-dashed border-green-400 bg-green-500/30 font-sans font-normal">
-              <div className="font-medium">Address 2</div>
-              <div className="text-left">
-                <span>Abhishek Bahuguna</span>
-                <span>House No.331, XYZ Building</span>
-                <span>Prashad Farm Road, Nakraunda, Dehradun</span>
-                <div> <span>Uttarakhan</span> <span>248001</span> </div>
-                <span><span className="font-medium">Mobile</span> - 0987654321</span>
-              </div>
-              <div className="font-medium flex gap-3 justify-start items-center"><button ><i class="pr-2 fa-solid fa-trash-can"></i>Remove</button><button><i class="pr-2 fa-solid fa-pen-to-square"></i>Edit</button></div>
-            </motion.div> : <div className="grid place-items-center border-2 border-dashed border-blue-600 font-semibold"> <img className="w-[6rem] md:w-[10rem] h-[6rem] md:h-[10rem]" src={EmptyA} alt="" /> No Address </div>)
-          }
+          {loadingA ? (
+            <div className="w-full min-h-[10.5rem]">
+              <span className="leading-[1] block w-full h-full">
+                {" "}
+                <Skeleton
+                  baseColor="#c0c2c9"
+                  highlightColor="#E2E8F0"
+                  width="100%"
+                  height="100%"
+                />{" "}
+              </span>
+            </div>
+          ) : addressInfo.length > 0 ? (
+            addressInfo.map((item, index) => {
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{
+                    duration: 0.8,
+                    delay: 0.5,
+                    ease: [0, 0.71, 0.2, 1.01],
+                  }}
+                  className="sm:max-w-[30rem] relative w-full flex flex-col overflow-hidden justify-center items-start px-3 py-2 border-2 border-dashed border-green-400 bg-green-500/30 font-sans font-normal"
+                >
+                  <div className="absolute top-[-2.5rem] right-[-2.5rem] w-[5rem] h-[5rem] rotate-45 bg-green-500 text-white">
+                    {true ? (
+                      <i class="absolute left-[2rem] bottom-[0.55rem] rotate-[-45deg] fa-solid fa-house"></i>
+                    ) : (
+                      <i class="absolute left-[2rem] bottom-[0.55rem] rotate-[-45deg] fa-solid fa-building"></i>
+                    )}
+                  </div>
+                  <div className="font-medium">Address {index + 1}</div>
+                  <div className="text-left">
+                    <span>{item.fullName}</span>
+                    <span> ,{item.houseNumber}</span>
+                    <span>
+                      , {item.areaName}, {item.city}
+                    </span>
+                    <div>
+                      {" "}
+                      <span>{item.state}</span> <span>, {item.pincode}</span>{" "}
+                    </div>
+                    <span>
+                      <span className="font-medium">Mobile</span> -{" "}
+                      {item.mobileNumber}
+                    </span>
+                  </div>
+                  <div className="font-medium flex gap-3 justify-start items-center">
+                    <button>
+                      <i class="pr-2 fa-solid fa-trash-can"></i>Remove
+                    </button>
+                    <button>
+                      <i class="pr-2 fa-solid fa-pen-to-square"></i>Edit
+                    </button>
+                  </div>
+                </motion.div>
+              );
+            })
+          ) : (
+            <div className="grid place-items-center border-2 border-dashed border-blue-600 font-semibold">
+              {" "}
+              <img
+                className="w-[6rem] md:w-[10rem] h-[6rem] md:h-[10rem]"
+                src={EmptyA}
+                alt=""
+              />{" "}
+              No Address{" "}
+            </div>
+          )}
         </div>
       </div>
     </form>

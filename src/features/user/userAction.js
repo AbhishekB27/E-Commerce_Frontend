@@ -14,13 +14,15 @@ export const signUpUser = createAsyncThunk(
       if (success) {
         toast.success("Success 😊", { position: "top-center" });
       } else {
-        toast.error("Error 😟", { position: "top-center" });
+        toast.error(`${message} 😟`, { position: "top-center" });
       }
     } catch (error) {
       console.log(error.message);
       if (error.response && error.response.data.message) {
+        toast.error(error.response.data.message, { position: "top-center" });
         return rejectWithValue(error.response.data.message);
       } else {
+        toast.error(error.message, { position: "top-center" });
         return rejectWithValue(error.message);
       }
     }
@@ -73,14 +75,15 @@ export const getUserProfile = createAsyncThunk(
         return data;
       } else {
         toast.error(message, { position: "top-center" });
-
         return data;
       }
     } catch (error) {
       console.log(error.response.status);
       if (error.response && error.response.data.message) {
+        toast.error(error.response.data.message, { position: "top-center" });
         return rejectWithValue(error.response.data.message);
       } else {
+        toast.error(error.message, { position: "top-center" });
         return rejectWithValue(error.message);
       }
     }

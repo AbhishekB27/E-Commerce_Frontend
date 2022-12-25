@@ -9,12 +9,12 @@ import { userLogin } from "../../features/user/userAction";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const { loading, error, userToken } = useSelector((state) => state.user);
+  const { loading, error, userToken,userInfo } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
     if (userToken) {
-      navigate("/user");
+      navigate(`/user/${userInfo._id}`);
     }
   }, [navigate, userToken]);
 

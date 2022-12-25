@@ -15,7 +15,6 @@ const Header = ({ setTheme, theme }) => {
   const [cart, setCart] = useState(false);
   const { userInfo, loading } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  console.log(!Object.keys(userInfo ?? {}).length === 0);
 
   const closeMobileMenu = () => {
     setMenu(!menu);
@@ -102,7 +101,7 @@ const Header = ({ setTheme, theme }) => {
                   profile ? "h-[10rem] md:h-[15rem]" : "h-[0rem]"
                 } transition-all duration-300`}
               >
-                <Link className="w-full" to='/user'>
+                <Link className="w-full" to={`/user/${userInfo._id}`}>
                 <div
                   onClick={() => {
                     setProfile(!profile);

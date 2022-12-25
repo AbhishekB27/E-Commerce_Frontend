@@ -5,6 +5,7 @@ import User from "../images/User.png";
 import "react-loading-skeleton/dist/skeleton.css";
 import DashboardH from "./DashboardH";
 import { Link, Outlet } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const UserProfile = () => {
   const { userInfo, loading, success } = useSelector((state) => state.user);
@@ -39,7 +40,7 @@ const UserProfile = () => {
         <div className=""></div>
         <div className="grid md:grid-cols-1 gap-3 lg:grid-cols-[25rem_auto]">
           {loading ? (
-            <div className="grid gap-2 md:translate-x-[3.5rem]">
+            <div className="grid gap-2 place-items-center md:place-items-start md:translate-x-[3.5rem]">
               <span className="leading-[1] h-[1.5rem]  block w-[60%]">
                 {" "}
                 <Skeleton width="100%" height="100%" />{" "}
@@ -63,12 +64,13 @@ const UserProfile = () => {
               <span className="text-xs translate-y-[-0.25rem] font-sans font-medium">
                 {userInfo.email}
               </span>
-              <button
+              <motion.button
+                whileTap={{ scale: 0.8 }}
                 disabled={loading ? true : false}
                 className="bg-gradient-to-l from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] text-white px-2 md:px-4 md:py-1  rounded"
               >
                 Edit Profile
-              </button>
+              </motion.button>
               <div className="relative flex flex-col gap-2 bg-gradient-to-l from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] w-full lg:w-[88%]">
                 <button
                   className="w-fit text-xl ml-1 block lg:hidden text-white"
@@ -85,19 +87,19 @@ const UserProfile = () => {
                     bar ? "h-[13.15rem]" : "h-0"
                   } text-blue-600 lg:h-auto w-full lg:w-auto top-[2rem] flex lg:block flex-col justify-evenly items-center transition-all bg-white z-10 lg:overflow-visible overflow-hidden`}
                 >
-                  <Link to="/user">
+                  <Link to={`/user/${userInfo._id}`}>
                     {" "}
                     <button className="w-full outline-none border-b-2 border-b-transparent focus:border-blue-600 lg:hover:bg-blue-600/30 cursor-pointer text-left max-[320px]:text-sm text-base md:text-lg font-semibold flex justify-start items-center gap-2 px-3 py-1">
                       <i class="fa-solid fa-house"></i>Dashboard
                     </button>{" "}
                   </Link>
-                  <Link to="/user/myOrders">
+                  <Link to={`/user/${userInfo._id}/myOrders`}>
                     {" "}
                     <button className="w-full outline-none border-b-2 border-b-transparent focus:border-blue-600 lg:hover:bg-blue-600/30 cursor-pointer text-left max-[320px]:text-sm text-base md:text-lg font-semibold flex justify-start items-center gap-2 px-3 py-1">
                       <i class="fa-light fa-box"></i>My Orders
                     </button>{" "}
                   </Link>
-                  <Link to="/user/myAddresses">
+                  <Link to={`/user/${userInfo._id}/myAddresses`}>
                     {" "}
                     <button className="w-full outline-none border-b-2 border-b-transparent focus:border-b-blue-600 lg:hover:bg-blue-600/30 cursor-pointer text-left max-[320px]:text-sm text-base md:text-lg font-semibold flex justify-start items-center gap-2 px-3 py-1">
                       <i class="fa-solid fa-location-dot"></i>My Address
