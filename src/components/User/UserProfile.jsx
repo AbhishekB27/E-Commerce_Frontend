@@ -3,12 +3,14 @@ import Skeleton from "react-loading-skeleton";
 import { useSelector } from "react-redux";
 import User from "../images/User.png";
 import "react-loading-skeleton/dist/skeleton.css";
-import DashboardH from "./DashboardH";
 import { Link, Outlet } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const UserProfile = () => {
   const { userInfo, loading, success } = useSelector((state) => state.user);
+  const handleProfile = (event) => {
+    console.log(event.target.files);
+  };
   const fullName =
     Object.keys(userInfo ?? {}).length === 0
       ? undefined
@@ -67,9 +69,22 @@ const UserProfile = () => {
               <motion.button
                 whileTap={{ scale: 0.8 }}
                 disabled={loading ? true : false}
-                className="bg-gradient-to-l from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] text-white px-2 md:px-4 md:py-1  rounded"
+                className="bg-gradient-to-l relative from-[#8C5CFF] via-[#4C4DFF] w-[8rem] group  md:py-2 to-[#0CB6FF] overflow-hidde text-white rounded after:content-['Picture'] after:text-blue-600 after:grid after:place-items-center after:font-semibold after:invisible after:absolute after:bg-slate-300/70 after:transition-all after:w-full after:h-full after:top-0 after:right-[0] hover:after:right-[-8.5rem] hover:after:visible"
               >
-                Edit Profile
+                <input
+                  className="w-[0] h-[0]"
+                  onChange={handleProfile}
+                  type="file"
+                  name=""
+                  id="file"
+                />
+                <label
+                  className="w-full h-full cursor-pointer px-2 md:px-4"
+                  htmlFor="file"
+                >
+                  <i class="fa-duotone fa-image"></i>{" "}
+                  <i class="fa-solid fa-plus pl-2 group-hover:scale-125 transition-all"></i>
+                </label>
               </motion.button>
               <div className="relative flex flex-col gap-2 bg-gradient-to-l from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] w-full lg:w-[88%]">
                 <button

@@ -97,3 +97,35 @@ code {
   75%{transform: translateX(5px);}
   100%{transform: translateX(0);}
 }
+
+.bag{
+  transform-origin: center;
+  animation: hangging 10s linear infinite;
+}
+@keyframes hangging {
+  25% {transform: rotate(10deg);}
+  50% {transform: rotate(0);}
+  75% {transform: rotate(-10deg);}
+  100% {transform: rotate(0);}
+}
+
+.shines {
+  background: linear-gradient(to right, #ec4899 20%, #ef4444 40%, #eab308 60%);
+  background-size: 200% auto;
+  background-clip: text;
+  color: transparent;
+  animation: shine 1s linear infinite;
+}
+@keyframes shine {
+  to {
+    background-position: 200% center;
+  }
+}
+
+.circle{
+  animation: rotateHue 2s alternate infinite;
+}
+
+@keyframes rotateHue {
+  to{ filter: hue-rotate(1turn); }
+}

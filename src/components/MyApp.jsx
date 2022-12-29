@@ -11,17 +11,17 @@ import { getUserProfile } from "../features/user/userAction";
 import { useDispatch, useSelector } from "react-redux";
 import Protected from "./Protected/Protected";
 import { getAddresses } from "../features/customerAddress/addressAction";
+import HeroSection from "./HomeSection/HeroSection";
 
 const MyApp = () => {
   const [theme, setTheme] = useState(false);
-  const { userToken,userInfo,success } = useSelector((state) => state.user);
+  const { userToken, userInfo, success } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const UserProfile = React.lazy(() => import("./User/UserProfile"));
   const About = React.lazy(() => import("./About"));
   const Contact = React.lazy(() => import("./Contact"));
   const Men = React.lazy(() => import("./Men"));
   const Women = React.lazy(() => import("./Women"));
-  const Products = React.lazy(() => import("./Products"));
   const Dashboard = React.lazy(() => import("./User/DashboardH"));
   const MyOrders = React.lazy(() => import("./User/MyOrders"));
   const MyAddresses = React.lazy(() => import("./User/MyAddresses"));
@@ -32,11 +32,11 @@ const MyApp = () => {
   }, [userToken, dispatch]);
 
   useEffect(() => {
-    if(success){
-      dispatch(getAddresses(userInfo._id))
+    if (success) {
+      dispatch(getAddresses(userInfo._id));
     }
-  }, [success])
-  
+  }, [success]);
+
   const isDarkMode = window.matchMedia("(prefers-color-scheme:dark)").matches;
   console.log(isDarkMode);
   useEffect(() => {
@@ -55,22 +55,29 @@ const MyApp = () => {
   }, [theme]);
 
   return (
-    <Suspense fallback={<div className="h-screen w-full grid place-items-center"> <div className="w-[3rem] h-[3rem] rounded-full border-t-blue-500/30 animate-spin border-4 border-blue-500"></div> </div>}>
+    <Suspense
+      fallback={
+        <div className="h-screen w-full grid place-items-center">
+          {" "}
+          <div className="w-[3rem] h-[3rem] rounded-full border-t-blue-500/30 animate-spin border-4 border-blue-500"></div>{" "}
+        </div>
+      }
+    >
       <div className="min-h-screen h-auto p-1 dark:bg-[#121212] text-[#5465ff] dark:text-gray-300 font-ubuntu ">
         <Header setTheme={setTheme} theme={theme} />
         <Routes>
-          <Route path="/signUp" element={<SignUp/>} />
+          <Route index path="/" element={<HeroSection />} />
+          <Route path="/signUp" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
           <Route path="/men" element={<Men />} />
           <Route path="/women" element={<Women />} />
-          <Route path="/products" element={<Products />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
           <Route element={<Protected />}>
             <Route path="/user/:userId" element={<UserProfile />}>
-              <Route index element={<Dashboard/>}/>
-              <Route path='myOrders' element={<MyOrders/>}/>
-              <Route path='myAddresses' element={<MyAddresses/>}/>
+              <Route index element={<Dashboard />} />
+              <Route path="myOrders" element={<MyOrders />} />
+              <Route path="myAddresses" element={<MyAddresses />} />
             </Route>
           </Route>
         </Routes>
