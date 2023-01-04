@@ -34,7 +34,7 @@ const Hero1 = () => {
           payment options and fast shipping, you can shop with confidence and
           ease.
         </p>
-        <button className="px-3 py-2 rounded-md bg-gradient-to-l from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] text-white font-sans font-medium">
+        <button className="px-3 py-2 rounded-md bg-gradient-to-l dark:from-gray-300 dark:to-gray-300 from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] text-white dark:text-gray-800 font-sans font-medium">
           Shop Now{" "}
           <i class="fa-regular fa-chevron-right translate-y-[0.05rem]"></i>
         </button>

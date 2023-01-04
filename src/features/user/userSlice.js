@@ -61,6 +61,7 @@ const userSlice = createSlice({
     });
     builder.addCase(getUserProfile.rejected,(state, { payload }) => {
       state.loading = false;
+      state.error = payload;
     });
   },
 });

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Hamburger from "./Hamburger";
 import ToggleMode from "./ToggleMode";
 import { Link } from "react-router-dom";
-import EmptyCart from "../images/EmptyCart.gif";
+import EmptyCart from "../images/EmptyCart.svg";
 import ShoppingBag from "../images/shopping.png";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
@@ -72,12 +72,16 @@ const Header = ({ setTheme, theme }) => {
                 {" "}
                 <i class="fa-solid fa-user"></i>{" "}
               </div>{" "}
-              {
-                loading ? <Skeleton/> : <span>{`${userInfo.firstName.charAt(0).toUpperCase()}${userInfo.lastName.charAt(
-                  0
-                ).toUpperCase()}`}</span>
-  
-              }              <button
+              {loading ? (
+                <Skeleton />
+              ) : (
+                <span>{`${userInfo.firstName
+                  .charAt(0)
+                  .toUpperCase()}${userInfo.lastName
+                  .charAt(0)
+                  .toUpperCase()}`}</span>
+              )}{" "}
+              <button
                 className="outline-none"
                 // onBlur={() => {
                 //   setProfile(
@@ -102,15 +106,15 @@ const Header = ({ setTheme, theme }) => {
                 } transition-all duration-300`}
               >
                 <Link className="w-full" to={`/user/${userInfo._id}`}>
-                <div
-                  onClick={() => {
-                    setProfile(!profile);
-                  }}
-                  className="flex z-10 justify-start items-center gap-2 px-4 py-2 w-full cursor-pointer hover:bg-[#e2fdff]/50 dark:hover:bg-gray-300/30"
-                >
-                  {" "}
-                  <i class="fa-solid fa-user"></i> Profile
-                </div>
+                  <div
+                    onClick={() => {
+                      setProfile(!profile);
+                    }}
+                    className="flex z-10 justify-start items-center gap-2 px-4 py-2 w-full cursor-pointer hover:bg-[#e2fdff]/50 dark:hover:bg-gray-300/30"
+                  >
+                    {" "}
+                    <i class="fa-solid fa-user"></i> Profile
+                  </div>
                 </Link>
                 <div
                   onClick={() => {
@@ -152,11 +156,11 @@ const Header = ({ setTheme, theme }) => {
                 <div className="flex w-full h-full flex-col justify-center items-center">
                   {" "}
                   <img
-                    className="h-[3rem] md:w-[5rem] w-[3rem] md:h-[5rem]"
+                    className="h-[3rem] md:w-[10rem] w-[3rem] md:h-[10rem]"
                     src={EmptyCart}
                     alt=""
                   />{" "}
-                  <span className="text-sm md:text-xl font-semibold">
+                  <span className="text-sm md:text-base font-semibold">
                     Your Cart Is Empty!
                   </span>{" "}
                 </div>

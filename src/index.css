@@ -121,6 +121,18 @@ code {
     background-position: 200% center;
   }
 }
+.shines2 {
+  background: linear-gradient(to right, #ec4899 20%, #ef4444 40%, #eab308 60%);
+  background-size: 200% auto;
+  /* background-clip: text; */
+  /* color: transparent; */
+  animation: shine 1s linear infinite;
+}
+@keyframes shine {
+  to {
+    background-position: 200% center;
+  }
+}
 
 .circle{
   animation: rotateHue 2s alternate infinite;

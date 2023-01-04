@@ -31,7 +31,7 @@ const MyAddresses = () => {
     dispatch(setUserAddress({ address, userId }));
   };
   return (
-    <form onSubmit={handleData} className="w-full px-2">
+    <form onSubmit={handleData} className="w-full px-2 lg:translate-y-[-8rem] translate-y-0 pb-2 md:p-3 lg:rounded-md top-[-8rem] md:min-h-[27rem] md:shadow-xl dark:bg-gray-900 bg-gray-200 text-blue-600 dark:text-gray-300 lg:translate-x-[-0.5rem] md:rounded">
       <div className="md:text-2xl space-x-2 text-lg font-semibold text-left">
         Add Delivery Address{" "}
         <i class="fa-solid fa-truck-fast text-sm md:text-base"></i>
@@ -42,7 +42,7 @@ const MyAddresses = () => {
           <div className="grid gap-5">
             <div className="flex flex-col gap-1 justify-center items-start">
               <label
-                className="text-black text-sm font-semibold"
+                className="text-sm font-semibold"
                 htmlFor="fName"
               >
                 FullName
@@ -57,7 +57,7 @@ const MyAddresses = () => {
             </div>
             <div className="flex flex-col gap-1 justify-center items-start">
               <label
-                className="text-black text-sm font-semibold"
+                className="text-sm font-semibold"
                 htmlFor="pName"
               >
                 Phone Number
@@ -73,7 +73,7 @@ const MyAddresses = () => {
             <div className="grid grid-cols-2 max-[290px]:grid-cols-1 gap-3">
               <div className="flex flex-col gap-1 justify-center items-start">
                 <label
-                  className="text-black text-sm font-semibold"
+                  className="text-sm font-semibold"
                   htmlFor="pcode"
                 >
                   Pincode
@@ -88,7 +88,7 @@ const MyAddresses = () => {
               </div>
               <div className="flex flex-col gap-1 justify-center items-start">
                 <label
-                  className="text-black text-sm font-semibold"
+                  className="text-sm font-semibold"
                   htmlFor="lName"
                 >
                   Use My Location
@@ -96,7 +96,7 @@ const MyAddresses = () => {
                 <motion.button
                   whileTap={{ scale: 0.8 }}
                   disabled
-                  className="rounded-md cursor-not-allowed p-2 group w-full shadow-md bg-gradient-to-l hover:bg-gradient-to-r from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] text-white outline-none text-sm font-semibold font-poppins"
+                  className="rounded-md cursor-not-allowed p-2 group w-full shadow-md bg-gradient-to-l hover:bg-gradient-to-r from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] dark:from-gray-300 dark:to-gray-300 dark:text-gray-700 text-white outline-none text-sm font-semibold font-poppins"
                 >
                   <i class="fa-solid fa-location-crosshairs group-hover:scale-125 transition-all"></i>
                 </motion.button>
@@ -107,7 +107,7 @@ const MyAddresses = () => {
             <div className="grid grid-cols-2 max-[290px]:grid-cols-1 gap-3">
               <div className="flex flex-col gap-1 justify-center items-start">
                 <label
-                  className="text-black text-sm font-semibold"
+                  className="text-sm font-semibold"
                   htmlFor="sName"
                 >
                   State
@@ -122,7 +122,7 @@ const MyAddresses = () => {
               </div>
               <div className="flex flex-col gap-1 justify-center items-start">
                 <label
-                  className="text-black text-sm font-semibold"
+                  className="text-sm font-semibold"
                   htmlFor="cName"
                 >
                   City
@@ -138,7 +138,7 @@ const MyAddresses = () => {
             </div>
             <div className="flex flex-col gap-1 justify-center items-start">
               <label
-                className="text-black text-sm font-semibold"
+                className="text-sm font-semibold"
                 htmlFor="bName"
               >
                 House No., Building Name
@@ -153,7 +153,7 @@ const MyAddresses = () => {
             </div>
             <div className="flex flex-col gap-1 justify-center items-start">
               <label
-                className="text-black text-sm font-semibold"
+                className="text-sm font-semibold"
                 htmlFor="rName"
               >
                 Road name, Area, Colony
@@ -170,7 +170,7 @@ const MyAddresses = () => {
           <div className="grid grid-cols-3 max-[430px]:grid-cols-1 lg:col-span-2 gap-3">
             <div className="flex relative flex-col gap-1 justify-center items-start">
               <label
-                className="text-black text-sm font-semibold"
+                className="text-sm font-semibold"
                 htmlFor="tAddress"
               >
                 Type of Address
@@ -221,7 +221,7 @@ const MyAddresses = () => {
                 disabled={loadingA ? true : false}
                 whileTap={{ scale: 0.8 }}
                 type="submit"
-                className="rounded-md p-2 group w-full shadow-md bg-gradient-to-l hover:bg-gradient-to-r from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] text-white outline-none text-sm font-semibold font-poppins"
+                className="rounded-md p-2 group w-full shadow-md bg-gradient-to-l hover:bg-gradient-to-r from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] dark:from-gray-300 dark:to-gray-300 dark:text-gray-700 text-white outline-none text-sm font-semibold font-poppins"
               >
                 Add Address{" "}
                 <i class="fa-solid fa-plus pl-1 group-hover:scale-125 transition-all"></i>
@@ -231,7 +231,7 @@ const MyAddresses = () => {
         </div>
       </div>
       <div className="">
-        <div className="text-left font-semibold text-blue-600 text-lg md:text-2xl">
+        <div className="text-left font-semibold text-lg md:text-2xl">
           Saved Addresses :
         </div>
         <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
@@ -259,9 +259,9 @@ const MyAddresses = () => {
                     delay: 0.5,
                     ease: [0, 0.71, 0.2, 1.01],
                   }}
-                  className="sm:max-w-[30rem] relative w-full flex flex-col overflow-hidden justify-center items-start px-3 py-2 border-2 border-dashed border-green-400 bg-green-500/30 font-sans font-normal"
+                  className="sm:max-w-[30rem] relative w-full flex flex-col overflow-hidden justify-center items-start px-3 py-2 border-2 border-dashed border-green-400 dark:border-gray-700 bg-green-500/30 dark:bg-gray-800 font-sans font-normal"
                 >
-                  <div className="absolute top-[-2.5rem] right-[-2.5rem] w-[5rem] h-[5rem] rotate-45 bg-green-500 text-white">
+                  <div className="absolute top-[-2.5rem] right-[-2.5rem] w-[5rem] h-[5rem] rotate-45 bg-green-500 dark:bg-gray-700 text-white">
                     {true ? (
                       <i class="absolute left-[2rem] bottom-[0.55rem] rotate-[-45deg] fa-solid fa-house"></i>
                     ) : (

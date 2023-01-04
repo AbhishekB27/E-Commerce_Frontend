@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 const MyOrders = () => {
   const {loading} = useSelector(state => state.user)
   return (
-    <div className="w-full px-2">
+    <div className="lg:translate-y-[-8rem] translate-y-0 pb-2 md:p-3 lg:rounded-md top-[-8rem] md:min-h-[27rem] md:shadow-xl dark:bg-gray-900 bg-gray-200 lg:translate-x-[-0.5rem] md:rounded w-full px-2">
       <div className="md:text-2xl text-lg font-semibold text-left">
         Order Details{" "}
         <i class="fa-solid fa-circle-question text-sm cursor-pointer md:text-base"></i>

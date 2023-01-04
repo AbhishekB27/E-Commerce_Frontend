@@ -12,10 +12,16 @@ import { useDispatch, useSelector } from "react-redux";
 import Protected from "./Protected/Protected";
 import { getAddresses } from "../features/customerAddress/addressAction";
 import HeroSection from "./HomeSection/HeroSection";
+import Footer from "./layout/Footer";
+import { logOut } from "../features/user/userSlice";
+import Products from "./User/Products";
+import AddProduct from "./User/AddProduct";
 
 const MyApp = () => {
   const [theme, setTheme] = useState(false);
-  const { userToken, userInfo, success } = useSelector((state) => state.user);
+  const { userToken, userInfo, success, error } = useSelector(
+    (state) => state.user
+  );
   const dispatch = useDispatch();
   const UserProfile = React.lazy(() => import("./User/UserProfile"));
   const About = React.lazy(() => import("./About"));
@@ -63,7 +69,7 @@ const MyApp = () => {
         </div>
       }
     >
-      <div className="min-h-screen h-auto p-1 dark:bg-[#121212] text-[#5465ff] dark:text-gray-300 font-ubuntu ">
+      <div className="min-h-screen p-1  md:p-0 h-auto grid gap-2 dark:bg-gray-800 text-[#5465ff] dark:text-gray-300 font-ubuntu ">
         <Header setTheme={setTheme} theme={theme} />
         <Routes>
           <Route index path="/" element={<HeroSection />} />
@@ -78,11 +84,14 @@ const MyApp = () => {
               <Route index element={<Dashboard />} />
               <Route path="myOrders" element={<MyOrders />} />
               <Route path="myAddresses" element={<MyAddresses />} />
+              <Route path="products" element={<Products />} />
+              <Route path="products/addProduct" element={<AddProduct />} />
             </Route>
           </Route>
         </Routes>
-        <ToastContainer />
+        <Footer />
       </div>
+      <ToastContainer />
     </Suspense>
   );
 };
