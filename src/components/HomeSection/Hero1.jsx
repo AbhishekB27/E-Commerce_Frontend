@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Fashion from "./images/Fashion.jpeg";
 import Hero from "./images/Hero.png";
 import Hero2 from "./images/Hero1.png";
+import { Link } from "react-router-dom";
 
 const Hero1 = () => {
   return (
@@ -34,10 +35,12 @@ const Hero1 = () => {
           payment options and fast shipping, you can shop with confidence and
           ease.
         </p>
-        <button className="px-3 py-2 rounded-md bg-gradient-to-l dark:from-gray-300 dark:to-gray-300 from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] text-white dark:text-gray-800 font-sans font-medium">
+        <Link to='/allProducts'>
+        <motion.button whileTap={{scale:0.8}} className="px-3 py-2 rounded-md bg-gradient-to-l dark:from-gray-300 dark:to-gray-300 from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] text-white dark:text-gray-800 font-sans font-medium">
           Shop Now{" "}
           <i class="fa-regular fa-chevron-right translate-y-[0.05rem]"></i>
-        </button>
+        </motion.button>
+        </Link>
         <div className="grid grid-cols-3 md:gap-8 gap-4 w-full">
           <div className="py-3 rounded cursor-pointer border-2 transition-all border-blue-200 hover:border-2 hover:border-blue-600 hover:ring-4 ring-blue-300">
             <i class="lg:text-5xl md:text-3xl text-2xl fa-brands fa-cc-visa"></i>

@@ -22,7 +22,7 @@ const TextField = ({ label, ...props }) => {
           {...props}
         />
         <label
-          className="absolute cursor-text px-1 left-[1rem] top-[-0.74rem] bg-white dark:bg-[#121212] peer-placeholder-shown:top-[0.68rem] peer-placeholder-shown:left-[2rem] transition-all duration-300"
+          className="absolute cursor-text px-1 left-[1rem] top-[-0.74rem] bg-white dark:bg-gray-800 peer-placeholder-shown:top-[0.68rem] peer-placeholder-shown:left-[2rem] transition-all duration-300"
           htmlFor={props.name}
         >
           {" "}

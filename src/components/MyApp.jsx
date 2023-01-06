@@ -14,8 +14,11 @@ import { getAddresses } from "../features/customerAddress/addressAction";
 import HeroSection from "./HomeSection/HeroSection";
 import Footer from "./layout/Footer";
 import { logOut } from "../features/user/userSlice";
-import Products from "./User/Products";
 import AddProduct from "./User/AddProduct";
+import TokenExpired from "./Protected/TokenExpired";
+import Products from "./product/Products";
+import Products2 from "./User/Products";
+
 
 const MyApp = () => {
   const [theme, setTheme] = useState(false);
@@ -43,20 +46,26 @@ const MyApp = () => {
     }
   }, [success]);
 
-  const isDarkMode = window.matchMedia("(prefers-color-scheme:dark)").matches;
-  console.log(isDarkMode);
   useEffect(() => {
-    if (isDarkMode) {
-      setTheme(false);
-    } else {
+    if (
+      localStorage.getItem("color-theme") === "dark" ||
+      (!("color-theme" in localStorage) &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
       setTheme(true);
+      console.log("true");
+    } else {
+      console.log("false");
+      setTheme(false);
     }
   }, []);
   useEffect(() => {
-    if (!theme) {
+    if (theme) {
       document.documentElement.classList.add("dark");
+      localStorage.setItem("color-theme", "dark");
     } else {
       document.documentElement.classList.remove("dark");
+      localStorage.setItem("color-theme", "light");
     }
   }, [theme]);
 
@@ -69,10 +78,12 @@ const MyApp = () => {
         </div>
       }
     >
-      <div className="min-h-screen p-1  md:p-0 h-auto grid gap-2 dark:bg-gray-800 text-[#5465ff] dark:text-gray-300 font-ubuntu ">
+      <div className="min-h-screen relative p-1  md:p-0 h-auto flex flex-col justify-start gap-2 dark:bg-gray-800 text-[#5465ff] dark:text-gray-300 font-ubuntu ">
+       <TokenExpired/>
         <Header setTheme={setTheme} theme={theme} />
         <Routes>
           <Route index path="/" element={<HeroSection />} />
+          <Route path="/allProducts" element={<Products/>} />
           <Route path="/signUp" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
           <Route path="/men" element={<Men />} />
@@ -84,7 +95,7 @@ const MyApp = () => {
               <Route index element={<Dashboard />} />
               <Route path="myOrders" element={<MyOrders />} />
               <Route path="myAddresses" element={<MyAddresses />} />
-              <Route path="products" element={<Products />} />
+              <Route path="products" element={<Products2 />} />
               <Route path="products/addProduct" element={<AddProduct />} />
             </Route>
           </Route>

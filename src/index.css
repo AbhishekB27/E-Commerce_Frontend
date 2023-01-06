@@ -6,6 +6,9 @@ html {
 *, *:before, *:after {
   box-sizing: inherit;
 }
+button{
+  outline: none;
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -140,4 +143,11 @@ code {
 
 @keyframes rotateHue {
   to{ filter: hue-rotate(1turn); }
+}
+
+/* invisible scroll bar */
+.invisibleScrollBar::-webkit-scrollbar {
+  background-color: transparent;
+  width: 0;
+
 }

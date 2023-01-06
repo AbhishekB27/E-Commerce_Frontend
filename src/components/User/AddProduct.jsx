@@ -45,8 +45,8 @@ const AddProduct = () => {
   //   setImage(pImage)
   // }
   return (
-    <div className="w-full lg:translate-y-[-8rem] translate-y-0 pb-2 md:p-3 lg:rounded-md top-[-8rem] md:min-h-[27rem] md:shadow-xl bg-slate-100 lg:translate-x-[-0.5rem] md:rounded">
-      <div className="text-center text-lg font-semibold md:text-left border-b-2 border-blue-500">
+    <div className="w-full lg:translate-y-[-8rem] translate-y-0 pb-2 md:p-3 lg:rounded-md top-[-8rem] md:min-h-[27rem] md:shadow-xl bg-slate-100 dark:bg-gray-900 lg:translate-x-[-0.5rem] md:rounded">
+      <div className="text-center text-lg font-semibold md:text-left border-b-2 border-blue-500 dark:border-b-gray-300">
         Add Product
       </div>
       <form onSubmit={handleProduct} className="w-full grid lg:grid-cols-2 grid-cols-1 gap-3">
@@ -125,7 +125,7 @@ const AddProduct = () => {
             <span className="">Product Image</span>
             <div className="relative grid sm:grid-cols-2 gap-2 w-full">
               <div className="h-[10rem] relative border-2 rounded grid place-items-center overflow-auto">
-                <div style={{width:`${progress}%`}} className="absolute left-0 grid place-items-center h-full bg-white/30 text-white"> {progress === 100 ? 'Completed' : progress} </div>
+                <div style={{width:`${progress}%`}} className="absolute left-0 grid place-items-center overflow-hidden h-full bg-white/30 text-white"> {progress === 100 ? 'Completed' : progress} </div>
                 {img != null ? <img className="w-full h-full object-contain" src={img} alt="img" /> : <span>No Images</span>}{" "}
               </div>
               <label
@@ -204,7 +204,7 @@ const AddProduct = () => {
           <motion.button
             whileTap={{ scale: 0.8 }}
             type='submit'
-            className="bg-gradient-to-l font-semibold hover:bg-gradient-to-r from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] text-white w-full rounded py-1"
+            className="bg-gradient-to-l font-semibold hover:bg-gradient-to-r dark:from-gray-300 dark:to-gray-300 dark:text-gray-900 from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] text-white w-full rounded py-1"
           >
             Add Product
           </motion.button>

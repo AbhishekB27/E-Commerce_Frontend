@@ -68,7 +68,7 @@ const Login = () => {
                   </div>
                   <div className="relative after:content-[''] before:absolute before:w-full before:border-[1px] before:top-[0.8rem] before:left-0 before:-z-10 before:border-gray-300 text-center">
                     {" "}
-                    <span className="bg-white font-sans dark:bg-black z-10 translate-y-2 p-2">
+                    <span className="bg-white font-sans dark:bg-gray-800 z-10 translate-y-2 p-2">
                       or continue with
                     </span>{" "}
                   </div>

@@ -67,7 +67,7 @@ const Header = ({ setTheme, theme }) => {
               height="100%"
             />
           ) : (
-            <div className="relative grid place-items-center z-50 grid-cols-[auto_auto_25px] bg-gradient-to-l from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] text-white dark:bg-gradient-to-l dark:to-gray-300 dark:from-gray-300 dark:text-[#121212] rounded-md font-semibold text-sm md:text-base lg:text-lg">
+            <div className="relative grid place-items-center z-20 grid-cols-[auto_auto_25px] bg-gradient-to-l from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] text-white dark:bg-gradient-to-l dark:to-gray-300 dark:from-gray-300 dark:text-[#121212] rounded-md font-semibold text-sm md:text-base lg:text-lg">
               <div className="rounded-full w-[25px] md:w-[30px] h-[25px] md:h-[30px] overflow-hidden">
                 {" "}
                 <i class="fa-solid fa-user"></i>{" "}
