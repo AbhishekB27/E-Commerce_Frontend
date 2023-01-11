@@ -18,6 +18,7 @@ import AddProduct from "./User/AddProduct";
 import TokenExpired from "./Protected/TokenExpired";
 import Products from "./product/Products";
 import Products2 from "./User/Products";
+import ProductD from "./product/ProductD";
 
 
 const MyApp = () => {
@@ -84,6 +85,7 @@ const MyApp = () => {
         <Routes>
           <Route index path="/" element={<HeroSection />} />
           <Route path="/allProducts" element={<Products/>} />
+          <Route path="/allProducts/:pId" element={<ProductD/>} />
           <Route path="/signUp" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
           <Route path="/men" element={<Men />} />
