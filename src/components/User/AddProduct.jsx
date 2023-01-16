@@ -1,21 +1,24 @@
 import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../../features/product/productAction";
 import useUploadImage from "./useUploadImage";
 
 const AddProduct = () => {
   const {handleImage,detail} = useUploadImage()
   const {url,img,progress} = detail
+  const dispatch = useDispatch()
   const [product, setProduct] = useState({
-    productName:'',
-    category:'',
-    gender:'',
-    brand:'',
-    stock:'',
-    description:'',
+    // productName:'',
+    // category:'',
+    // gender:'',
+    // brand:'',
+    // stock:'',
+    // description:'',
     imageURL:'',
-    size:'',
-    color:'', 
-    price:'',
+    // size:'',
+    // color:'', 
+    // price:'',
   })
   useEffect(() => {
     setProduct(prev => {return{...prev,imageURL:url}})
@@ -35,7 +38,13 @@ const AddProduct = () => {
   }
   const handleProduct = (event) => {
     event.preventDefault();
-    console.log(product)
+    console.log(Object.keys(product).length)
+    if(Object.keys(product).length === 10){
+      console.log("I m ready to add product")
+      dispatch(addProduct(product))
+    }else{
+      console.log("I am not ready to add product")
+    }
   }
   // const handleImage = (event) => {
   //   const file = event.target.files

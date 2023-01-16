@@ -5,16 +5,17 @@ import Stars from "./Stars";
 import { Link } from "react-router-dom";
 
 const ProductCard = ({ pImage, pName, pDescription, pPrice,reviews,productId }) => {
-  console.log(productId)
   const totalRating = reviews.reduce((a,n)=> a + n.stars,0)/reviews.length // here we calculating total rating for each product according to the reviews
   return (
     <div class="border flex flex-col justify-between border-gray-300 group relative min-h-[20rem] cursor-pointer rounded">
+      <div className="overflow-hidden">
       <img
-        className="w-full h-[60%] object-center object-cover transition-all"
+        className="w-full h-[11rem] object-center hover:scale-110 object-cover transition-all"
         src={pImage}
         alt=""
         loading="lazy"
       />
+      </div>
       <div className="text-yellow-300 text-xs translate-y-1 flex justify-center items-center gap-1">
         <span className="font-sans font-medium">{isNaN(totalRating) ? 0 : totalRating.toFixed(1)}</span>
         {<Stars star={totalRating} />}

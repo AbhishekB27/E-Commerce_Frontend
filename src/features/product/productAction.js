@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "../../axiosInstance";
 import { toast } from "react-toastify";
 import { async } from "@firebase/util";
+import authHeader from "../../authHeader";
 
 export const getProducts = createAsyncThunk(
     "products/getProducts",
@@ -51,6 +52,38 @@ export const getproduct = createAsyncThunk(
                 toast.error(error.message, { position: "top-center" });
                 return rejectWithValue(error.message);
               }
+        }
+    }
+)
+
+export const addProduct = createAsyncThunk(
+    "product/add",
+    async (productData,{rejectWithValue}) => {
+        try {
+            const response = await axiosInstance.post('/product/add',
+            {
+                ...productData
+            },
+            {
+                headers:authHeader()
+            })
+            const {success, data, message} = response.data
+            if(success){
+                toast.success(message,{position:"top-center"})
+            }else{
+                toast.error(message,{position:"top-center"})
+                return message
+            }
+        } catch (error) {
+            if (error.response && error.response.data.message) {
+                console.log(error.response.data.message);
+                toast.error(error.response.data.message, { position: "top-center" });
+                return rejectWithValue(error.response.data.message);
+              } else {
+                console.log(error.message);
+                toast.error(error.message, { position: "top-center" });
+                return rejectWithValue(error.message);
+              }           
         }
     }
 )
