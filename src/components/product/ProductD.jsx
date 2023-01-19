@@ -2,20 +2,25 @@ import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Skeleton from "react-loading-skeleton";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getproduct } from "../../features/product/productAction";
 import Stars from "./Stars";
 import RateAndReview from "./RateAndReview";
 import { getReview, getReviewById } from "../../features/productReview/reviewAction";
+import { imageCompress } from "../ImageOptimize/imageCompress";
+import { addToCart } from "../../features/cart/cartSlice";
 
 const ProductD = () => {
   const dispatch = useDispatch();
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const [review, setReview] = useState(0);
+  const [cart, setCart] = useState({size:'M'})
+  const navigate = useNavigate()
   useEffect(() => {
     window.scrollTo(0,0)
   }, [])
-  const { products, success, pLoading } = useSelector(
+  const {userToken} = useSelector(state => state.user)
+  const { products, successP, pLoading } = useSelector(
     (state) => state.products
   );
   const {rLoading,reviews,successR} = useSelector(state => state.reviews)
@@ -26,25 +31,52 @@ const ProductD = () => {
   }, []);
   useEffect(() => {
     if (successR) {
-      const totalRating =
-        reviews.reduce((a, n) => a + n.stars, 0) /
-          reviews.length || 0; // here we calculating total rating for each product according to the reviews
+      const totalRating = reviews.reduce((a, n) => a + n.stars, 0) / reviews.length || 0; // here we calculating total rating for each product according to the reviews
       setReview(totalRating);
     }
   }, [successR]);
+  useEffect(() => {
+    setCart(prev => {return {...prev,quantity:quantity}})
+  }, [quantity]);
+  useEffect(() => {
+    if(successP){
+      setCart( prev => {
+        return{
+          ...prev,
+          pId:pId,
+          imageURL:products[0].imageURL,
+          price:products[0].price,
+          productName:products[0].productName,
+          brand:products[0].brand
+        }
+      })
+    }
+  }, [successP])
+  
   const handleQuantity = (event) => {
     const name = event.target.name;
-    if (name === "add") {
-      const stock = Number(products[0].stock);
-      setQuantity((prev) => {
-        prev === stock ? setQuantity(prev) : setQuantity(prev + 1);
-      });
-    } else {
-      setQuantity((prev) => {
-        prev === 0 ? setQuantity(0) : setQuantity(prev - 1);
-      });
+    const stock = +products[0].stock // here we convert string to number by + operator
+    if(name === 'add'){
+      if(quantity === stock){
+        setQuantity(quantity)
+      }else{
+        setQuantity(quantity + 1);
+      }
+    }else{
+      if(quantity > 1){
+        setQuantity(quantity - 1);
+      }
     }
-  };
+     };
+  const addPToCart = ()=>{
+    if(!userToken){
+      navigate('/login')
+    }else{
+      console.log(cart)
+      console.log(quantity)
+      dispatch(addToCart(cart))
+    }
+  }
   return (
     <div className="min-h-[560px] grid place-items-center">
       <div className="container h-full grid lg:grid-cols-2 gap-2">
@@ -61,7 +93,7 @@ const ProductD = () => {
               return (
                 <img
                   className="max-h-[30rem]"
-                  src={`${item.imageURL}`}
+                  src={`${imageCompress(item.imageURL)}`}
                   alt=""
                 />
               );
@@ -142,6 +174,7 @@ const ProductD = () => {
                     {item.color.map((color) => {
                       return (
                         <div
+                        onClick={()=> {setCart(prev => {return {...prev, color: color}})}}
                           className={`w-[1.3rem] h-[1.3rem] rounded-full hover:ring-4 ring-blue-600/30 dark:ring-gray-300/30 cursor-pointer`}
                           style={{ backgroundColor: color }}
                         ></div>
@@ -152,7 +185,9 @@ const ProductD = () => {
                     Sizes :
                     {item.size.map((size) => {
                       return (
-                        <div className="min-w-[2.5rem] min-h-[2rem] cursor-pointer dark:hover:bg-gray-300 hover:bg-blue-600/30 hover:border-none hover:text-white dark:hover:text-gray-800 grid place-items-center rounded-sm border px-1 text-base font-normal">
+                        <div
+                        onClick={()=> {setCart(prev => {return {...prev, size: size}})}}
+                        className="min-w-[2.5rem] min-h-[2rem] cursor-pointer dark:hover:bg-gray-300 hover:bg-blue-600/30 hover:border-none hover:text-white dark:hover:text-gray-800 grid place-items-center rounded-sm border px-1 text-base font-normal">
                           {size}
                         </div>
                       );
@@ -163,11 +198,11 @@ const ProductD = () => {
                       {" "}
                       <motion.button
                         onClick={handleQuantity}
-                        name="add"
+                        name="sub"
                         whileTap={{ scale: 0.8 }}
                         className="rounded-sm py-2 z-10 bg-blue-400 dark:bg-gray-300 dark:text-gray-800 font-semibold text-base md:text-xl text-white"
                       >
-                        {"\u002b"}
+                        {"\u2212"}
                       </motion.button>
                       <div className="grid place-items-center font-sans bg-gray-100 font-medium w-full">
                         {" "}
@@ -177,16 +212,17 @@ const ProductD = () => {
                       </div>
                       <motion.button
                         onClick={handleQuantity}
-                        name="sub"
+                        name="add"
                         whileTap={{ scale: 0.8 }}
                         className="rounded-sm py-2 bg-blue-400 dark:bg-gray-300 dark:text-gray-800 font-semibold text-base md:text-xl text-white"
                       >
-                        {"\u2212"}
+                        {"\u002b"}
                       </motion.button>{" "}
                     </div>
                   </div>
                   <motion.button
                     whileTap={{ scale: 0.8 }}
+                    onClick={addPToCart}
                     className="bg-blue-400 dark:bg-gray-300 w-full text-white font-semibold text-base md:text-xl dark:text-gray-800 py-2 rounded-sm"
                   >
                     Add To Cart

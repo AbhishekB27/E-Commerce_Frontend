@@ -3,6 +3,7 @@ import userReducer from "../features/user/userSlice";
 import productsReducer from "../features/product/productSlice";
 import addressReducer from "../features/customerAddress/addressSlice";
 import reviewReducer from "../features/productReview/reviewSlice";
+import cartReducer from "../features/cart/cartSlice";
 
 
 const store = configureStore({
@@ -10,7 +11,8 @@ const store = configureStore({
         user: userReducer,
         addresses: addressReducer,
         products:  productsReducer,
-        reviews:  reviewReducer
+        reviews:  reviewReducer,
+        cart: cartReducer
     }
 })
 export default store

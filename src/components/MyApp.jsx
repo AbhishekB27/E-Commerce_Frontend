@@ -19,6 +19,7 @@ import TokenExpired from "./Protected/TokenExpired";
 import Products from "./product/Products";
 import Products2 from "./User/Products";
 import ProductD from "./product/ProductD";
+import Cart from "./product/Cart";
 
 
 const MyApp = () => {
@@ -35,6 +36,7 @@ const MyApp = () => {
   const Dashboard = React.lazy(() => import("./User/DashboardH"));
   const MyOrders = React.lazy(() => import("./User/MyOrders"));
   const MyAddresses = React.lazy(() => import("./User/MyAddresses"));
+  const Cart = React.lazy(() => import("./product/Cart"));
   useEffect(() => {
     if (userToken) {
       dispatch(getUserProfile());
@@ -92,6 +94,7 @@ const MyApp = () => {
           <Route path="/women" element={<Women />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
+          <Route path="/cartItems" element={<Cart />} />
           <Route element={<Protected />}>
             <Route path="/user/:userId" element={<UserProfile />}>
               <Route index element={<Dashboard />} />

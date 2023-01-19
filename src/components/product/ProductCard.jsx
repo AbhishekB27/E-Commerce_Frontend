@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import ProductImg from "./ProductImg.jpg";
 import Stars from "./Stars";
 import { Link } from "react-router-dom";
+import { imageCompress } from "../ImageOptimize/imageCompress";
 
 const ProductCard = ({ pImage, pName, pDescription, pPrice,reviews,productId }) => {
   const totalRating = reviews.reduce((a,n)=> a + n.stars,0)/reviews.length // here we calculating total rating for each product according to the reviews
@@ -11,7 +12,7 @@ const ProductCard = ({ pImage, pName, pDescription, pPrice,reviews,productId }) 
       <div className="overflow-hidden">
       <img
         className="w-full h-[11rem] object-center hover:scale-110 object-cover transition-all"
-        src={pImage}
+        src={imageCompress(pImage)}
         alt=""
         loading="lazy"
       />

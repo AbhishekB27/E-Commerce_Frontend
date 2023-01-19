@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { addReview, getReview, getReviewById } from "./reviewAction"
+import { addReview, getReview, getReviewById, updateReview } from "./reviewAction"
 
 const initialState ={
     rLoading:false,
@@ -53,6 +53,21 @@ builder.addCase(getReviewById.rejected,(state,action)=>{
             state.reviews = [...state.reviews,action.payload]
         })
         builder.addCase(addReview.rejected,(state,action)=>{
+            state.rLoading = false
+            state.error = action.payload
+        })
+
+        //update Review
+        builder.addCase(updateReview.pending,(state,action)=>{
+            state.rLoading= true
+        })
+        builder.addCase(updateReview.fulfilled,(state,action)=>{
+            //remove non-updated review here
+            const filteredReviews = state.reviews.filter(review=>review._id != action.payload._id)
+            state.rLoading = false
+            state.reviews = [...filteredReviews,action.payload]
+        })
+        builder.addCase(updateReview.rejected,(state,action)=>{
             state.rLoading = false
             state.error = action.payload
         })

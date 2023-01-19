@@ -14,7 +14,7 @@ const TokenExpired = () => {
           <div
             className={`fixed ${
               modal ? "block" : "hidden"
-            } top-0 left-0 z-50 right-0 h-screen grid md:place-items-center place-items-end bg-black/30`}
+            } top-0 left-0 z-[60] right-0 h-screen grid md:place-items-center place-items-end bg-black/30`}
           >
             <motion.div
               initial={{ y: "-100%", opacity: 0 }}

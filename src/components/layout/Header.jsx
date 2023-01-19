@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Hamburger from "./Hamburger";
 import ToggleMode from "./ToggleMode";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import EmptyCart from "../images/EmptyCart.svg";
 import ShoppingBag from "../images/shopping.png";
 import { motion } from "framer-motion";
@@ -12,9 +12,11 @@ import { logOut } from "../../features/user/userSlice";
 const Header = ({ setTheme, theme }) => {
   const [menu, setMenu] = useState(false);
   const [profile, setProfile] = useState(false);
-  const [cart, setCart] = useState(false);
+  const [cartI, setCart] = useState(false);
   const { userInfo, loading } = useSelector((state) => state.user);
+  const { cart } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   const closeMobileMenu = () => {
     setMenu(!menu);
@@ -93,7 +95,6 @@ const Header = ({ setTheme, theme }) => {
                 <i
                   onClick={() => {
                     setProfile(profile ? false : true);
-                    setCart(cart === false ? false : cart ? false : true);
                   }}
                   class={`fa-light fa-angle-down cursor-pointer ${
                     profile ? "rotate-0" : "rotate-[-180deg]"
@@ -148,93 +149,21 @@ const Header = ({ setTheme, theme }) => {
             </div>
           )}
           <div className="relative grid place-items-center pt-[2px] pr-[2px]  w-auto h-auto gap-2 rounded-lg bg-[#e2fdff] dark:bg-gray-300 text-[#5465ff] dark:text-[#121212]">
-            <motion.div
-              animate={cart ? { height: "15.8rem" } : { height: "0rem" }}
-              className={`absolute flex flex-col justify-start items-start md:text-base top-[2.4rem] right-[-3.2rem] md:top-[3.03rem] md:right-[-3.2rem] overflow-hidden shadow-md dark:drop-shadow-[0_4px_6px_rgba(255,255,255,0.25)] bg-white dark:bg-[#121212] text-blue-500 dark:text-gray-300 w-[16.2rem] md:w-[18.6rem] h-0`}
-            >
-              {true ? (
-                <div className="flex w-full h-full flex-col justify-center items-center">
-                  {" "}
-                  <img
-                    className="h-[3rem] md:w-[10rem] w-[3rem] md:h-[10rem]"
-                    src={EmptyCart}
-                    alt=""
-                  />{" "}
-                  <span className="text-sm md:text-base font-semibold">
-                    Your Cart Is Empty!
-                  </span>{" "}
-                </div>
-              ) : (
-                <div className="w-full h-full grid grid-cols-1 gap-1 place-items-center place-content-start p-1 md:px-3 md:py-2">
-                  <div className="text-left text-blue-600 dark:text-gray-300 font-medium md:font-semibold border-b-2 border-b-blue-500 dark:border-b-gray-300 w-full">
-                    Products:
-                  </div>
-                  {Array(1)
-                    .fill(0)
-                    .map((item, index) => {
-                      return (
-                        <div
-                          className="grid grid-cols-[auto_auto_2rem] place-items-center gap-1 md:gap-4 w-full rounded p-[2px] md:p-1"
-                          key={index}
-                        >
-                          <img
-                            className="rounded-full cursor-pointer bg-white p-1 w-[2.5rem] h-[2.5rem] md:w-[3.5rem] md:h-[3.5rem] dark:bg-gray-300"
-                            src={ShoppingBag}
-                            alt=""
-                          />
-                          <div className="text-gray-400 text-sm md:text-base w-full h-full">
-                            <div className="truncate text-left">
-                              {" "}
-                              Shoulder Bag{" "}
-                            </div>
-                            <div className="flex justify-start items-center gap-1">
-                              {" "}
-                              <span>Price:</span>
-                              <span>$100</span>{" "}
-                            </div>
-                            <div className="flex justify-start items-center gap-1">
-                              {" "}
-                              <span>Quantity:</span>
-                              <span>2</span>{" "}
-                            </div>
-                          </div>
-                          <div className="w-full h-full grid place-items-center">
-                            {" "}
-                            <i class="fa-regular text-red-400 cursor-pointer fa-trash"></i>{" "}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  <div className="grid grid-cols-2 w-full border-t-2 border-t-blue-600 dark:border-t-gray-300 py-1">
-                    <div className="text-left flex justify-start items-center gap-1 font-medium md:font-semibold">
-                      {" "}
-                      <span className="">Total:</span>
-                      <span className="text-sm">$245</span>
-                    </div>
-                    <div className="text-right">
-                      {" "}
-                      <button className="outline-none px-2 font-sans font-normal md:font-medium rounded-md bg-blue-600 dark:bg-gray-300 text-white dark:text-[#121212]">
-                        Go To Cart
-                      </button>{" "}
-                    </div>
-                  </div>
-                </div>
-              )}
-            </motion.div>
-            {!true ? (
-              <div className="absolute top-[-6px]  md:top-[-9px] right-[-9px] border-2 border-white dark:border-[#121212] bg-[#e2fdff] dark:bg-gray-300 text-[#5465ff] dark:text-[#121212] w-[19px] h-[15px] md:w-[20px] md:h-[20px] pb-4 rounded-full text-xs font-bold md:font-extrabold">
-                3
+            
+            {cart.length > 0 ? (
+              <div className="absolute top-[-6px]  md:top-[-6px] right-[-6px] border-2 border-white dark:border-[#121212] bg-[#e2fdff] dark:bg-gray-300 text-[#5465ff] dark:text-[#121212] w-[19px] h-[15px] md:w-[20px] md:h-[20px] pb-4 rounded-full text-xs font-bold md:font-extrabold">
+                {cart.length}
               </div>
             ) : (
               ""
             )}
             <button
               onClick={() => {
-                setCart(!cart);
+                navigate('/cartItems')
               }}
               className={`grid active:scale-90 transition-all outline-none place-items-center cursor-pointer `}
             >
-              <i class=" text-base md:text-lg lg:text-2xl fa-solid fa-cart-shopping"></i>
+              <i class=" text-base md:text-sm lg:text-lg fa-solid fa-cart-shopping"></i>
             </button>
           </div>
           <ToggleMode setTheme={setTheme} theme={theme} />

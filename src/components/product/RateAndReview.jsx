@@ -2,7 +2,8 @@ import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import { useDispatch, useSelector } from "react-redux";
-import { addReview } from "../../features/productReview/reviewAction";
+import { useParams } from "react-router-dom";
+import { addReview, updateReview } from "../../features/productReview/reviewAction";
 import Stars from "./Stars";
 
 const RateAndReview = () => {
@@ -39,13 +40,12 @@ const RateAndReview = () => {
     },
   ];
   const { userInfo, success } = useSelector((state) => state.user);
-  const { products, successP } = useSelector((state) => state.products);
   const { reviews, rLoading, successR } = useSelector((state) => state.reviews);
   const dispatch = useDispatch();
   const [star, setStar] = useState([]);
   useEffect(() => {
+    setStar([]);
     if (successR) {
-      setStar([]);
       for (let i = 1; i <= 5; i++) {
         const star = reviews.filter((rev) => rev.stars === i);
         setStar((prev) => {
@@ -54,47 +54,65 @@ const RateAndReview = () => {
       }
     }
   }, [successR]);
-
-  useEffect(() => {
-    if (successP) {
-      console.log(userInfo._id);
-      setReview((prev) => {
-        return { ...prev, user: userInfo._id, product: products[0]._id };
-      });
-    }
-  }, [success, successP]);
-  const checkReview = reviews.filter(item => item.user._id === userInfo._id)// here we check the user already have been reviewed
-  console.log(checkReview)
-  const [rating, setRating] = useState(checkReview.length === 1 ? checkReview[0].stars : 0);
+  const [rating, setRating] = useState(0); // for reveiw star
   const [review, setReview] = useState({
-    description:checkReview.length === 1 ? checkReview[0].description : '',
-    stars:checkReview.length === 1 ? checkReview[0].stars : '',
-    // user:'',
-    // product:''
+    // for user reveiw data
+    description: '',
+    stars:0,
+    user:'',
+    product:''
   });
   const [reviewStar, setReviewStar] = useState(0);
-
+  const [button, setButton] = useState(true) // it is for user already reviewed
+  const { pId } = useParams();
   useEffect(() => {
-    if (successR) {
-      const totalRating =
-        reviews.reduce((a, n) => a + n.stars, 0) / reviews.length || 0; // here we calculating total rating for each product according to the reviews
-      setReviewStar(totalRating);
-    }
-  }, [successR]);
-  const handleStar = (event) => {
-    console.log(event.target.name);
-  };
+    if(success){
+      console.log('hello')
+      if(successR){
+      console.log('hello world')
+      // here we calculating total rating for a product according to the all reviews
+      const totalRating = reviews.reduce((a, n) => a + n.stars, 0) / reviews.length || 0;
+      setReviewStar(totalRating); 
+      //here we check the user already posted a review
+      const userReview = reviews.filter(rev => rev.user._id === userInfo._id)
+      setReview(prev => {return {...prev,user:userInfo._id,product:pId}})
+      if(userReview.length > 0){
+        setReview(prev => {return {...prev,description:userReview[0].description,stars:userReview[0].stars,rId:userReview[0]._id}})
+        setRating(userReview[0].stars)
+        setButton(false)
+        }else{
+          const myObj = review
+          delete myObj.rId
+          console.log({...review,...myObj})
+          setReview(prev => {return {...myObj,...prev,description:'',stars:0}})
+          setRating(0)
+          setButton(true)
+        }
+      }
+    } 
+
+  }, [successR,success]);
+
   const handleReview = () => {
-    if (Object.keys(review).length === 4) {
-      // dispatch(addReview(review));
-      console.log("Ready to post review");
-            console.log(review);
-    } else {
-      console.log("Not ready to post review");
-            console.log(review);
-    }
+      if(button){
+        console.log(review)
+        if(Object.values(review).every(val => val)){   // here we are checking review data is empty or not
+        dispatch(addReview(review)) 
+          console.log("ready to post review")
+        }else{
+          alert("Please insert review")
+        }
+      }else{
+        console.log(review)
+        if(Object.values(review).every(val => val)){
+          dispatch(updateReview(review))
+          console.log("ready to update post review")
+        }else{
+          alert("Please insert review")
+        }
+      }
   };
- 
+
   return (
     <div className="w-full font-poppins lg:col-span-2 grid grid-cols-1 md:grid-cols-2 place-items-center gap-5">
       {rLoading ? (
@@ -236,7 +254,7 @@ const RateAndReview = () => {
             onClick={handleReview}
             className="rounded-md py-2 text-white dark:bg-gray-300 dark:text-gray-800 bg-blue-600"
           >
-            {checkReview.length === 1 ? "Update" : 'Post'}
+            {rLoading ? 'Loading' : button ? "Post" : "Update"}
           </motion.button>
           <motion.button
             whileTap={{ scale: 0.8 }}
