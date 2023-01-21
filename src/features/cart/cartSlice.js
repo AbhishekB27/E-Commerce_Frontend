@@ -24,6 +24,7 @@ const cartSlice = createSlice({
         },
         removeItem: (state,action) =>{
             const itemRemoved = state.cart.filter(item => item.pId != action.payload.pId)
+            localStorage.setItem('cart',JSON.stringify([...itemRemoved]))
             state.cart = itemRemoved
             toast.success("Removed",{position:'top-center'})
         }

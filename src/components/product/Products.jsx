@@ -1,5 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { sortProducts } from "../../features/product/productSlice";
 import ProductsWrapper from "./ProductsWrapper";
 
 const Products = () => {
@@ -9,6 +11,7 @@ const Products = () => {
   const [brand, setBrand] = useState(false);
   const [size, setSize] = useState(false);
   const [filter, setFilter] = useState(false);
+  const dispatch = useDispatch()
 
   return (
     <div className="w-full flex flex-col justify-start h-auto items-start px-5">
@@ -36,19 +39,19 @@ const Products = () => {
                     transition={{ duration: 0.3 }}
                     className="absolute w-40 bg-white right-0 z-10 origin-top-right  rounded-md shadow-2xl overflow-hidden ring-1 ring-black ring-opacity-5 focus:outline-none"
                   >
-                    <span className="text-gray-500 block px-4 py-2 text-sm text-left cursor-pointer hover:bg-slate-300/30">
-                      Most Popular
+                    <span className="text-gray-500 bg-slate-300 dark:bg-slate-400 block px-4 py-2 text-sm text-left cursor-pointer hover:bg-slate-300/3">
+                      High Rating
                     </span>
-                    <span className="text-gray-500 block px-4 py-2 text-sm text-left cursor-pointer hover:bg-slate-300/30">
-                      Best Rating
+                    <span className="text-gray-500 bg-slate-300 dark:bg-slate-400 block px-4 py-2 text-sm text-left cursor-pointer hover:bg-slate-300/3">
+                      Low Rating
                     </span>
-                    <span className="text-gray-500 block px-4 py-2 text-sm text-left cursor-pointer hover:bg-slate-300/30">
+                    <span className="text-gray-500 bg-slate-300 dark:bg-slate-400 block px-4 py-2 text-sm text-left cursor-pointer hover:bg-slate-300/3">
                       Newest
                     </span>
-                    <span className="text-gray-500 block px-4 py-2 text-sm text-left cursor-pointer hover:bg-slate-300/30">
+                    <span onClick={()=>{dispatch(sortProducts({sort:'lowP'}))}} className="text-gray-500 block px-4 py-2 text-sm text-left cursor-pointer hover:bg-slate-300/30">
                       Price: Low to High
                     </span>
-                    <span className="text-gray-500 block px-4 py-2 text-sm text-left cursor-pointer hover:bg-slate-300/30">
+                    <span onClick={()=>{dispatch(sortProducts({sort:'highP'}))}} className="text-gray-500 block px-4 py-2 text-sm text-left cursor-pointer hover:bg-slate-300/30">
                       Price: High to Low
                     </span>
                   </motion.div>

@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Skeleton from "react-loading-skeleton";
@@ -14,7 +14,8 @@ const ProductD = () => {
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
   const [review, setReview] = useState(0);
-  const [cart, setCart] = useState({size:'M'})
+  const [cartAni, setCartAni] = useState(false)
+  const [cart, setCart] = useState({size:'',color:''})
   const navigate = useNavigate()
   useEffect(() => {
     window.scrollTo(0,0)
@@ -72,9 +73,13 @@ const ProductD = () => {
     if(!userToken){
       navigate('/login')
     }else{
-      console.log(cart)
-      console.log(quantity)
-      dispatch(addToCart(cart))
+      if(Object.values(cart).every(val => val)){
+        console.log(cart)
+        console.log(quantity)
+        dispatch(addToCart(cart))
+      }else{
+        alert('Please select all details')
+      }
     }
   }
   return (
@@ -224,8 +229,8 @@ const ProductD = () => {
                     whileTap={{ scale: 0.8 }}
                     onClick={addPToCart}
                     className="bg-blue-400 dark:bg-gray-300 w-full text-white font-semibold text-base md:text-xl dark:text-gray-800 py-2 rounded-sm"
-                  >
-                    Add To Cart
+                  > 
+                  Add To Cart
                   </motion.button>
                 </div>
               );

@@ -157,14 +157,16 @@ const Header = ({ setTheme, theme }) => {
             ) : (
               ""
             )}
-            <button
+            <motion.button
+            whileTap={{scale:0.8}}
+            transition={{duration:0.1}}
               onClick={() => {
                 navigate('/cartItems')
               }}
-              className={`grid active:scale-90 transition-all outline-none place-items-center cursor-pointer `}
+              className={`grid outline-none place-items-center cursor-pointer `}
             >
               <i class=" text-base md:text-sm lg:text-lg fa-solid fa-cart-shopping"></i>
-            </button>
+            </motion.button>
           </div>
           <ToggleMode setTheme={setTheme} theme={theme} />
         </div>

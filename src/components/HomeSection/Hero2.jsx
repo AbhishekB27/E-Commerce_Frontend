@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
-import React from "react";
+import { motion, useInView } from "framer-motion";
+import React, { useRef } from "react";
 import WomenF1 from "./images/WomenF1.png";
 import WomenF2 from "./images/WomenF2.png";
 import WomenF3 from "./images/WomenF3.png";
@@ -8,6 +8,10 @@ import WomenF5 from "./images/WomenF5.png";
 import WomenF6 from "./images/WomenF6.png";
 
 const Hero2 = () => {
+  const ref = useRef(null);
+
+  const isInView = useInView(ref, { once: true });
+
   return (
     <div className="w-full min-h-[560pxpx] flex flex-col justify-center gap-6 items-center">
       <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6 w-full">
@@ -46,8 +50,12 @@ const Hero2 = () => {
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-2 lg:grid-rows-4 md:grid-flow-row w-[90%]">
-        <div className="md:row-auto lg:row-span-2 grid place-items-center">
-          <div className="space-y-5">
+        <div ref={ref} className="md:row-auto lg:row-span-2 grid place-items-center">
+          {
+             isInView && <motion.div
+             initial={{opacity:0,scale:0}}
+             animate={{opacity: 1,scale:1}}
+             transition={{duration:0.5}} className="space-y-5">
             <div className="rounded-t-full bg-gradient-to-b dark:from-gray-300 from-slate-50 to-red-600 hover:from-red-600 cursor-pointer overflow-hidden hover:to-red-600 grid place-items-center">
               <img
                 className="object-contain transition-all hover:scale-110 w-[16rem] h-[18rem] lg:h-[25rem]"
@@ -68,30 +76,41 @@ const Hero2 = () => {
                 <i class="fa-regular fa-chevron-right translate-y-[0.12rem]"></i>{" "}
               </motion.button>{" "}
             </div>
-          </div>
+          </motion.div>
+          }
         </div>
-        <div className=" grid place-items-center order-first lg:order-none md:col-span-2 lg:col-auto">
-          <div className="text-center md:text-right space-y-5">
-            <h1 className="text-xl font-semibold text-center md:text-left text-gray-800 dark:text-gray-300">
-              New Collection of <span className="text-blue-600 dark:text-gray-300">AB_Store</span>
-            </h1>{" "}
-            <p className="text-gray-300">
-              Get ready to step up your style game with our latest fashion
-              collection. From trendy clothing and accessories to shoes and
-              bags, we have everything you need to create on-point outfits for
-              every occasion.
-            </p>{" "}
-            <motion.button
-              whileTap={{ scale: 0.8 }}
-              className='px-4 py-2 rounded-3xl border overflow-hidden before:content-[""] before:bg-blue-200 dark:before:bg-gray-700 dark:before:bg-gray-700 before:h-full before:w-[50%] relative before:absolute before:top-0 before:left-0 z-10 before:-z-10 dark:text-gray-300  font-medium font-sans hover:before:w-full before:transition-all  '
-            >
-              New Collection{" "}
-              <i class="fa-regular fa-chevron-right translate-y-[0.09rem]"></i>
-            </motion.button>{" "}
-          </div>
+        <div ref={ref} className=" grid place-items-center order-first lg:order-none md:col-span-2 lg:col-auto">
+          {
+           isInView && <motion.div
+           initial={{opacity:0,scale:0}}
+           animate={{opacity: 1,scale:1}}
+           transition={{duration:0.5}}
+            className="text-center md:text-right space-y-5">
+              <h1 className="text-xl font-semibold text-center md:text-left text-gray-800 dark:text-gray-300">
+                New Collection of <span className="text-blue-600 dark:text-gray-300">AB_Store</span>
+              </h1>{" "}
+              <p className="text-gray-300">
+                Get ready to step up your style game with our latest fashion
+                collection. From trendy clothing and accessories to shoes and
+                bags, we have everything you need to create on-point outfits for
+                every occasion.
+              </p>{" "}
+              <motion.button
+                whileTap={{ scale: 0.8 }}
+                className='px-4 py-2 rounded-3xl border overflow-hidden before:content-[""] before:bg-blue-200 dark:before:bg-gray-700 dark:before:bg-gray-700 before:h-full before:w-[50%] relative before:absolute before:top-0 before:left-0 z-10 before:-z-10 dark:text-gray-300  font-medium font-sans hover:before:w-full before:transition-all  '
+              >
+                New Collection{" "}
+                <i class="fa-regular fa-chevron-right translate-y-[0.09rem]"></i>
+              </motion.button>{" "}
+            </motion.div>
+          }
         </div>
-        <div className="md:row-auto lg:row-span-2 grid place-items-center">
-          <div className="space-y-5">
+        <div ref={ref} className="md:row-auto lg:row-span-2 grid place-items-center">
+          {
+            isInView && <motion.div
+            initial={{opacity:0,scale:0}}
+            animate={{opacity: 1,scale:1}}
+            transition={{duration:0.5}} className="space-y-5">
             <div className="bg-gradient-to-b dark:from-gray-300 from-black to-fuchsia-600 hover:from-fuchsia-600 cursor-pointer overflow-hidden hover:to-fuchsia-600 rounded-t-full grid place-items-center">
               <img
                 className="object-contain transition-all hover:scale-110 w-[16rem] h-[18rem] lg:h-[25rem]"
@@ -112,10 +131,15 @@ const Hero2 = () => {
                 <i class="fa-regular fa-chevron-right translate-y-[0.12rem]"></i>{" "}
               </motion.button>{" "}
             </div>
-          </div>
+          </motion.div>
+          }
         </div>
-        <div className="md:row-auto lg:row-span-2 grid place-items-center">
-          <div className="space-y-5">
+        <div ref={ref} className="md:row-auto lg:row-span-2 grid place-items-center">
+          {
+            isInView && <motion.div
+            initial={{opacity:0,scale:0}}
+            animate={{opacity: 1,scale:1}}
+            transition={{duration:0.5}} className="space-y-5">
             <div className="bg-gradient-to-b dark:from-gray-300 from-yellow-300 to-cyan-400 hover:from-cyan-300 cursor-pointer overflow-hidden hover:to-cyan-400 rounded-t-full grid place-items-center">
               <img
                 className="object-contain hover:scale-110 transition-all w-[16rem] h-[18rem] lg:h-[25rem]"
@@ -136,10 +160,15 @@ const Hero2 = () => {
                 <i class="fa-regular fa-chevron-right translate-y-[0.12rem]"></i>{" "}
               </motion.button>{" "}
             </div>
-          </div>
+          </motion.div>
+          }
         </div>
-        <div className=" grid place-items-center">
-          <div className="space-y-5">
+        <div ref={ref} className=" grid place-items-center">
+          {
+            isInView && <motion.div
+            initial={{opacity:0,scale:0}}
+            animate={{opacity: 1,scale:1}}
+            transition={{duration:0.5}} className="space-y-5">
             <div className="bg-[#FFB5C3,#D99AA5] bg-gradient-to-b dark:from-gray-300 from-[#D99AA5] to-[#FFB5C3] overflow-hidden hover:from-[#FFB5C3] hover:to-[#FFB5C3] transition-all cursor-pointer rounded-t-full w-[16rem] h-[18rem] grid place-items-center">
               <img
                 className="object-center transition-all hover:scale-110 object-contain"
@@ -160,7 +189,8 @@ const Hero2 = () => {
                 <i class="fa-regular fa-chevron-right translate-y-[0.12rem]"></i>{" "}
               </motion.button>{" "}
             </div>
-          </div>
+          </motion.div>
+          }
         </div>
       </div>
     </div>

@@ -16,7 +16,7 @@ const Heor3 = () => {
         isInView && <motion.div
         initial={{opacity:0,scale:0}}
         animate={{opacity: 1,scale:1}}
-        transition={{duration:0.5}}
+        transition={{duration:0.3}}
           className="flex flex-col lg:flex-row order-first lg:order-none gap-5"
         >
           <div className="flex  flex-col justify-center items-center lg:items-start gap-5">
