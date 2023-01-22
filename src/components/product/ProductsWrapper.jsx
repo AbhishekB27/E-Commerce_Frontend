@@ -10,7 +10,7 @@ import { getReview } from "../../features/productReview/reviewAction";
 
 const ProductsWrapper = () => {
   const dispatch = useDispatch();
-  const { pLoading, success, products } = useSelector(
+  const { pLoading, success, products,filter } = useSelector(
     (state) => state.products
   );
   console.log(products)
@@ -55,7 +55,7 @@ const ProductsWrapper = () => {
               );
             })
         : products != null
-        ? products.map((item) => {
+        ? filter.map((item) => {
             return (
               <ProductCard
                pImage={item.imageURL}

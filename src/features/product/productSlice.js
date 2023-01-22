@@ -4,6 +4,7 @@ import { addProduct, getproduct, getProducts } from "./productAction";
 const initialState = {
   pLoading: false,
   products: [],
+  filter:[],
   error: null,
   successP: false, // it indicates product success
 };
@@ -12,22 +13,31 @@ const productSlice = createSlice({
   name: "product",
   initialState,
   reducers: {
-    //filter and sorting methods
+    //sorting methods
     sortProducts: (state, action) => {
       switch (action.payload.sort) {
         case "highP":
           {
-            const sortedData = state.products.sort((a, b) => b.price - a.price);
-            state.products = sortedData;
+            const sortedData = state.filter.sort((a, b) => b.price - a.price);
+            state.filter = sortedData;
           }
           break;
         case "lowP": {
-          const sortedData = state.products.sort((a, b) => a.price - b.price);
-          state.products = sortedData;
+          const sortedData = state.filter.sort((a, b) => a.price - b.price);
+          state.filter = sortedData;
         }
         default:
           break;
       }
+    },
+    filterCategory: (state, action) => {
+      const allProducts = state.products
+      allProducts.filter(product => console.log(product.category === action.payload.category))
+      state.filter = allProducts.filter(product => product.category === action.payload.category || action.payload.category === 'All')
+    },
+    filterBrand: (state, action) => {
+      const allProducts = state.products
+      state.filter = allProducts.filter(product => product.brand === action.payload.brand)
     },
   },
   extraReducers: (builder) => {
@@ -37,6 +47,7 @@ const productSlice = createSlice({
     });
     builder.addCase(getProducts.fulfilled, (state, action) => {
       state.products = action.payload;
+      state.filter = action.payload
       state.pLoading = false;
       state.successP = true;
     });
@@ -81,4 +92,4 @@ const productSlice = createSlice({
 });
 
 export default productSlice.reducer;
-export const { sortProducts } = productSlice.actions;
+export const { sortProducts, filterBrand,filterCategory } = productSlice.actions;

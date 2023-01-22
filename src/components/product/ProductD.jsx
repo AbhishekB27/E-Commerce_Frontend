@@ -178,11 +178,22 @@ const ProductD = () => {
                     Colors :
                     {item.color.map((color) => {
                       return (
-                        <div
-                        onClick={()=> {setCart(prev => {return {...prev, color: color}})}}
-                          className={`w-[1.3rem] h-[1.3rem] rounded-full hover:ring-4 ring-blue-600/30 dark:ring-gray-300/30 cursor-pointer`}
+                        <div class="flex items-center md:text-base text-xs">
+                        <input
+                          id={`${item.color}`}
+                          name="color[]"
+                          value="white"
+                          type="checkbox"
+                          class="h-0 peer invisible w-0 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        />
+                        <label
+                          for={`${item.color}`}
+                          onClick={()=> {setCart(prev => {return {...prev, color: color}})}}
+                          className={`w-[1.3rem] h-[1.3rem] rounded-full peer-checked:ring-4 ring-blue-600/30 dark:ring-gray-300/30 cursor-pointer`}
                           style={{ backgroundColor: color }}
-                        ></div>
+                        >
+                        </label>
+                        </div>
                       );
                     })}
                   </div>
@@ -190,10 +201,20 @@ const ProductD = () => {
                     Sizes :
                     {item.size.map((size) => {
                       return (
-                        <div
-                        onClick={()=> {setCart(prev => {return {...prev, size: size}})}}
-                        className="min-w-[2.5rem] min-h-[2rem] cursor-pointer dark:hover:bg-gray-300 hover:bg-blue-600/30 hover:border-none hover:text-white dark:hover:text-gray-800 grid place-items-center rounded-sm border px-1 text-base font-normal">
-                          {size}
+                        <div class="flex items-center md:text-base text-xs">
+                        <input
+                          id={`${size}`}
+                          name="color[]"
+                          value="white"
+                          type="checkbox"
+                          class="h-0 peer invisible w-0 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        />
+                        <label
+                          for={`${size}`}
+                          onClick={()=> {setCart(prev => {return {...prev, size: size}})}}
+                        className="min-w-[2.5rem] min-h-[2rem] cursor-pointer peer-checked:bg-gray-300 peer-checked:border-none dark:peer-checked:text-gray-800 dark:text-gray-300 grid place-items-center rounded-sm border px-1 text-base font-normal"
+                        >{size}
+                        </label>
                         </div>
                       );
                     })}

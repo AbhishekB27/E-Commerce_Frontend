@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { sortProducts } from "../../features/product/productSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { filterCategory, sortProducts } from "../../features/product/productSlice";
 import ProductsWrapper from "./ProductsWrapper";
 
 const Products = () => {
@@ -13,6 +13,8 @@ const Products = () => {
   const [filter, setFilter] = useState(false);
   const dispatch = useDispatch()
 
+  const {products} = useSelector(state => state.products)
+  console.log(Array.from(new Set(products.map(item=>item.brand))))
   return (
     <div className="w-full flex flex-col justify-start h-auto items-start px-5">
       <div className="w-full max-w-[1384px] p-1 border border-gray-300 grid lg:grid-rows-[6rem_auto] md:grid-rows-[5rem_auto] grid-rows-[4rem_auto] gap-2 h-auto min-h-[560px]">
@@ -88,14 +90,15 @@ const Products = () => {
               <h3 className="font-semibold border-b border-gray-300 py-1">
                 Categories
               </h3>
-              <ul className="px-2 py-3 font-sans font-medium text-left">
-                <li className="block px-2 py-3 cursor-pointer">
+              <ul className="px-2 py-3 space-y-1 font-sans font-medium text-left">
+              <li onClick={()=>{dispatch(filterCategory({category:'All'}))}} className="block px-2 py-3 cursor-pointer">All</li>
+                <li onClick={()=>{dispatch(filterCategory({category:'Hot'}))}} className="block px-2 py-3 cursor-pointer">
                   Hot Collection
                 </li>
-                <li className="block px-2 py-3 cursor-pointer">Jacket</li>
-                <li className="block px-2 py-3 cursor-pointer">Shoes</li>
-                <li className="block px-2 py-3 cursor-pointer">Sunglases</li>
-                <li className="block px-2 py-3 cursor-pointer">MakeUp</li>
+                <li onClick={()=>{dispatch(filterCategory({category:'Jacket'}))}} className="block px-2 py-3 cursor-pointer">Jacket</li>
+                <li onClick={()=>{dispatch(filterCategory({category:'Shoes'}))}} className="block px-2 py-3 cursor-pointer">Shoes</li>
+                <li onClick={()=>{console.log("Coming Soon")}} className="block hover:cursor-not-allowed bg-slate-400/30 px-2 py-3 cursor-pointer">Sunglases</li>
+                <li onClick={()=>{console.log("Coming Soon")}} className="block hover:cursor-not-allowed bg-slate-400/30 px-2 py-3 cursor-pointer">MakeUp</li>
               </ul>
               <div className="border-t">
                 <h3 className="flex justify-between items-center px-2 py-3 font-sans font-medium">
@@ -250,23 +253,33 @@ const Products = () => {
                       transition={{ duration: 0.2 }}
                       class="space-y-6 text-left"
                     >
-                      <div class="flex items-center">
+                      {
+                        Array.from(new Set(products.map(item=>item.brand))).map(item => {
+                          return(
+                            <div class="flex items-center">
                         <input
-                          id="filter-mobile-color-0"
-                          name="color[]"
-                          value="white"
+                          id={`${item}`}
+                          name={`${item}`}
+                          onChange={(event)=>{
+                            if(event.target.checked){
+                              console.log(event.target.name)
+                            }
+                          }}
                           type="checkbox"
                           class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                         />
                         <label
-                          for="filter-mobile-color-0"
+                          for={`${item}`}
                           class="ml-3 min-w-0 flex-1 text-gray-500"
                         >
-                          Mocchi
+                          {item}
                         </label>
                       </div>
+                          )
+                        })
+                      }
 
-                      <div class="flex items-center">
+                      {/* <div class="flex items-center">
                         <input
                           id="filter-mobile-color-1"
                           name="color[]"
@@ -345,7 +358,7 @@ const Products = () => {
                         >
                           Campus
                         </label>
-                      </div>
+                      </div> */}
                     </motion.div>
                   )}
                 </AnimatePresence>
