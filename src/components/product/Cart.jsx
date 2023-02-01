@@ -1,23 +1,23 @@
 import { AnimatePresence, motion } from "framer-motion";
 import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { removeItem } from "../../features/cart/cartSlice";
+import { decrementQuantity, incrementQuantity, removeItem } from "../../features/cart/cartSlice";
+import { addItemToCheckout } from "../../features/checkout/checkOutSlice";
 import { imageCompress } from "../ImageOptimize/imageCompress";
 import MissingCart from './MissingCartItem.png';
 
 const Cart = () => {
-  const { cart } = useSelector((state) => state.cart);
+  const { cart,totalPrice } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-  // const removeItem = () => {
-  //   dispatch(removeItem())
-  // }
   return (
     <div className="min-h-[560px] grid place-items-center">
-      <div className="container h-full grid gap-1 grid-rows-[5rem_29.8rem_auto]">
+      <div className="container h-full grid gap-1 lg:grid-cols-[auto_20rem] grid-rows-[5rem_29.8rem_auto]">
         {cart.length != 0 ? (
           <>
-            <div className="flex justify-between items-center px-4 py-2">
+            <div className="flex justify-between items-center px-4 py-2 lg:col-span-2">
               <div className="flex flex-col justify-center items-start">
                 {" "}
                 <span className="lg:text-xl md:text-lg text-base font-poppins">
@@ -27,7 +27,7 @@ const Cart = () => {
                   {cart.length} Items
                 </span>{" "}
               </div>
-              <Link to="/allProducts">
+              <Link to="/allProducts/all">
                 <button className="md:px-4 md:py-2 px-3 py-1 bg-blue-600 dark:bg-gray-300 dark:text-gray-700 rounded font-sans font-normal md:font-medium text-white">
                   Continue Shopping
                 </button>
@@ -35,7 +35,7 @@ const Cart = () => {
             </div>
             <div class="bg-slate-100 dark:bg-gray-900 md:rounded w-full overflow-auto">
               <table class="border-collapse table-auto w-full text-sm text-gray-500 dark:text-gray-400">
-                <thead class="text-sm text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <thead class="text-sm text-white uppercase bg-blue-500 dark:bg-gray-700 dark:text-gray-300">
                   <tr className="">
                     <th scope="col" class="px-6 py-3 text-center">
                       Item
@@ -71,7 +71,7 @@ const Cart = () => {
                           exit={{ opacity: 0 }}
                           transition={{ duration: 0.3 }}
                           key={item.pId}
-                          className="hover:bg-slate-300/30 dark:hover:bg-slate-300/30"
+                          className="hover:bg-slate-300/30 transition-all duration-200 dark:hover:bg-slate-300/30"
                         >
                           <th className="px-4 py-2 font-normal">
                             <img
@@ -104,7 +104,7 @@ const Cart = () => {
                            </div>
                           </td>
                           <td className="text-center font-sans font-medium space-x-2">
-                            <motion.button whileTap={{scale:0.8}} transition={{duration:0.1}} className="dark:bg-gray-300 dark:text-gray-800 bg-white px-2 rounded-full py-1"><i class="fa-regular fa-minus"></i></motion.button><span>{item.quantity}</span><motion.button whileTap={{scale:0.8}} transition={{duration:0.1}} className="dark:bg-gray-300 dark:text-gray-800 bg-white px-2 rounded-full py-1"><i class="fa-regular fa-plus"></i></motion.button>
+                            <motion.button onClick={()=>{dispatch(decrementQuantity({itemId:item.pId}))}} whileTap={{scale:0.8}} transition={{duration:0.1}} className="dark:bg-gray-300 dark:text-gray-800 bg-white px-2 rounded-full py-1"><i class="fa-regular fa-minus"></i></motion.button><span>{item.quantity}</span><motion.button onClick={()=>{dispatch(incrementQuantity({itemId:item.pId}))}} whileTap={{scale:0.8}} transition={{duration:0.1}} className="dark:bg-gray-300 dark:text-gray-800 bg-white px-2 rounded-full py-1"><i class="fa-regular fa-plus"></i></motion.button>
                           </td>
                           <td className="text-center font-sans font-medium">
                           <i class="fa-light fa-indian-rupee-sign"></i>.{item.price}
@@ -129,9 +129,9 @@ const Cart = () => {
                 </motion.tbody>
               </table>
             </div>
-            <div className="bg-slate-100 dark:bg-gray-900 flex justify-between items-center px-4 py-2">
-              <div className="flex flex-col justify-between h-full">
-                <div className="text-left space-y-1">
+            <div className="bg-slate-100 dark:bg-gray-900 flex flex-col justify-between max-h-[30rem] p-1">
+              <div className="flex flex-col justify-between px-2 py-1 rounded-sm dark:text-gray-300 text-blue-600 w-full md:w-auto gap-3 md:gap-0">
+                <div className="text-center space-y-2">
                   <span className="font-sans font-medium text-sm">Accepted Payment Options</span>
                   <div className="w-full text-2xl flex gap-2 justify-between items-center">
                   <i class="fa-brands fa-google-pay"></i>
@@ -142,14 +142,14 @@ const Cart = () => {
                   <i class="fa-brands fa-cc-mastercard"></i>
                   </div>
                 </div>
-                <motion.button whileTap={{scale:0.8}} className="w-full text-white font-sans font-medium dark:bg-gray-300 dark:text-gray-800 bg-blue-600 px-4 py-2 rounded-md"> Continue Shopping</motion.button>
               </div>
-              <div className="flex flex-col justify-center items-start">
-                <div className="flex w-full justify-between items-center py-1"><span className="font-semibold">Sub Total</span> <span className="font-sans"><i class="fa-light fa-indian-rupee-sign"></i>.3000</span> </div>
-                <div className="flex w-full justify-between items-center py-1"><span className="font-semibold">Shipping Charges</span> <span className="font-sans"><i class="fa-light fa-indian-rupee-sign"></i>.99</span> </div>
+              <div className="flex flex-col text-sm px-2 py-1 md:text-base w-full md:w-auto justify-center items-start">
+                <div className="border-b-2 border-gray-300 w-full text-left font-sans font-medium">Order Summary -:</div>
+                <div className="flex w-full justify-between items-center py-1"><span className="font-semibold">Sub Total</span> <span className="font-sans font-medium"><i class="fa-light fa-indian-rupee-sign"></i>{totalPrice}</span> </div>
+                <div className="flex w-full justify-between items-center py-1"><span className="font-semibold">Shipping Charges</span> <span className="font-sans">{totalPrice > 4999 ? <span className="bg-green-200 text-green-500 rounded-md text-sm px-2 py-[2px]">Free Shipping <i class="fa-solid fa-truck-fast"></i></span> : <><i class="fa-light fa-indian-rupee-sign"></i>99</>}</span> </div>
                 <div className="flex w-full justify-between items-center py-"><span className="font-semibold">Coupon Code</span> <input placeholder="COUPON-CODE" className="rounded-md text-base outline-none px-3 py-1 w-[40%] dark:bg-gray-300/30" type="text" name="" id="" /> </div>
-                <div className="flex w-full justify-between items-center py-1"><span className="font-semibold">Total</span> <span className="font-sans"><i class="fa-light fa-indian-rupee-sign"></i>.3099</span> </div>
-                <motion.button whileTap={{scale:0.8}} className="w-full text-white font-sans font-medium  dark:bg-gray-300 dark:text-gray-800 bg-blue-600 px-4 py-2 rounded-md"> <i class="fa-solid fa-shield-halved"></i> Secure Checkout</motion.button>
+                <div className="flex w-full justify-between items-center py-1"><span className="font-semibold">Total</span> <span className="font-sans font-medium"><i class="fa-light fa-indian-rupee-sign"></i>{totalPrice + (totalPrice > 4999 ? 0 : 99)}</span> </div>
+                <Link className="w-full" to='/checkout'> <motion.button onClick={()=>{dispatch(addItemToCheckout({items:cart,totalPrice:totalPrice}))}} whileTap={{scale:0.8}} className="w-full text-sm md:text-base md:mt-0 mt-2 text-white font-sans font-normal md:font-medium  dark:bg-gray-300 dark:text-gray-800 bg-blue-600 px-4 py-2 rounded-md"> <i class="fa-solid fa-shield-halved"></i> Secure Checkout</motion.button> </Link>
               </div>
             </div>
           </>
@@ -162,7 +162,7 @@ const Cart = () => {
             <img className="w-[30rem] object-contain h-[20rem]" src={MissingCart} alt="" />
             <span className="font-semibold">"Don't Let Your Cart Stay Empty"</span>
             <span className="font-sans">Shop Now and Find Your Next Favorite Item!</span>
-            <Link to='/allProducts'>
+            <Link to='/allProducts/all'>
             <motion.button
             whileTap={{scale:0.8}}
             className="bg-blue-600 rounded-md px-4 py-2 text-white font-sans font-medium">

@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAddresses, setUserAddress } from "./addressAction";
+import { deleteUserAddress, getAddresses, setUserAddress } from "./addressAction";
 
 const initialState = {
   loadingA: false,
-  addressInfo: {},
+  addressInfo: [],
   error: null,
   success: false, // it's for successfuly registered address
 };
@@ -34,6 +34,18 @@ const addressSlice = createSlice({
       state.success = true;
     });
     builder.addCase(getAddresses.rejected, (state, { payload }) => {
+      state.loadingA = false;
+      state.error = payload;
+    });
+    builder.addCase(deleteUserAddress.pending, (state) => {
+      state.loadingA = true;
+    });
+    builder.addCase(deleteUserAddress.fulfilled, (state, { payload }) => {
+      state.loadingA = false;
+      state.addressInfo = state.addressInfo.filter(item => item._id != payload._id);
+      state.success = true;
+    });
+    builder.addCase(deleteUserAddress.rejected, (state, { payload }) => {
       state.loadingA = false;
       state.error = payload;
     });

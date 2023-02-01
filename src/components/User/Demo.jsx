@@ -4,26 +4,19 @@ import ProductImg from "./ProductImg.jpg";
 import Stars from "./Stars";
 import { Link } from "react-router-dom";
 import { imageCompress } from "../ImageOptimize/imageCompress";
-import { useSelector } from "react-redux";
 
 const ProductCard = ({ pImage, pName, pDescription, pPrice,reviews,productId }) => {
-  const {products,filter} = useSelector(state => state.products)
   const totalRating = reviews.reduce((a,n)=> a + n.stars,0)/reviews.length // here we calculating total rating for each product according to the reviews
   return (
-    <motion.div
-    initial={{opacity: 0,scale:0}}
-    animate={{opacity: 1,scale:1}}
-    transition={{duration: 0.3}}
-    class={`flex flex-col border group relative max-w-[17rem] max-h-[24rem] cursor-pointer rounded-md overflow-hidden`}>
+    <div class="border flex flex-col justify-between border-gray-300 group relative min-h-[20rem] cursor-pointer rounded">
       <div className="overflow-hidden">
       <img
-        className="w-full h-[15rem] object-center hover:scale-110 object-cover transition-all"
+        className="w-full h-[11rem] object-center hover:scale-110 object-cover transition-all"
         src={imageCompress(pImage)}
         alt=""
         loading="lazy"
       />
       </div>
-      <div className="">
       <div className="text-yellow-300 text-xs translate-y-1 flex justify-center items-center gap-1">
         <span className="font-sans font-medium">{isNaN(totalRating) ? 0 : totalRating.toFixed(1)}</span>
         {<Stars star={totalRating} />}
@@ -45,7 +38,7 @@ const ProductCard = ({ pImage, pName, pDescription, pPrice,reviews,productId }) 
           </span>
           <span>Rs.{pPrice}</span>{" "}
         </div>
-        <Link to={`/allProducts/product/${productId}`}>
+        <Link to={`/allProducts/${productId}`}>
         <motion.button
           whileTap={{ scale: 0.8 }}
           className="bg-blue-500 dark:bg-gray-300 dark:text-gray-800 text-white w-full py-1 rounded"
@@ -54,7 +47,7 @@ const ProductCard = ({ pImage, pName, pDescription, pPrice,reviews,productId }) 
         </motion.button>
         </Link>
       </div>
-      <div class="absolute text-white top-0 flex w-full items-center justify-between overflow-hidden max-[530px]:bg-black/30 px-2 transition-all duration-200 h-[0] group-hover:h-[3rem]">
+      <div class="absolute text-white top-0 flex h-[20%] w-full items-center justify-between overflow-hidden rounded-t-xl bg-black/3 px-2 transition-all duration-200 lg:h-[0] lg:group-hover:h-[20%]">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -85,8 +78,7 @@ const ProductCard = ({ pImage, pName, pDescription, pPrice,reviews,productId }) 
           />
         </svg>
       </div>
-      </div>
-    </motion.div>
+    </div>
   );
 };
 

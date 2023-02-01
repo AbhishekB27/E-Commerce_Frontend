@@ -6,7 +6,7 @@ import useCountDown from "./useCountDown";
 const Heor3 = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
-  const { Day, Hours, Minutes, Seconds } = useCountDown("2023-01-31"); // Date Format is "Jan/27/2023" MM/DD/YY OR "2023-01-27" YY/MM/DD
+  const { Day, Hours, Minutes, Seconds } = useCountDown("2023-12-31"); // Date Format is "Jan/27/2023" MM/DD/YY OR "2023-01-27" YY/MM/DD
   return (
     <div
       ref={ref}

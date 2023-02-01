@@ -189,7 +189,7 @@ const Header = ({ setTheme, theme }) => {
               HOME
             </li>
           </Link>
-          <Link to="/men">
+          <Link to="/allProducts/men">
             <li
               onClick={closeMobileMenu}
               className="text-lg  font-semibold cursor-pointer lg:bg-gradient-to-r lg:from-[#5465ff] dark:lg:from-gray-300 dark:lg:to-gray-300 lg:to-[#5465ff] lg:bg-left-bottom lg:bg-no-repeat lg:bg-[length:0%_3px] lg:hover:bg-[length:100%_3px] text-[#5465ff] dark:text-gray-300 lg:transition-all"
@@ -197,7 +197,7 @@ const Header = ({ setTheme, theme }) => {
               MEN
             </li>
           </Link>
-          <Link to="/women">
+          <Link to="/allProducts/women">
             <li
               onClick={closeMobileMenu}
               className="text-lg  font-semibold cursor-pointer lg:bg-gradient-to-r lg:from-[#5465ff] dark:lg:from-gray-300 dark:lg:to-gray-300 lg:to-[#5465ff] lg:bg-left-bottom lg:bg-no-repeat lg:bg-[length:0%_3px] lg:hover:bg-[length:100%_3px] text-[#5465ff] dark:text-gray-300 lg:transition-all"

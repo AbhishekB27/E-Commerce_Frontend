@@ -31,237 +31,52 @@ const MyAddresses = () => {
     dispatch(setUserAddress({ address, userId }));
   };
   return (
-    <form onSubmit={handleData} className="w-full px-2 lg:translate-y-[-8rem] translate-y-0 pb-2 md:p-3 lg:rounded-md top-[-8rem] md:min-h-[27rem] md:shadow-xl dark:bg-gray-900 bg-gray-200 text-blue-600 dark:text-gray-300 lg:translate-x-[-0.5rem] md:rounded">
-      <div className="md:text-2xl space-x-2 text-lg font-semibold text-left">
-        Add Delivery Address{" "}
-        <i class="fa-solid fa-truck-fast text-sm md:text-base"></i>
-        <i class="fa-solid fa-location-dot text-sm md:text-base"></i>
-      </div>
-      <div className="">
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 p-1 md:p-4 ">
-          <div className="grid gap-5">
-            <div className="flex flex-col gap-1 justify-center items-start">
-              <label
-                className="text-sm font-semibold"
-                htmlFor="fName"
-              >
-                FullName
-              </label>
-              <input
-                onChange={handleAddress}
-                className="rounded-md p-2 w-full shadow-md outline-none text-sm text-gray-400 font-semibold font-poppins"
-                type="text"
-                name="fullName"
-                id="fName"
-              />
-            </div>
-            <div className="flex flex-col gap-1 justify-center items-start">
-              <label
-                className="text-sm font-semibold"
-                htmlFor="pName"
-              >
-                Phone Number
-              </label>
-              <input
-                onChange={handleAddress}
-                className="rounded-md p-2 w-full shadow-md outline-none text-sm text-gray-400 font-semibold font-poppins"
-                type="text"
-                name="mobileNumber"
-                id="pName"
-              />
-            </div>
-            <div className="grid grid-cols-2 max-[290px]:grid-cols-1 gap-3">
-              <div className="flex flex-col gap-1 justify-center items-start">
-                <label
-                  className="text-sm font-semibold"
-                  htmlFor="pcode"
-                >
-                  Pincode
-                </label>
-                <input
-                  onChange={handleAddress}
-                  className="rounded-md p-2 w-full shadow-md outline-none text-sm text-gray-400 font-semibold font-poppins"
-                  type="text"
-                  name="pincode"
-                  id="pCode"
-                />
-              </div>
-              <div className="flex flex-col gap-1 justify-center items-start">
-                <label
-                  className="text-sm font-semibold"
-                  htmlFor="lName"
-                >
-                  Use My Location
-                </label>
-                <motion.button
-                  whileTap={{ scale: 0.8 }}
-                  disabled
-                  className="rounded-md cursor-not-allowed p-2 group w-full shadow-md bg-gradient-to-l hover:bg-gradient-to-r from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] dark:from-gray-300 dark:to-gray-300 dark:text-gray-700 text-white outline-none text-sm font-semibold font-poppins"
-                >
-                  <i class="fa-solid fa-location-crosshairs group-hover:scale-125 transition-all"></i>
-                </motion.button>
-              </div>
-            </div>
-          </div>
-          <div className="grid gap-5">
-            <div className="grid grid-cols-2 max-[290px]:grid-cols-1 gap-3">
-              <div className="flex flex-col gap-1 justify-center items-start">
-                <label
-                  className="text-sm font-semibold"
-                  htmlFor="sName"
-                >
-                  State
-                </label>
-                <input
-                  onChange={handleAddress}
-                  className="rounded-md p-2 w-full shadow-md outline-none text-sm text-gray-400 font-semibold font-poppins"
-                  type="text"
-                  name="state"
-                  id="sName"
-                />
-              </div>
-              <div className="flex flex-col gap-1 justify-center items-start">
-                <label
-                  className="text-sm font-semibold"
-                  htmlFor="cName"
-                >
-                  City
-                </label>
-                <input
-                  onChange={handleAddress}
-                  className="rounded-md p-2 w-full shadow-md outline-none text-sm text-gray-400 font-semibold font-poppins"
-                  type="text"
-                  name="city"
-                  id="cName"
-                />
-              </div>
-            </div>
-            <div className="flex flex-col gap-1 justify-center items-start">
-              <label
-                className="text-sm font-semibold"
-                htmlFor="bName"
-              >
-                House No., Building Name
-              </label>
-              <input
-                onChange={handleAddress}
-                className="rounded-md p-2 w-full shadow-md outline-none text-sm text-gray-400 font-semibold font-poppins"
-                type="text"
-                name="houseNumber"
-                id="bName"
-              />
-            </div>
-            <div className="flex flex-col gap-1 justify-center items-start">
-              <label
-                className="text-sm font-semibold"
-                htmlFor="rName"
-              >
-                Road name, Area, Colony
-              </label>
-              <input
-                onChange={handleAddress}
-                className="rounded-md p-2 w-full shadow-md outline-none text-sm text-gray-400 font-semibold font-poppins"
-                type="text"
-                name="areaName"
-                id="rName"
-              />
-            </div>
-          </div>
-          <div className="grid grid-cols-3 max-[430px]:grid-cols-1 lg:col-span-2 gap-3">
-            <div className="flex relative flex-col gap-1 justify-center items-start">
-              <label
-                className="text-sm font-semibold"
-                htmlFor="tAddress"
-              >
-                Type of Address
-              </label>
-              <input
-                onChange={handleAddress}
-                className=" absolute peer appearance-none"
-                type="checkbox"
-                checked={checked.home}
-                onClick={() => setChecked({ home: true, work: false })}
-                name="type"
-                id="home"
-                value="home"
-              />
-              <label
-                className="rounded-md peer-checked:border-blue-600 peer-checked:text-blue-600 cursor-pointer border border-[#ccc] p-2 w-full outline-none text-sm text-gray-400 font-semibold font-poppins"
-                htmlFor="home"
-              >
-                <i class="fa-solid fa-house px-2"></i>Home
-              </label>
-            </div>
-            <div className="flex relative flex-col gap-1 justify-end items-center">
-              <input
-                onChange={handleAddress}
-                className=" absolute peer appearance-none"
-                type="checkbox"
-                checked={checked.work}
-                onClick={(event) => {
-                  setChecked({
-                    home: false,
-                    work: true,
-                    value: event.target.value,
-                  });
-                }}
-                name="type"
-                id="work"
-                value="work"
-              />
-              <label
-                className="rounded-md peer-checked:border-blue-600 peer-checked:text-blue-600 cursor-pointer border border-[#ccc] p-2 w-full outline-none text-sm text-gray-400 font-semibold font-poppins"
-                htmlFor="work"
-              >
-                <i class="fa-regular fa-building px-2"></i>Work
-              </label>
-            </div>
-            <div className="flex flex-col border border-transparent gap-1 justify-end items-center">
-              <motion.button
-                disabled={loadingA ? true : false}
-                whileTap={{ scale: 0.8 }}
-                type="submit"
-                className="rounded-md p-2 group w-full shadow-md bg-gradient-to-l hover:bg-gradient-to-r from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] dark:from-gray-300 dark:to-gray-300 dark:text-gray-700 text-white outline-none text-sm font-semibold font-poppins"
-              >
-                Add Address{" "}
-                <i class="fa-solid fa-plus pl-1 group-hover:scale-125 transition-all"></i>
-              </motion.button>
-            </div>
-          </div>
+    <div className="w-full px-2 lg:translate-y-[-8rem] translate-y-0 pb-2 space-y-2 md:p-3 lg:rounded-md top-[-8rem] md:min-h-[27rem] md:shadow-xl dark:bg-gray-900 bg-gray-200 text-blue-600 dark:text-gray-300 lg:translate-x-[-0.5rem] md:rounded">
+      <div className="text-left font-semibold grid place-content-start w-full text-lg md:text-2xl">
+        My Addresses
+        <div className="flex gap-2">
+          <span className="text-xs grid place-items-center sm:text-sm font-sans font-normal px-2 py-1 rounded-sm bg-white/70 dark:bg-white/30 w-fit">
+            SAVED ADDRESS {addressInfo.length}
+          </span>
+          <motion.button
+            whileTap={{ scale: 0.8 }}
+            transition={{ duration: 0.1 }}
+            className="bg-blue-500 dark:bg-gray-300 dark:text-gray-800 w-fit font-sans font-medium text-base text-white px-2 py-1 rounded"
+          >
+            {" "}
+            <i class="fa-regular fa-plus"></i> Add Address
+          </motion.button>
         </div>
       </div>
-      <div className="">
-        <div className="text-left font-semibold text-lg md:text-2xl">
-          Saved Addresses :
-        </div>
-        <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
-          {loadingA ? (
-            <div className="w-full min-h-[10.5rem]">
-              <span className="leading-[1] block w-full h-full">
-                {" "}
-                <Skeleton
-                  baseColor="#c0c2c9"
-                  highlightColor="#E2E8F0"
-                  width="100%"
-                  height="100%"
-                />{" "}
-              </span>
-            </div>
-          ) : addressInfo.length > 0 ? (
-            addressInfo.map((item, index) => {
+      <div className="grid gap-2">
+        {loadingA ? (
+          <div className="w-full min-h-[10.5rem]">
+            <span className="leading-[1] block w-full h-full">
+              {" "}
+              <Skeleton
+                baseColor="#c0c2c9"
+                highlightColor="#E2E8F0"
+                width="100%"
+                height="100%"
+              />{" "}
+            </span>
+          </div>
+        ) : (
+          <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
+            {addressInfo.map((item, index) => {
               return (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, scale: 0}}
+                  initial={{ opacity: 0, scale: 0 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{
                     duration: 0.8,
                     delay: 0.5,
                     ease: [0, 0.71, 0.2, 1.01],
                   }}
-                  className="sm:max-w-[30rem] relative w-full flex flex-col overflow-hidden justify-center items-start px-3 py-2 border-2 border-dashed border-green-400 dark:border-gray-700 bg-green-500/30 dark:bg-gray-800 font-sans font-normal"
+                  className="sm:max-w-[30rem] relative w-full flex flex-col overflow-hidden justify-center items-start px-3 py-2 bg-white/70 dark:bg-white/30 font-sans font-normal"
                 >
-                  <div className="absolute top-[-2.5rem] right-[-2.5rem] w-[5rem] h-[5rem] rotate-45 bg-green-500 dark:bg-gray-700 text-white">
+                  <div className="absolute top-[-2.5rem] right-[-2.5rem] w-[5rem] h-[5rem] rotate-45 bg-blue-500 dark:bg-gray-700 text-white">
                     {true ? (
                       <i class="absolute left-[2rem] bottom-[0.55rem] rotate-[-45deg] fa-solid fa-house"></i>
                     ) : (
@@ -269,12 +84,13 @@ const MyAddresses = () => {
                     )}
                   </div>
                   <div className="font-medium">Address {index + 1}</div>
-                  <div className="text-left">
+                  <div className="text-left flex flex-col">
                     <span>{item.fullName}</span>
-                    <span> ,{item.houseNumber}</span>
-                    <span>
-                      , {item.areaName}, {item.city}
-                    </span>
+                    <div>
+                      <span> {item.houseNumber},</span>
+                      <span>{item.areaName}</span>
+                    </div>
+                    {item.city}
                     <div>
                       {" "}
                       <span>{item.state}</span> <span>, {item.pincode}</span>{" "}
@@ -284,31 +100,27 @@ const MyAddresses = () => {
                       {item.mobileNumber}
                     </span>
                   </div>
-                  <div className="font-medium flex gap-3 justify-start items-center">
-                    <button>
+                  <div className="font-medium flex gap-3 justify-start items-center self-end">
+                    <motion.button
+                      whileTap={{ scale: 0.8 }}
+                      transition={{ duration: 0.1 }}
+                    >
                       <i class="pr-2 fa-solid fa-trash-can"></i>Remove
-                    </button>
-                    <button>
+                    </motion.button>
+                    <motion.button
+                      whileTap={{ scale: 0.8 }}
+                      transition={{ duration: 0.1 }}
+                    >
                       <i class="pr-2 fa-solid fa-pen-to-square"></i>Edit
-                    </button>
+                    </motion.button>
                   </div>
                 </motion.div>
               );
-            })
-          ) : (
-            <div className="grid place-items-center border-2 border-dashed border-blue-600 font-semibold">
-              {" "}
-              <img
-                className="w-[6rem] md:w-[10rem] h-[6rem] md:h-[10rem]"
-                src={EmptyA}
-                alt=""
-              />{" "}
-              No Address{" "}
-            </div>
-          )}
-        </div>
+            })}
+          </div>
+        )}
       </div>
-    </form>
+    </div>
   );
 };
 

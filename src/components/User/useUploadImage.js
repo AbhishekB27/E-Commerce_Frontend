@@ -7,7 +7,7 @@ const useUploadImage = () => {
 
   const [detail, setDetail] = useState({url:null,img:null,progress:0,error:false});
   const types = ["image/png", "image/jpeg", "image/jpg"];
-  const handleImage = (event) => {
+  const handleImage = (event,setFieldValue) => {
     const file = Array.from(event.target.files)
     console.log(file)
     file.map(image => {
@@ -29,6 +29,7 @@ const useUploadImage = () => {
             async () => {
                 await getDownloadURL(uploadTask.snapshot.ref)
                 .then((downloadURL) => {
+                  setFieldValue(event.target.name,downloadURL)
                 setDetail(prev => {return {...prev,url:downloadURL}})
                 }).catch((error) => {
                     console.log(error);

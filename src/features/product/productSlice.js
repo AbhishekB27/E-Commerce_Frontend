@@ -32,12 +32,20 @@ const productSlice = createSlice({
     },
     filterCategory: (state, action) => {
       const allProducts = state.products
-      allProducts.filter(product => console.log(product.category === action.payload.category))
+      // allProducts.filter(product => console.log(product.category === action.payload.category))
       state.filter = allProducts.filter(product => product.category === action.payload.category || action.payload.category === 'All')
     },
     filterBrand: (state, action) => {
       const allProducts = state.products
       state.filter = allProducts.filter(product => product.brand === action.payload.brand)
+    },
+    filterSize: (state, action) => {
+      const allProducts = state.products
+      state.filter = allProducts.filter(product => product.size.includes( action.payload.size))
+    },
+    filterGender: (state, action) => {
+      const allProducts = state.products
+      state.filter = allProducts.filter(product => product.gender === action.payload.gender)
     },
   },
   extraReducers: (builder) => {
@@ -92,4 +100,4 @@ const productSlice = createSlice({
 });
 
 export default productSlice.reducer;
-export const { sortProducts, filterBrand,filterCategory } = productSlice.actions;
+export const { sortProducts, filterBrand,filterCategory,filterSize,filterGender } = productSlice.actions;

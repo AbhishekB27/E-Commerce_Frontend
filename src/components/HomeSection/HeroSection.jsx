@@ -2,6 +2,7 @@ import React from "react";
 import Heor3 from "./Heor3";
 import Hero1 from "./Hero1";
 import Hero2 from "./Hero2";
+import Hero4 from "./Hero4";
 
 const HeroSection = () => {
   return (
@@ -9,6 +10,7 @@ const HeroSection = () => {
       <div className="relative container grid gap-7 min-h-[85vh] h-auto">
         <Hero1 />
         <Hero2 />
+        <Hero4/>
         <Heor3 />
       </div>
     </div>

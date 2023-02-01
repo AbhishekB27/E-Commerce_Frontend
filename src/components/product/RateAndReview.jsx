@@ -194,7 +194,10 @@ const RateAndReview = () => {
           </div>
         </>
       )}
-      <div className="w-full md:max-w-[40rem] grid gap-2 place-items-center px-3 py-2 rounded-lg dark:bg-gray-700 bg-slate-200">
+      <div className="w-full relative md:max-w-[40rem] grid gap-2 place-items-center px-3 py-2 rounded-lg dark:bg-gray-700 bg-slate-200">
+      <i class="fa-light fa-circle-info cursor-pointer absolute top-0 right-[5px] m- text-lg font-bold group"> <span className="absolute w-[12rem] min-h-[5rem] grid place-items-center group-hover:opacity-100 transition-opacity text-sm font-sans font-normal dark:bg-gray-300/30 dark:text-gray-300 bg-gray-800/70 text-gray-300 px-3 py-1 rounded bottom-[-5rem] right-[-0.1rem] opacity-0 before:content-[''] before:absolute before:bottom-[100%] before:left-[92%] before:border-solid before:border-[5px] before:border-transparent before:border-b-gray-800/70 dark:before:border-b-gray-300/30">
+        Previous Review Default. If Customer already reviewed the product.
+        </span> </i>
         <span className="text-xl md:text-2xl lg:text-3xl">Rate And Review</span>
         <span className="text-sm md:text-lg lg:text-xl">
           Your Opinion matter to us!
