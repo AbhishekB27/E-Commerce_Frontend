@@ -20,8 +20,8 @@ import Products from "./product/Products";
 import Products2 from "./User/Products";
 import ProductD from "./product/ProductD";
 import Cart from "./product/Cart";
-import ShippingAddress from "./product/forms/ShippingAddress";
 import PaymentUI from "./product/forms/PaymentUI";
+import CheckOutSuccess from "./product/forms/CheckOutSuccess";
 
 
 const MyApp = () => {
@@ -39,8 +39,6 @@ const MyApp = () => {
   const MyOrders = React.lazy(() => import("./User/MyOrders"));
   const MyAddresses = React.lazy(() => import("./User/MyAddresses"));
   const Cart = React.lazy(() => import("./product/Cart"));
-  const Checkout = React.lazy(() => import("./product/Checkout"))
-  const ShippingAddress = React.lazy(() => import("./product/forms/ShippingAddress"))
   useEffect(() => {
     if (userToken) {
       dispatch(getUserProfile());
@@ -99,10 +97,7 @@ const MyApp = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
           <Route path="/cartItems" element={<Cart />} />
-          <Route path="/checkout" element={<Checkout/>}>
-            <Route index element={<ShippingAddress/>}/>
-          <Route path='/checkout/payment' element={<PaymentUI/>}/>
-          </Route>
+          <Route path="/checkOut-success" element={<CheckOutSuccess/>}/>
           <Route element={<Protected />}>
             <Route path="/user/:userId" element={<UserProfile />}>
               <Route index element={<Dashboard />} />

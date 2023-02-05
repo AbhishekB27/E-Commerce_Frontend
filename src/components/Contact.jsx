@@ -18,7 +18,11 @@ const Contact = () => {
     onSubmit: handleForm,
   });
   return (
-    <div className="min-h-[560px] flex items-start justify-center">
+    <motion.div
+    initial={{opacity:0,scale:0}}
+    animate={{opacity:1,scale:1}}
+    transition={{duration:0.3}}
+    className="min-h-[560px] flex items-start justify-center">
       <div className="container flex flex-col justify-start h-full">
         <form
           onSubmit={formik.handleSubmit}
@@ -35,16 +39,16 @@ const Contact = () => {
               </h5>
             </div>
             <div className="grid space-y-5 font-sans font-medium text-center lg:text-left">
-              <h6 className="lg:w-[50%] w-full space-x-1 p-2 rounded-md hover:ring-2 dark:ring-gray-300 ring-blue-500">
+              <h6 className="w-full space-x-1 p-2 rounded-md hover:ring-2 dark:ring-gray-300 ring-blue-500">
                 {" "}
                 <i class="fa-solid fa-phone"></i> <span>+0123 4567 8901</span>{" "}
               </h6>
-              <h6 className="lg:w-[50%] w-full space-x-1 p-2 rounded-md hover:ring-2 dark:ring-gray-300 ring-blue-500">
+              <h6 className="w-full space-x-1 p-2 rounded-md hover:ring-2 dark:ring-gray-300 ring-blue-500">
                 {" "}
                 <i class="fa-solid fa-envelope"></i>{" "}
                 <span>abStore12@gmail.com</span>{" "}
               </h6>
-              <h6 className="lg:w-[50%] w-full text-left space-x-1 p-2 rounded-md hover:ring-2 dark:ring-gray-300 ring-blue-500">
+              <h6 className="w-full text-left space-x-1 p-2 rounded-md hover:ring-2 dark:ring-gray-300 ring-blue-500">
                 {" "}
                 <i class="fa-solid fa-location-dot"></i>{" "}
                 <span>H.No 114, Prashad Farm Road Nakraunda</span>{" "}
@@ -137,7 +141,7 @@ const Contact = () => {
           </div>
         </form>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

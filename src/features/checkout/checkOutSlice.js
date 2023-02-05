@@ -1,26 +1,29 @@
 import { createSlice } from "@reduxjs/toolkit"
-
+import { stripeCheckout } from "./checkoutAction";
 const initialState = {
-    items:[],
-    totalPrice:0,
-    shippingAddress:{},
-    orderDetails:[]
+    checkoutL: false,
+    url:null,
+    status:false
 }
 
 const checkOutSlice = createSlice({
     name:'checkout',
     initialState,
-    reducers:{
-        addItemToCheckout: (state, action) => {
-            state.items = action.payload.items
-            state.totalPrice = action.payload.totalPrice
-        },
-        addShipping: (state, action) => {
-            state.shippingAddress = action.payload.shippingAddress
-            // console.log( action.payload.shippingAddress)
-        }
-    },
-    extraReducers:{}
+    reducers:{},
+    extraReducers:(builder) => {
+        builder.addCase(stripeCheckout.pending, (state)=>{
+            state.checkoutL = true
+        })
+        builder.addCase(stripeCheckout.fulfilled, (state,{payload})=>{
+            state.checkoutL = false
+            state.url = payload
+            state.status = true
+        })
+        builder.addCase(stripeCheckout.rejected, (state,{payload})=>{
+            state.checkoutL = false
+            state.url = payload
+            state.status = false
+        })
+    }
 })
 export default checkOutSlice.reducer
-export const {addItemToCheckout,addShipping} = checkOutSlice.actions

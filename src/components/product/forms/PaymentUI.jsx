@@ -7,8 +7,19 @@ import MasterCard from "./images/MasterCard.png";
 import DCI1 from "./images/DCI1.png";
 import PaymentSchema from "./paymentSchema";
 import { useRef } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const PaymentUI = () => {
+  const {items, shippingAddress,totalPrice} = useSelector(state => state.checkout)
+  const navigate = useNavigate()
+  useEffect(() => {
+    if(items.length === 0 && Object.keys(shippingAddress).length === 0){
+      navigate('/cartItems')
+    }
+  }, [items,shippingAddress])
+  
   const initialValues = {
     cardNumber: "",
     fullName: "",
@@ -50,11 +61,11 @@ const PaymentUI = () => {
   };
   return (
     <div className="space-y-2">
-      <div className="text-3xl bg-blue-600/70 dark:bg-gray-700 dark:text-gray-300 text-white py-2 font-sans font-medium">
+      <div className="text-lg md:text-xl lg:text-2xl bg-blue-600/70 dark:bg-gray-700 dark:text-gray-300 text-white py-2 font-sans font-medium">
         Payment
       </div>
       <form onSubmit={formik.handleSubmit} className="bg-gray-100 dark:bg-gray-700 w-full">
-        <div className="grid w-full min-h-[90vh] lg:grid-cols-[auto_24rem]">
+        <div className="grid w-full min-h-[35rem] lg:grid-cols-[auto_24rem]">
           <div className="flex flex-col space-y-[0.80rem] gap-2 lg:gap-0 py-1 lg:px-5 lg:py-1">
             <div className="flex justify-between items-center">
              
@@ -417,7 +428,7 @@ const PaymentUI = () => {
                 <span className="text-xs text-slate-400 font-medium">
                   You have to pay
                 </span>
-                <span className="text-xl font-medium">549.99 USD</span>
+                <span className="text-xl font-medium"><i class="fa-regular fa-indian-rupee-sign"></i> {totalPrice}.00</span>
               </div>
               <div className="w-full grid place-items-center border-yellow-200">
                 <i class="fa-solid fa-file-invoice text-2xl"></i>

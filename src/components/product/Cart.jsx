@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { decrementQuantity, incrementQuantity, removeItem } from "../../features/cart/cartSlice";
 import { addItemToCheckout } from "../../features/checkout/checkOutSlice";
 import { imageCompress } from "../ImageOptimize/imageCompress";
+import PayButton from "./forms/PayButton";
 import MissingCart from './MissingCartItem.png';
 
 const Cart = () => {
@@ -143,13 +144,13 @@ const Cart = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col text-sm px-2 py-1 md:text-base w-full md:w-auto justify-center items-start">
+              <div className="flex flex-col text-xs px-2 py-1 md:text-sm w-full md:w-auto justify-center items-start">
                 <div className="border-b-2 border-gray-300 w-full text-left font-sans font-medium">Order Summary -:</div>
                 <div className="flex w-full justify-between items-center py-1"><span className="font-semibold">Sub Total</span> <span className="font-sans font-medium"><i class="fa-light fa-indian-rupee-sign"></i>{totalPrice}</span> </div>
-                <div className="flex w-full justify-between items-center py-1"><span className="font-semibold">Shipping Charges</span> <span className="font-sans">{totalPrice > 4999 ? <span className="bg-green-200 text-green-500 rounded-md text-sm px-2 py-[2px]">Free Shipping <i class="fa-solid fa-truck-fast"></i></span> : <><i class="fa-light fa-indian-rupee-sign"></i>99</>}</span> </div>
-                <div className="flex w-full justify-between items-center py-"><span className="font-semibold">Coupon Code</span> <input placeholder="COUPON-CODE" className="rounded-md text-base outline-none px-3 py-1 w-[40%] dark:bg-gray-300/30" type="text" name="" id="" /> </div>
+                <div className="flex w-full justify-between items-center py-1"><span className="font-semibold">Shipping Charges</span> <span className="font-sans">{totalPrice > 4999 ? <span className="bg-green-200 text-green-500 rounded-md text-sm px-[6px] py-[2px]">Free Shipping <i class="fa-solid fa-truck-fast"></i></span> : <><i class="fa-light fa-indian-rupee-sign"></i>99</>}</span> </div>
+                <div className="flex w-full justify-between items-center py-"><span className="font-semibold">Coupon Code</span> <input placeholder="COUPON-CODE" className="rounded-md text-base outline-none px-3 py-1 w-[40%] dark:bg-gray-700" type="text" name="" id="" /> </div>
                 <div className="flex w-full justify-between items-center py-1"><span className="font-semibold">Total</span> <span className="font-sans font-medium"><i class="fa-light fa-indian-rupee-sign"></i>{totalPrice + (totalPrice > 4999 ? 0 : 99)}</span> </div>
-                <Link className="w-full" to='/checkout'> <motion.button onClick={()=>{dispatch(addItemToCheckout({items:cart,totalPrice:totalPrice}))}} whileTap={{scale:0.8}} className="w-full text-sm md:text-base md:mt-0 mt-2 text-white font-sans font-normal md:font-medium  dark:bg-gray-300 dark:text-gray-800 bg-blue-600 px-4 py-2 rounded-md"> <i class="fa-solid fa-shield-halved"></i> Secure Checkout</motion.button> </Link>
+                <PayButton cartItems={cart}/>
               </div>
             </div>
           </>

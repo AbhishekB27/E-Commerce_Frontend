@@ -230,7 +230,7 @@ const ProductD = () => {
                       >
                         {"\u2212"}
                       </motion.button>
-                      <div className="grid place-items-center font-sans bg-gray-100 font-medium w-full">
+                      <div className="grid place-items-center font-sans bg-gray-100 dark:text-gray-800 font-medium w-full">
                         {" "}
                         <span className="font-sans font-normal">
                           {quantity}

@@ -123,12 +123,12 @@ const UserProfile = () => {
                       </span>
                     </button>{" "}
                   </Link>
-                  <Link to={`/user/${userInfo._id}/myOrders`}>
+                  {/* <Link to={`/user/${userInfo._id}/myOrders`}>
                     {" "}
                     <button className="w-full outline-none  lg:hover:bg-blue-600/30 lg:dark:hover:bg-gray-300/30 cursor-pointer text-left max-[320px]:text-sm text-base md:text-lg font-semibold flex justify-start items-center gap-2 px-3 py-1">
                       <i class="fa-light fa-box"></i>My Orders
                     </button>{" "}
-                  </Link>
+                  </Link> */}
                   <Link to={`/user/${userInfo._id}/myAddresses`}>
                     {" "}
                     <button className="w-full outline-none lg:hover:bg-blue-600/30 lg:dark:hover:bg-gray-300/30 cursor-pointer text-left max-[320px]:text-sm text-base md:text-lg font-semibold flex justify-start items-center gap-2 px-3 py-1">
