@@ -12,6 +12,7 @@ import MissingCart from './MissingCartItem.png';
 
 const Cart = () => {
   const { cart,totalPrice } = useSelector((state) => state.cart);
+  console.log(cart)
   const dispatch = useDispatch();
   return (
     <div className="min-h-[560px] grid place-items-center">

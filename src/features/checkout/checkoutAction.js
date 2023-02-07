@@ -12,6 +12,7 @@ export const stripeCheckout = createAsyncThunk(
             if(success){
                 toast.success(message,{position:'top-center'})
                 window.location.href = data.url
+                console.log(data)
                 return data
             }else{
                 toast.error(message,{position:'top-center'})
