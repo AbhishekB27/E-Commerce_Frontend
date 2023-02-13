@@ -6,7 +6,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { Link, Outlet } from "react-router-dom";
 import { motion } from "framer-motion";
 
-const UserProfile = () => {
+const Dashboard = () => {
   const { userInfo, loading, success } = useSelector((state) => state.user);
   const [toggle, setToggle] = useState(false);
   const handleProfile = (event) => {
@@ -76,7 +76,7 @@ const UserProfile = () => {
                   )}
                 </span>
               </div>
-              <span className="text-xs translate-y-[-0.25rem] font-sans font-medium">
+              <span className="text-xs translate-y-[-0.25rem] px-2 font-sans font-medium">
                 {userInfo.email}
               </span>
               <motion.button
@@ -113,61 +113,55 @@ const UserProfile = () => {
                 <div
                   className={`absolute lg:static ${
                     bar ? "h-[13.15rem]" : "h-0"
-                  } text-blue-600 lg:h-auto w-full lg:w-auto top-[2rem] flex lg:block flex-col justify-evenly items-center transition-all bg-white dark:bg-gray-800 dark:text-gray-300 z-10 lg:overflow-visible overflow-hidden`}
+                  } text-blue-600 lg:h-auto w-full font-sans font-medium lg:w-auto top-[2rem] flex lg:block flex-col justify-evenly items-center transition-all bg-white dark:bg-gray-800 dark:text-gray-300 z-10 lg:overflow-visible overflow-hidden`}
                 >
-                  <Link to={`/user/${userInfo._id}`}>
-                    {" "}
-                    <button className="w-full outline-none overflow-hidden transition-all lg:hover:bg-blue-600/30 lg:dark:hover:bg-gray-800/30 cursor-pointer text-left max-[320px]:text-sm text-base md:text-lg font-semibold flex flex-col justify-center items-start gap-2 px-3 py-1">
-                      <span className="flex justify-start items-center gap-2">
-                        <i class="fa-solid fa-house"></i>Dashboard
-                      </span>
-                    </button>{" "}
-                  </Link>
                   {/* <Link to={`/user/${userInfo._id}/myOrders`}>
                     {" "}
                     <button className="w-full outline-none  lg:hover:bg-blue-600/30 lg:dark:hover:bg-gray-300/30 cursor-pointer text-left max-[320px]:text-sm text-base md:text-lg font-semibold flex justify-start items-center gap-2 px-3 py-1">
                       <i class="fa-light fa-box"></i>My Orders
                     </button>{" "}
                   </Link> */}
-                  <Link to={`/user/${userInfo._id}/myAddresses`}>
+                  {userInfo.role === 0 ? <>
+                    <Link to={`/user/${userInfo._id}`}>
                     {" "}
-                    <button className="w-full outline-none lg:hover:bg-blue-600/30 lg:dark:hover:bg-gray-300/30 cursor-pointer text-left max-[320px]:text-sm text-base md:text-lg font-semibold flex justify-start items-center gap-2 px-3 py-1">
-                      <i class="fa-solid fa-location-dot"></i>My Address
+                    <button className="w-full outline-none overflow-hidden transition-all lg:hover:bg-blue-600/30 lg:dark:hover:bg-gray-800/30 cursor-pointer text-left max-[320px]:text-sm text-base md:text-lg  grid grid-cols-[1rem_auto] place-items-center place-content-start gap-2 px-3 py-1">
+                    <i class="fa-solid text-sm fa-house"></i> <span>Dashboard</span>
+                    
                     </button>{" "}
                   </Link>
-                  {userInfo.role === 0 ? (
-                    <div
-                      className={`flex flex-col lg:justify-start justify-center lg:items-stretch items-center cursor-pointer lg:w-auto w-full lg:hover:bg-blue-600/30 lg:dark:hover:bg-gray-300/30 transition-all overflow-hidden ${
-                        toggle ? "h-[4rem]" : "h-[2.25rem]"
-                      }`}
-                    >
-                      <Link to={`/user/${userInfo._id}/products`}>
+                    <Link to={`/user/${userInfo._id}/products`}>
                         <button
                           onClick={() => setToggle(!toggle)}
-                          className="w-full outline-none text-center max-[320px]:text-sm text-base md:text-lg font-semibold flex justify-center lg:justify-start items-center gap-2 px-3 py-1"
+                          className="w-full outline-none lg:hover:bg-blue-600/30 lg:dark:hover:bg-gray-300/30 cursor-pointer text-left max-[320px]:text-sm text-base md:text-lg font-semibold grid grid-cols-[1rem_auto] place-items-center place-content-start gap-2 px-3 py-1"
                         >
-                          <i class="fa-regular fa-box-open"></i>Products{" "}
-                          <i
-                            class={`fa-regular fa-chevron-right transition-all ${
-                              toggle ? "rotate-[90deg]" : "rotate-[0deg]"
-                            } translate-y-[2px]`}
-                          ></i>
+                          <i class="fa-regular fa-box-open"></i><span>Products</span>{" "}
                         </button>
                       </Link>
                       <Link to={`/user/${userInfo._id}/products/addProduct`}>
                         <button
-                          className={`text-sm font-sans font-medium lg:hover:bg-blue-600/30 lg:dark:hover:bg-gray-300/30 px-2 py-1 ${
-                            toggle ? "block" : "hidden"
-                          } text-center pl-[2.6rem] lg:text-left w-fit lg:w-full`}
+                          className={`w-full outline-none lg:hover:bg-blue-600/30 lg:dark:hover:bg-gray-300/30 cursor-pointer text-left max-[320px]:text-sm text-base md:text-lg font-semibold grid grid-cols-[1rem_auto] place-items-center place-content-start gap-2 px-3 py-1`}
                         >
-                          Add Product{" "}
                           <i class="fa-solid fa-hand-holding-box"></i>
+                          <span>Add Product</span>{" "}
                         </button>
                       </Link>
-                    </div>
-                  ) : (
+                      <Link to={`/user/${userInfo._id}/orders`}>
+                        <button
+                          className={`w-full outline-none lg:hover:bg-blue-600/30 lg:dark:hover:bg-gray-300/30 cursor-pointer text-left max-[320px]:text-sm text-base md:text-lg font-semibold grid grid-cols-[1rem_auto] place-items-center place-content-start gap-2 px-3 py-1`}
+                        >
+                          <i class="fa-solid fa-clipboard"></i>
+                          <span>Orders</span>{" "}
+                        </button>
+                      </Link>
+                  </> : (
                     ""
                   )}
+                    <Link to={`/user/${userInfo._id}${userInfo.role === 0 ?'/myAccount' : ''}`}>
+                    {" "}
+                    <button className="w-full outline-none lg:hover:bg-blue-600/30 lg:dark:hover:bg-gray-300/30 cursor-pointer text-left max-[320px]:text-sm text-base md:text-lg font-semibold grid grid-cols-[1rem_auto] place-items-center place-content-start gap-2 px-3 py-1">
+                    <i class="fa-solid fa-user"></i> <span>My Account</span>
+                    </button>{" "}
+                  </Link>
                 </div>
               </div>
             </div>
@@ -184,4 +178,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default Dashboard;

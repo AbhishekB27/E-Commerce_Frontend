@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getUserProfile, signUpUser, userLogin } from "./userAction";
+import { getUserProfile, signUpUser, updateUser, userLogin } from "./userAction";
 
 // set access token to local storage after successful login
 const access_Token = localStorage.getItem("access_token") ?? null; // here we use nullish coalescing operator
@@ -64,6 +64,19 @@ const userSlice = createSlice({
       state.error = payload;
       state.userToken = false
     });
+    builder.addCase(updateUser.pending,(state,{ payload }) => {
+      state.loading = true;
+    })
+    builder.addCase(updateUser.fulfilled,(state,{ payload }) => {
+      state.loading = false;
+      state.userInfo = payload;
+      state.success = true;
+    })
+    builder.addCase(updateUser.rejected,(state,{ payload }) => {
+      state.loading = false;
+      state.error = payload;
+      state.userToken = false
+    })
   },
 });
 

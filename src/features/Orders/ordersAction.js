@@ -2,19 +2,16 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import axiosInstance from "../../axiosInstance";
 
-export const stripeCheckout = createAsyncThunk(
-       '/stripe-checkout',
-    async ({cartItems,uId},{rejectWithValue}) => {
-        console.log(uId)
+export const getOrders = createAsyncThunk(
+    "/getOrders",
+    async ({cId},{rejectWithValue})=>{
+        console.log(cId);
         try {
-            const response = await axiosInstance.post('/stripe/create-checkout-session',{ cartItems, uId })
+            const response = await axiosInstance.get(`/orders/getOrders/${cId}`)
             const {success, data, message} = response.data
             if(success){
-                window.location.href = data.url
-                console.log(data)
                 return data
             }else{
-                toast.error(message,{position:'top-center'})
                 return data
             }
         } catch (error) {
@@ -26,7 +23,7 @@ export const stripeCheckout = createAsyncThunk(
                 return rejectWithValue(error.response.data.message);
               } else {
                 console.log(error.message)
-                toast.error(`${error.message}😟`,{position:'top-center'});
+                toast.error(`${error.message}😟`);
                 return rejectWithValue(error.message);
               }
         }

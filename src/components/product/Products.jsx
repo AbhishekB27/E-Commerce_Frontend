@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
@@ -16,17 +16,20 @@ const Products = () => {
   const [color, setColor] = useState(false);
   const [brand, setBrand] = useState(false);
   const [size, setSize] = useState(false);
-  const [filter, setFilter] = useState(false);
+  const [filterT, setFilter] = useState(false);
   const [checked, setChecked] = useState("");
   const [checkedS, setCheckedS] = useState("");
   const dispatch = useDispatch();
 
-  const { products } = useSelector((state) => state.products);
+  const { products,filter } = useSelector((state) => state.products);
   // console.log(Array.from(new Set(products.map((item) => item.size).flat())));
   // console.log(Array.from(new Set(products.map((item) => item.brand))));
-
+  // useEffect(() => {
+  // window.scrollTo(0,0) // go to top of page
+  // },[filter])
+  
   return (
-    <div className="w-full flex flex-col justify-start h-auto items-start px-5">
+    <div className="w-full h-auto grid place-items-center px-5">
       <div className="w-full max-w-[1384px] p-1 border-none md:border border-gray-300 grid lg:grid-rows-[6rem_auto] md:grid-rows-[5rem_auto] grid-rows-[4rem_auto] gap-2 h-auto min-h-[560px]">
         <div className="bg-blue-600/3 flex max-[350px]:flex-col  justify-between items-center px-3 border-b border-gray-300">
           <div className="lg:text-xl md:text-lg text-sm font-semibold">
@@ -97,7 +100,7 @@ const Products = () => {
             </button>
             <i
               onClick={() => {
-                setFilter(!filter);
+                setFilter(!filterT);
               }}
               class="fa-solid cursor-pointer fa-filter lg:hidden lg:text-2xl md:text-xl text-lg font-medium"
             ></i>
@@ -106,7 +109,7 @@ const Products = () => {
         <div className="grid grid-cols-1 lg:grid-cols-[18rem_auto] relative gap-1">
           <div
             className={`lg:px-2 p-2 lg:static text-sm md:text-base absolute bg-black/3 ${
-              filter ? "w-[0rem] opacity-0" : "w-[70%] sm:w-[18rem] opacity-100"
+              filterT ? "w-[0rem] opacity-0" : "w-[70%] sm:w-[18rem] opacity-100"
             } lg:w-[18rem] lg:opacity-100 z-10 bg-white dark:bg-gray-800 transition-all right-0 h-auto overflow-auto invisibleScrollBar`}
           >
             <div className="min-h-full text-left bg-purple-5">
@@ -116,9 +119,9 @@ const Products = () => {
               <ul className="px-2 py-3 space-y-1 font-sans font-medium text-left">
                <Link to='/allProducts/all'>
                <li
-                  onClick={() => {
-                    dispatch(filterCategory({ category: "All" }));
-                  }}
+                  // onClick={() => {
+                  //   dispatch(filterCategory({ category: "All" }));
+                  // }}
                   className="block px-2 py-3 cursor-pointer"
                 >
                   All
@@ -126,9 +129,9 @@ const Products = () => {
                </Link>
                 <Link to='/allProducts/hot'>
                 <li
-                  onClick={() => {
-                    dispatch(filterCategory({ category: "Hot" }));
-                  }}
+                  // onClick={() => {
+                  //   dispatch(filterCategory({ category: "Hot" }));
+                  // }}
                   className="block px-2 py-3 cursor-pointer"
                 >
                   Hot Collection
@@ -136,9 +139,9 @@ const Products = () => {
                 </Link>
                 <Link to='/allProducts/shoes'>
                 <li
-                  onClick={() => {
-                    dispatch(filterCategory({ category: "Shoes" }));
-                  }}
+                  // onClick={() => {
+                  //   dispatch(filterCategory({ category: "Shoes" }));
+                  // }}
                   className="block px-2 py-3 cursor-pointer"
                 >
                   Shoes

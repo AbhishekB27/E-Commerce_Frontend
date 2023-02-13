@@ -35,7 +35,7 @@ const ProductD = () => {
       const totalRating = reviews.reduce((a, n) => a + n.stars, 0) / reviews.length || 0; // here we calculating total rating for each product according to the reviews
       setReview(totalRating);
     }
-  }, [successR]);
+  }, [successR,reviews]);
   useEffect(() => {
     setCart(prev => {return {...prev,quantity:quantity}})
   }, [quantity]);
@@ -96,11 +96,13 @@ const ProductD = () => {
           ) : (
             products.map((item) => {
               return (
-                <img
+                <div className="bg-slate-100 w-full grid place-items-center">
+                  <img
                   className="max-h-[30rem]"
                   src={`${imageCompress(item.imageURL)}`}
                   alt=""
                 />
+                </div>
               );
             })
           )}

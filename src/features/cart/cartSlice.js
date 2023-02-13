@@ -70,8 +70,14 @@ const cartSlice = createSlice({
       );
       toast.success("Removed", { position: "top-center" });
     },
+    clearCart: (state,action) => {
+      state.cart = []
+      state.totalPrice = 0;
+      localStorage.setItem("cart", JSON.stringify([]));
+
+    }
   },
 });
 export default cartSlice.reducer;
-export const { addToCart, removeItem, incrementQuantity, decrementQuantity } =
+export const { addToCart, removeItem, incrementQuantity, decrementQuantity, clearCart } =
   cartSlice.actions;

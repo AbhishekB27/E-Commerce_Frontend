@@ -8,7 +8,7 @@ import { getProducts } from "../../features/product/productAction";
 import ProductCard from "./ProductCard";
 import { getReview } from "../../features/productReview/reviewAction";
 import { useParams } from "react-router-dom";
-import { filterGender } from "../../features/product/productSlice";
+import { filterCategory, filterGender } from "../../features/product/productSlice";
 
 const ProductsWrapper = () => {
   const dispatch = useDispatch();
@@ -22,6 +22,10 @@ const ProductsWrapper = () => {
   useEffect(() => {
     if(['men','women'].includes(cate) && successP){
       dispatch(filterGender({gender: cate === 'men' ? 'Male' :'Female'}))
+    }else{
+      const categoryName = cate.charAt(0).toUpperCase() + cate.slice(1)
+      dispatch(filterCategory({ category: categoryName }));
+      console.log(categoryName)
     }
   }, [cate,successP])
   

@@ -22,6 +22,7 @@ import ProductD from "./product/ProductD";
 import Cart from "./product/Cart";
 import PaymentUI from "./product/forms/PaymentUI";
 import CheckOutSuccess from "./product/forms/CheckOutSuccess";
+import Admin from "./User/Admin";
 
 
 const MyApp = () => {
@@ -30,14 +31,14 @@ const MyApp = () => {
     (state) => state.user
   );
   const dispatch = useDispatch();
-  const UserProfile = React.lazy(() => import("./User/UserProfile"));
+  const Dashboard = React.lazy(() => import("./User/Dashboard"));
   const About = React.lazy(() => import("./About"));
   const Contact = React.lazy(() => import("./Contact"));
   const Men = React.lazy(() => import("./Men"));
   const Women = React.lazy(() => import("./Women"));
-  const Dashboard = React.lazy(() => import("./User/DashboardH"));
-  const MyOrders = React.lazy(() => import("./User/MyOrders"));
-  const MyAddresses = React.lazy(() => import("./User/MyAddresses"));
+  const MyAccount = React.lazy(() => import("./User/MyAccount"));
+  const Orders = React.lazy(() => import("./User/Orders"));
+  const MyOrders = React.lazy(() => import("./product/MyOrders"))
   const Cart = React.lazy(() => import("./product/Cart"));
   useEffect(() => {
     if (userToken) {
@@ -97,14 +98,22 @@ const MyApp = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
           <Route path="/cartItems" element={<Cart />} />
+          <Route path="/user/:userId/myOrders" element={<MyOrders />} />
           <Route path="/checkOut-success" element={<CheckOutSuccess/>}/>
           <Route element={<Protected />}>
-            <Route path="/user/:userId" element={<UserProfile />}>
-              <Route index element={<Dashboard />} />
-              <Route path="myOrders" element={<MyOrders />} />
-              <Route path="myAddresses" element={<MyAddresses />} />
+            <Route path="/user/:userId" element={<Dashboard />}>
+              {
+                userInfo.role === 0 ? <Route index element={<Admin />} /> :
+                <Route index element={<MyAccount />} />
+              }
+              <Route path="orders" element={<Orders/>} />
               <Route path="products" element={<Products2 />} />
               <Route path="products/addProduct" element={<AddProduct />} />
+              {
+                userInfo.role === 0 ? <Route path="myAccount" element={<MyAccount />} /> :
+                ''
+              }
+              
             </Route>
           </Route>
           <Route path="*" element={<div>Not Found</div>}/>

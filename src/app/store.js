@@ -5,6 +5,7 @@ import addressReducer from "../features/customerAddress/addressSlice";
 import reviewReducer from "../features/productReview/reviewSlice";
 import cartReducer from "../features/cart/cartSlice";
 import checkOutReducer from "../features/checkout/checkOutSlice";
+import ordersReducer from "../features/Orders/ordersSlice";
 
 
 const store = configureStore({
@@ -14,7 +15,8 @@ const store = configureStore({
         products:  productsReducer,
         reviews:  reviewReducer,
         cart: cartReducer,
-        checkout: checkOutReducer
+        checkout: checkOutReducer,
+        orders: ordersReducer
     }
 })
 export default store

@@ -160,7 +160,7 @@ const Cart = () => {
           initial={{opacity:0,scale:0}}
         animate={{opacity: 1,scale:1}}
         transition={{duration:0.3}}
-          className="grid gap-1 place-items-center">
+          className="grid gap-1 place-items-center col-span-2">
             <img className="w-[30rem] object-contain h-[20rem]" src={MissingCart} alt="" />
             <span className="font-semibold">"Don't Let Your Cart Stay Empty"</span>
             <span className="font-sans">Shop Now and Find Your Next Favorite Item!</span>

@@ -117,15 +117,17 @@ const Header = ({ setTheme, theme }) => {
                     <i class="fa-solid fa-user"></i> Profile
                   </div>
                 </Link>
-                <div
-                  onClick={() => {
-                    setProfile(!profile);
-                  }}
-                  className="flex z-10 justify-start items-center gap-2 px-4 py-2 w-full cursor-pointer hover:bg-[#e2fdff]/50 dark:hover:bg-gray-300/30"
-                >
-                  {" "}
-                  <i class="fa-solid fa-box"></i> MyOrder
-                </div>
+                <Link className="w-full" to={`/user/${userInfo._id}/myOrders`}>
+                  <div
+                    onClick={() => {
+                      setProfile(!profile);
+                    }}
+                    className="flex z-10 justify-start items-center gap-2 px-4 py-2 w-full cursor-pointer hover:bg-[#e2fdff]/50 dark:hover:bg-gray-300/30"
+                  >
+                    {" "}
+                    <i class="fa-solid fa-user"></i> MyOrders
+                  </div>
+                </Link>
                 <div
                   onClick={() => {
                     setProfile(!profile);

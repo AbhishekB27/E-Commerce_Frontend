@@ -2,7 +2,7 @@ import React from "react";
 import Skeleton from "react-loading-skeleton";
 import { useSelector } from "react-redux";
 
-const MyOrders = () => {
+const Orders = () => {
   const {loading} = useSelector(state => state.user)
   return (
     <div className="lg:translate-y-[-8rem] translate-y-0 pb-2 md:p-3 lg:rounded-md top-[-8rem] md:min-h-[27rem] md:shadow-xl dark:bg-gray-900 bg-gray-200 lg:translate-x-[-0.5rem] md:rounded w-full px-2">
@@ -34,4 +34,4 @@ const MyOrders = () => {
   );
 };
 
-export default MyOrders;
+export default Orders;

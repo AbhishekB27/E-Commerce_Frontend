@@ -26,4 +26,4 @@ const checkOutSlice = createSlice({
         })
     }
 })
-export default checkOutSlice.reducer
+export default checkOutSlice.reducer        

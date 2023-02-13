@@ -53,7 +53,7 @@ const RateAndReview = () => {
         });
       }
     }
-  }, [successR]);
+  }, [successR,reviews,dispatch]);
   const [rating, setRating] = useState(0); // for reveiw star
   const [review, setReview] = useState({
     // for user reveiw data
@@ -91,7 +91,7 @@ const RateAndReview = () => {
       }
     } 
 
-  }, [successR,success]);
+  }, [successR,success,reviews,dispatch]);
 
   const handleReview = () => {
       if(button){

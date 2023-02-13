@@ -89,3 +89,29 @@ export const getUserProfile = createAsyncThunk(
     }
   }
 );
+
+export const updateUser = createAsyncThunk(
+  "/update",
+  async({uData,uId},{rejectWithValue}) => {
+    try {
+      const response = await axiosInstance.put(`/auth/update/${uId}`,{...uData})
+      const { success, data, message } = response.data 
+      if(success){
+        toast.success(message,{position:'top-center'})
+        return data
+      }else{
+        toast.error(message,{position:'top-center'})
+        return message
+      }
+    } catch (error) {
+      console.log(error.response.status);
+      if (error.response && error.response.data.message) {
+        toast.error(error.response.data.message, { position: "top-center" });
+        return rejectWithValue(error.response.data.message);
+      } else {
+        toast.error(error.message, { position: "top-center" });
+        return rejectWithValue(error.message);
+      } 
+    }
+  }
+)

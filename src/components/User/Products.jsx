@@ -22,8 +22,8 @@ const Products = () => {
       }, []);
     
   return (
-<div class="lg:translate-y-[-8rem] translate-y-0 pb-2 md:p-3 lg:rounded-md top-[-8rem] md:min-h-[27rem] md:shadow-xl bg-slate-100 dark:bg-gray-900 lg:translate-x-[-0.5rem] md:rounded w-full overflow-auto">
-    <table class="text-sm text-left table-auto text-gray-500 dark:text-gray-400">
+<div class="lg:translate-y-[-8rem]  translate-y-0 pb-2 md:p-3 lg:rounded-md top-[-8rem] md:min-h-[27rem] md:shadow-xl bg-slate-100 dark:bg-gray-900 lg:translate-x-[-0.5rem] md:rounded w-full overflow-auto">
+    <table class="text-sm text-left w-full table-auto text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr className='text-center'>
                 <th scope="col" class="px-6 py-3">
@@ -53,7 +53,7 @@ const Products = () => {
             </tr>
         </thead>
         {
-            pLoading ? Array(1).fill(0).map(item => {
+            pLoading ? Array(10).fill(0).map(item => {
                 return(
                     <tr>
                          <th className='grid place-items-center'> <span className="leading-[1] h-[6rem] block w-[90%]"><Skeleton width="100%" height="100%" /></span> </th>
