@@ -167,7 +167,7 @@ const Cart = () => {
             <Link to='/allProducts/all'>
             <motion.button
             whileTap={{scale:0.8}}
-            className="bg-blue-600 rounded-md px-4 py-2 text-white font-sans font-medium">
+            className="bg-blue-600 dark:bg-gray-300 dark:text-gray-700 rounded-md px-4 py-2 text-white font-sans font-medium">
               Shop Now
               </motion.button>
             </Link>

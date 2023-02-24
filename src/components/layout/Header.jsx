@@ -132,7 +132,7 @@ const Header = ({ setTheme, theme }) => {
                   // onClick={() => {
                   //   setProfile(!profile);
                   // }}
-                  className="flex z-10 justify-start bg-gray-300 items-center gap-2 px-4 py-2 w-full cursor-not-allowed"
+                  className="flex z-10 justify-start bg-gray-300 dark:bg-white/70  items-center gap-2 px-4 py-2 w-full cursor-not-allowed"
                 >
                   {" "}
                   <i class="fa-solid fa-gear"></i> Setting

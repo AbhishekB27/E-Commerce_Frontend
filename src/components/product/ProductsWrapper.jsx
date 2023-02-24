@@ -31,7 +31,7 @@ const ProductsWrapper = () => {
   
   return (
     <div
-      className={`h-auto w-full text-gray-800 dark:text-gray-300 p-1 grid gap-x-2 gap-y-2 grid-cols-[repeat(auto-fit,_minmax(200px,1fr))] ${filter.length <=3 ? 'grid-cols-[repeat(auto-fill,_minmax(200px,1fr))]':''} place-content-start lg:border-l border-gray-300`}
+      className={`h-auto w-full text-gray-800 dark:text-gray-300 p-1 grid gap-x-2 gap-y-2 grid-cols-[repeat(auto-fit,_minmax(200px,1fr))] ${filter.length <=3 ? 'grid-cols-[repeat(auto-fill,_minmax(200px,1fr))]':''} place-content-start max-[475px]:place-items-center lg:border-l border-gray-300`}
     >
       {pLoading
         ? Array(8)

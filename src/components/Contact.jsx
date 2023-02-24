@@ -28,7 +28,7 @@ const Contact = () => {
           onSubmit={formik.handleSubmit}
           className="grid lg:grid-cols-[auto_45%] h-full gap-y-1 bg-blue-600 dark:bg-gray-700 py-5 px-4"
         >
-          <div className="flex flex-col justify-around items-center lg:items-start pl-5 text-white dark:text-gray-300">
+          <div className="flex flex-col justify-around items-center gap-3 md:gap-0 lg:gap-0 lg:items-start pl-0 lg:pl-5 text-white dark:text-gray-300">
             <div className="lg:text-left grid place-items-center lg:block ">
               <h1 className="text-2xl font-poppins">
                 "Get in Touch, We're Here to Help"
@@ -38,7 +38,7 @@ const Contact = () => {
                 hours.
               </h5>
             </div>
-            <div className="grid space-y-5 font-sans font-medium text-center lg:text-left">
+            <div className="grid space-y-0 lg:space-y-5 font-sans font-medium text-center lg:text-left">
               <h6 className="w-full space-x-1 p-2 rounded-md hover:ring-2 dark:ring-gray-300 ring-white">
                 {" "}
                 <i class="fa-solid fa-phone"></i> <span>+0123 4567 8901</span>{" "}
@@ -48,7 +48,7 @@ const Contact = () => {
                 <i class="fa-solid fa-envelope"></i>{" "}
                 <span>abStore12@gmail.com</span>{" "}
               </h6>
-              <h6 className="w-full text-left space-x-1 p-2 rounded-md hover:ring-2 dark:ring-gray-300 ring-white">
+              <h6 className="w-full space-x-1 p-2 rounded-md hover:ring-2 dark:ring-gray-300 ring-white">
                 {" "}
                 <i class="fa-solid fa-location-dot"></i>{" "}
                 <span>H.No 114, Prashad Farm Road Nakraunda</span>{" "}
