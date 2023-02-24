@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import WomenF7 from "./images/WomenF7.png";
 import DenimJacket from "./images/DenimJacket.jpg";
+import Denim from "./images/Denim.jpg";
 import useCountDown from "./useCountDown";
 import { Link } from "react-router-dom";
 import { filterCategory } from "../../features/product/productSlice";
@@ -85,10 +86,10 @@ const Heor3 = () => {
           </div>
          {/* <img className=" w-[16rem] h-[18rem] lg:w-[20rem] lg:h-[22rem]" src={DenimJacket} alt="" /> */}
           <div className="grid place-items-center order-first lg:order-none">
-            <div className="transition-all cursor-pointer overflow-hidden w-[16rem] h-[18rem] lg:w-[20rem] lg:h-[22rem] grid place-items-center">
+            <div className="transition-all w-[22rem] h-[18rem] bg-slate-400 cursor-pointer shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff] overflow-hidden grid place-items-center">
               <img
-                className="object-center w-full h-[20rem] transition-all hover:scale-110 object-contain"
-                src={DenimJacket}
+                className="object-center w-full h-full transition-all hover:scale-110 object-cover"
+                src={Denim}
                 alt=""
               />
             </div>

@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getOrders } from "../../features/Orders/ordersAction";
+import { getOrdersById } from "../../features/Orders/ordersAction";
 import { imageCompress } from "../ImageOptimize/imageCompress";
 import Orders from "./Orders.png";
 
@@ -12,8 +12,8 @@ const MyOrders = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate()
   useEffect(() => {
-    if(userInfo){
-      dispatch(getOrders({cId:userInfo._id}));
+    if(Object.keys(userInfo).length > 0){
+      dispatch(getOrdersById({cId:userInfo._id}));
     }
   }, [userInfo]);
   useEffect(() => {
@@ -54,13 +54,13 @@ const MyOrders = () => {
                             <div className="font-sans flex gap-1 flex-wrap">
                               <span className="font-medium flex gap-2">
                                 Status:{" "}
-                                <div className=" grid place-items-center bg-yellow-200 w-[5rem] rounded text-yellow-500 dark:text-yellow-400">
+                                <div className={`grid place-items-center font-normal  px-2 rounded ${order.dileveryStatus === 'Dilevered' ? 'bg-green-500/30 text-green-500' : (order.dileveryStatus === 'Canceled' ? 'bg-red-400 text-red-600' : 'bg-yellow-400 text-yellow-600')}`}>
                                   {order.dileveryStatus.toUpperCase()}
                                 </div>
                               </span>
                               <span className="font-medium flex gap-2">
                                 Payment:
-                                <div className=" w-[5rem] grid place-items-center rounded bg-green-500/30 text-green-500">
+                                <div className=" px-2 grid place-items-center font-normal rounded bg-green-500/30 text-green-500">
                                   {order.paymentStatus.toUpperCase()}
                                 </div>
                               </span>

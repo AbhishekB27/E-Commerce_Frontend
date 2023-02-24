@@ -1,37 +1,54 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Skeleton from "react-loading-skeleton";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import User from "../images/User.png";
 import "react-loading-skeleton/dist/skeleton.css";
 import Admin from "./Admin";
 import { motion } from "framer-motion";
-import { useFormik } from "formik";
+import { Formik, useFormik } from "formik";
 import UserDataSchema from "./userDataSchema";
+import { updateUser } from "../../features/user/userAction";
 
 const MyAccount = () => {
   const { userInfo, loading, success } = useSelector((state) => state.user);
+  const dispatch = useDispatch()
   const fullName =
     Object.keys(userInfo ?? {}).length === 0
       ? undefined
       : `${userInfo.firstName} ${userInfo.lastName}`;
-      const handleUser = (event) => {
-
+      const handleUser = (data) => {
+        console.log(data)
+        dispatch(updateUser({uData:data,uId:userInfo._id}))
       }
-      const initialValues = {
-        firstName:userInfo.firstName,
-        lastName:userInfo.lastName,
-        userName:userInfo.userName,
-        email:userInfo.email,
+    let formik = useFormik({
+      initialValues:{
+        firstName:'',
+        lastName:'',
+        userName:'',
+        email:'',
         password:''
-      }
-    const formik = useFormik({
-      initialValues:initialValues,
+      },
       validationSchema: UserDataSchema,
       onSubmit:handleUser
     })  
+    useEffect(() => {
+      formik.setValues(
+        {
+          firstName:userInfo.firstName,
+          lastName:userInfo.lastName,
+          userName:userInfo.userName,
+          email:userInfo.email,
+          password:''
+        }
+      )
+    }, [success])
+    
   return (
     <div className="lg:translate-y-[-8rem] translate-y-0 pb-2 md:p-3 lg:rounded-md top-[-8rem] md:min-h-[27rem] md:shadow-xl dark:bg-gray-900 bg-gray-200 lg:translate-x-[-0.5rem] md:rounded w-full grid gap-2 space-y-1 md:space-y-0">
       {/* <Admin /> */}
+      <div className="text-center text-lg font-semibold md:text-left border-b-2 border-blue-500 dark:border-b-gray-300">
+        My Account
+      </div>
       <div className="grid grid-cols-[5rem_auto] rounded-md dark:bg-gray-800 bg-slate-200">
         <div className="text-2xl md:text-4xl flex justify-center items-center">
           <i class="fa-solid fa-user-pen"></i>
@@ -133,8 +150,8 @@ const MyAccount = () => {
               Email
             </label>
             <input
-              value={formik.values.email}
               onChange={formik.handleChange}
+              value={formik.values.email} 
               className="rounded-md p-2 w-full shadow-md outline-none text-sm text-gray-400 font-semibold font-poppins"
               type="text"
               name="email"
@@ -201,7 +218,7 @@ const MyAccount = () => {
           disabled={loading ? true : false}
           className="bg-gradient-to-l py-1 md:py-2 hover:bg-gradient-to-r dark:text-gray-800 font-sans font-medium dark:to-gray-300 dark:from-gray-300 from-[#8C5CFF] via-[#4C4DFF] to-[#0CB6FF] text-white rounded-md"
         >
-          Update
+         {loading ? "Loading..." : "Update"}
         </motion.button>
       </div>
       </form>

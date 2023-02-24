@@ -1,14 +1,20 @@
 import { motion } from "framer-motion";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { stripeCheckout } from "../../../features/checkout/checkoutAction";
 import Loader from "../../Loader";
 const PayButton = ({cartItems}) => {
-    const {userInfo} = useSelector(state => state.user)
+    const {userInfo,userToken} = useSelector(state => state.user)
     const {checkoutL} = useSelector(state => state.checkout)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
   const handleCheckout = () => {
-    dispatch(stripeCheckout({cartItems,uId:userInfo._id}))
+    if(!userToken){
+      navigate('/login')
+    }else{
+      dispatch(stripeCheckout({cartItems,uId:userInfo._id}))
+    }
   };
   return (
     <motion.button

@@ -31,7 +31,7 @@ const Hero1 = () => {
           </span>
           Shop your favorite brands, discover new trends, and get the best deals
           with our easy-to-use ecommerce app. Plus, enjoy free shipping on
-          orders over $50 and convenient delivery options. Plus, with secure
+          orders over Rs.4999 and convenient delivery options. Plus, with secure
           payment options and fast shipping, you can shop with confidence and
           ease.
         </p>

@@ -24,9 +24,9 @@ const Products = () => {
   const { products,filter } = useSelector((state) => state.products);
   // console.log(Array.from(new Set(products.map((item) => item.size).flat())));
   // console.log(Array.from(new Set(products.map((item) => item.brand))));
-  // useEffect(() => {
-  // window.scrollTo(0,0) // go to top of page
-  // },[filter])
+  useEffect(() => {
+  window.scrollTo(0,0) // go to top of page
+  },[])
   
   return (
     <div className="w-full h-auto grid place-items-center px-5">

@@ -125,14 +125,14 @@ const Header = ({ setTheme, theme }) => {
                     className="flex z-10 justify-start items-center gap-2 px-4 py-2 w-full cursor-pointer hover:bg-[#e2fdff]/50 dark:hover:bg-gray-300/30"
                   >
                     {" "}
-                    <i class="fa-solid fa-user"></i> MyOrders
+                    <i class="fa-solid fa-clipboard"></i> MyOrders
                   </div>
                 </Link>
                 <div
-                  onClick={() => {
-                    setProfile(!profile);
-                  }}
-                  className="flex z-10 justify-start items-center gap-2 px-4 py-2 w-full cursor-pointer hover:bg-[#e2fdff]/50 dark:hover:bg-gray-300/30"
+                  // onClick={() => {
+                  //   setProfile(!profile);
+                  // }}
+                  className="flex z-10 justify-start bg-gray-300 items-center gap-2 px-4 py-2 w-full cursor-not-allowed"
                 >
                   {" "}
                   <i class="fa-solid fa-gear"></i> Setting

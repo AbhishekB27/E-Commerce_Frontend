@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { addReview, updateReview } from "../../features/productReview/reviewAction";
 import Stars from "./Stars";
 
@@ -39,9 +39,10 @@ const RateAndReview = () => {
       message: "Excelent",
     },
   ];
-  const { userInfo, success } = useSelector((state) => state.user);
+  const { userInfo, success,userToken } = useSelector((state) => state.user);
   const { reviews, rLoading, successR } = useSelector((state) => state.reviews);
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const [star, setStar] = useState([]);
   useEffect(() => {
     setStar([]);
@@ -94,21 +95,25 @@ const RateAndReview = () => {
   }, [successR,success,reviews,dispatch]);
 
   const handleReview = () => {
-      if(button){
-        console.log(review)
-        if(Object.values(review).every(val => val)){   // here we are checking review data is empty or not
-        dispatch(addReview(review)) 
-          console.log("ready to post review")
-        }else{
-          alert("Please insert review")
-        }
+      if(!userToken){
+        navigate('/login')
       }else{
-        console.log(review)
-        if(Object.values(review).every(val => val)){
-          dispatch(updateReview(review))
-          console.log("ready to update post review")
+        if(button){
+          console.log(review)
+          if(Object.values(review).every(val => val)){   // here we are checking review data is empty or not
+          dispatch(addReview(review)) 
+            console.log("ready to post review")
+          }else{
+            alert("Please insert review")
+          }
         }else{
-          alert("Please insert review")
+          console.log(review)
+          if(Object.values(review).every(val => val)){
+            dispatch(updateReview(review))
+            console.log("ready to update post review")
+          }else{
+            alert("Please insert review")
+          }
         }
       }
   };

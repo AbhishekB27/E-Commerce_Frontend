@@ -1,16 +1,70 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import User from "../images/User.png";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Link, Outlet } from "react-router-dom";
 import { motion } from "framer-motion";
+import {
+  deleteObject,
+  getDownloadURL,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
+import storage from "../../firebase";
+import { updateUser } from "../../features/user/userAction";
 
 const Dashboard = () => {
   const { userInfo, loading, success } = useSelector((state) => state.user);
+  const [imageUrl, setImageUrl] = useState('');
+  const [imageName, setImageName] = useState('');
   const [toggle, setToggle] = useState(false);
+  const dispatch = useDispatch()
+  useEffect(() => {
+    if(success){
+      setImageName(userInfo.avtar.aName)
+      setImageUrl(userInfo.avtar.aURL)
+    }
+  }, [userInfo,dispatch])
+  
   const handleProfile = (event) => {
-    console.log(event.target.files);
+    //delete the previous image if there is one
+    if (imageUrl) {
+      const deleteRef = ref(storage, `images/${imageName}`);
+    // console.log(imageName)
+      //delete the file
+      deleteObject(deleteRef)
+        .then(() => {
+          console.log("File deleted successfully");
+        })
+        .catch((error) => {
+          console.log("Uh-oh, an error occurred!: " + error.message);
+        });
+    }
+    //upload the new user image
+    const file = event.target.files[0];
+    // console.log(file)
+    const storageRef = ref(storage, `images/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        // console.log("Upload is " + progress + "% done");
+      },
+      (error) => {
+        // Handle unsuccessful uploads
+        console.log(error.message);
+      },
+      () => {
+        // Handle successful uploads on complete
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          dispatch(updateUser({uData:{avtar:{aName:file.name,aURL:downloadURL}},uId:userInfo._id}))
+          // console.log("File available at", downloadURL);
+        });
+      }
+    );
   };
   const fullName =
     Object.keys(userInfo ?? {}).length === 0
@@ -82,8 +136,11 @@ const Dashboard = () => {
               <motion.button
                 whileTap={{ scale: 0.8 }}
                 disabled={loading ? true : false}
-                className="bg-gradient-to-l relative dark:from-gray-300 dark:to-gray-300 from-[#8C5CFF] via-[#4C4DFF] w-[8rem] group  md:py-2 to-[#0CB6FF] overflow-hidde text-white dark:text-gray-700 rounded after:content-['Picture'] after:text-blue-600 dark:after:text-gray-700 after:grid after:place-items-center after:font-semibold after:invisible after:absolute after:bg-slate-300/70 after:transition-all after:w-full after:h-full after:top-0 after:right-[0] hover:after:right-[-8.5rem] hover:after:visible"
+                className="bg-gradient-to-l dark:from-gray-300 dark:to-gray-300 from-[#8C5CFF] via-[#4C4DFF] w-[8rem] group  md:py-2 to-[#0CB6FF] overflow-hidde text-white dark:text-gray-700 rounded relative group"
               >
+                <span className="absolute group-hover:opacity-100 transition-opacity text-sm font-sans font-normal dark:bg-gray-300/30 dark:text-gray-300 bg-gray-800 text-gray-300 px-3 py-1 rounded top-[-2rem] right-[2rem] z-10 opacity-0 before:content-[''] before:absolute before:top-[100%] before:left-[45%] before:border-solid before:border-[5px] before:border-transparent before:border-t-gray-800 dark:before:border-t-gray-300/30">
+                  image
+                </span>
                 <input
                   className="w-[0] h-[0]"
                   onChange={handleProfile}
@@ -121,20 +178,22 @@ const Dashboard = () => {
                       <i class="fa-light fa-box"></i>My Orders
                     </button>{" "}
                   </Link> */}
-                  {userInfo.role === 0 ? <>
-                    <Link to={`/user/${userInfo._id}`}>
-                    {" "}
-                    <button className="w-full outline-none overflow-hidden transition-all lg:hover:bg-blue-600/30 lg:dark:hover:bg-gray-800/30 cursor-pointer text-left max-[320px]:text-sm text-base md:text-lg  grid grid-cols-[1rem_auto] place-items-center place-content-start gap-2 px-3 py-1">
-                    <i class="fa-solid text-sm fa-house"></i> <span>Dashboard</span>
-                    
-                    </button>{" "}
-                  </Link>
-                    <Link to={`/user/${userInfo._id}/products`}>
+                  {userInfo.role === 0 ? (
+                    <>
+                      <Link to={`/user/${userInfo._id}`}>
+                        {" "}
+                        <button className="w-full outline-none overflow-hidden transition-all lg:hover:bg-blue-600/30 lg:dark:hover:bg-gray-800/30 cursor-pointer text-left max-[320px]:text-sm text-base md:text-lg  grid grid-cols-[1rem_auto] place-items-center place-content-start gap-2 px-3 py-1">
+                          <i class="fa-solid text-sm fa-house"></i>{" "}
+                          <span>Dashboard</span>
+                        </button>{" "}
+                      </Link>
+                      <Link to={`/user/${userInfo._id}/products`}>
                         <button
                           onClick={() => setToggle(!toggle)}
                           className="w-full outline-none lg:hover:bg-blue-600/30 lg:dark:hover:bg-gray-300/30 cursor-pointer text-left max-[320px]:text-sm text-base md:text-lg font-semibold grid grid-cols-[1rem_auto] place-items-center place-content-start gap-2 px-3 py-1"
                         >
-                          <i class="fa-regular fa-box-open"></i><span>Products</span>{" "}
+                          <i class="fa-regular fa-box-open"></i>
+                          <span>Products</span>{" "}
                         </button>
                       </Link>
                       <Link to={`/user/${userInfo._id}/products/addProduct`}>
@@ -153,13 +212,18 @@ const Dashboard = () => {
                           <span>Orders</span>{" "}
                         </button>
                       </Link>
-                  </> : (
+                    </>
+                  ) : (
                     ""
                   )}
-                    <Link to={`/user/${userInfo._id}${userInfo.role === 0 ?'/myAccount' : ''}`}>
+                  <Link
+                    to={`/user/${userInfo._id}${
+                      userInfo.role === 0 ? "/myAccount" : ""
+                    }`}
+                  >
                     {" "}
                     <button className="w-full outline-none lg:hover:bg-blue-600/30 lg:dark:hover:bg-gray-300/30 cursor-pointer text-left max-[320px]:text-sm text-base md:text-lg font-semibold grid grid-cols-[1rem_auto] place-items-center place-content-start gap-2 px-3 py-1">
-                    <i class="fa-solid fa-user"></i> <span>My Account</span>
+                      <i class="fa-solid fa-user"></i> <span>My Account</span>
                     </button>{" "}
                   </Link>
                 </div>
@@ -168,9 +232,9 @@ const Dashboard = () => {
           )}
 
           {/* <div className="relative w-full"> */}
-            {/* <div className="lg:translate-y-[-8rem] translate-y-0 pb-2 md:p-3 lg:rounded-md top-[-8rem] md:min-h-[27rem] md:shadow-xl bg-slate-100 lg:translate-x-[-0.5rem] md:rounded w-full"> */}
-              <Outlet/>
-            {/* </div> */}
+          {/* <div className="lg:translate-y-[-8rem] translate-y-0 pb-2 md:p-3 lg:rounded-md top-[-8rem] md:min-h-[27rem] md:shadow-xl bg-slate-100 lg:translate-x-[-0.5rem] md:rounded w-full"> */}
+          <Outlet />
+          {/* </div> */}
           {/* </div> */}
         </div>
       </div>

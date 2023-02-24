@@ -24,7 +24,6 @@ const data = [
 ];    
   return (
     <div className='max-h-[25rem] bg-white dark:bg-gray-300/30 rounded'>
-      <h2 className='text-left text-xl font-semibold px-1'>Total Sales:</h2>
       <ResponsiveContainer width="99%" height={300}>
       <BarChart
         data={data}

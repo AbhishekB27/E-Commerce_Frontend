@@ -94,7 +94,10 @@ export const updateUser = createAsyncThunk(
   "/update",
   async({uData,uId},{rejectWithValue}) => {
     try {
-      const response = await axiosInstance.put(`/auth/update/${uId}`,{...uData})
+      const response = await axiosInstance.put(`/auth/update/${uId}`,{...uData},
+      {
+        headers:authHeader()
+      })
       const { success, data, message } = response.data 
       if(success){
         toast.success(message,{position:'top-center'})

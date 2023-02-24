@@ -33,7 +33,7 @@ const Contact = () => {
               <h1 className="text-2xl font-poppins">
                 "Get in Touch, We're Here to Help"
               </h1>
-              <h5 className="w-[45%]">
+              <h5 className="md:w-[45%]">
                 Fill up the form and our team will get back to you within 24
                 hours.
               </h5>

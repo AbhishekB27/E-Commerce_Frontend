@@ -11,7 +11,7 @@ const Footer = () => {
               <span className="text-sm text-blue-500 group-hover:text-white dark:group-hover:text-gray-300 dark:text-[#121212] font-medium md:text-lg tracking-wider lg:font-extrabold">
                 AB
               </span>
-              <span className="text-sm ml-6 font-medium group-hover:text-[#121212] dark:group-hover:text-[#121212] md:text-lg tracking-wider lg:font-extrabold">
+              <span className="text-sm ml-6 font-medium group-hover:text-blue-500 dark:group-hover:text-[#121212] md:text-lg tracking-wider lg:font-extrabold">
                 STORE
               </span>
             </div>

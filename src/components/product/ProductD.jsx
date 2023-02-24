@@ -70,9 +70,6 @@ const ProductD = () => {
     }
      };
   const addPToCart = ()=>{
-    if(!userToken){
-      navigate('/login')
-    }else{
       if(Object.values(cart).every(val => val)){
         console.log(cart)
         console.log(quantity)
@@ -80,7 +77,6 @@ const ProductD = () => {
       }else{
         alert('Please select all details')
       }
-    }
   }
   return (
     <div className="min-h-[560px] grid place-items-center">
@@ -96,7 +92,7 @@ const ProductD = () => {
           ) : (
             products.map((item) => {
               return (
-                <div className="bg-slate-100 w-full grid place-items-center">
+                <div className="bg-slate-100 dark:bg-gray-700 w-full grid place-items-center">
                   <img
                   className="max-h-[30rem]"
                   src={`${imageCompress(item.imageURL)}`}

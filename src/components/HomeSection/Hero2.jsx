@@ -78,7 +78,7 @@ const Hero2 = () => {
               <h1 className="text-xl font-semibold text-center md:text-left text-gray-800 dark:text-gray-300">
                 New Collection of <span className="text-blue-600 dark:text-gray-300">AB_Store</span>
               </h1>{" "}
-              <p className="text-blue-600 text-base font-poppins font-medium">
+              <p className="text-base font-poppins font-medium">
                 Get ready to step up your style game with our latest fashion
                 collection. From trendy clothing and accessories to shoes and
                 bags, we have everything you need to create on-point outfits for

@@ -50,12 +50,12 @@ const Hero4 = () => {
           products.filter((item,index) => item.featuredProduct === true && index > 20)
           .map(item => {return(
             <div className="max-w-[17rem max-h-[25rem h-full w-full relative group overflow-hidden">
-              <div className="absolute bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity bottom-0 z-10 w-full py-2">
+              <div className="absolute bg-black/30 md:opacity-0 md:group-hover:opacity-100 md:group-hover:h-auto md:h-0 md:group-hover:py-2 transition-opacity duration-200 bottom-0 z-10 w-full py-2 md:py-0">
               <Link to={`/allProducts/product/${item._id}`}>
               <motion.button
                 whileTap={{ scale: 0.8 }}
                 transition={{ duration: 0.1 }}
-                className="px-8 py-2 text-lg mt-[0.1rem] font-sans font-medium rounded-3xl bg-slate-100 dark:text-gray-800"
+                className="md:px-8 md:py-2 px-4 py-1 text-sm md:text-lg mt-[0.1rem] font-sans font-medium rounded-3xl bg-slate-100 dark:text-gray-800"
               >
                 Buy Now
               </motion.button>

@@ -23,6 +23,7 @@ import Cart from "./product/Cart";
 import PaymentUI from "./product/forms/PaymentUI";
 import CheckOutSuccess from "./product/forms/CheckOutSuccess";
 import Admin from "./User/Admin";
+import ConnectionLost from "./ConnectionLost";
 
 
 const MyApp = () => {
@@ -85,7 +86,9 @@ const MyApp = () => {
       }
     >
       <div className="min-h-screen relative p-1  md:p-0 h-auto flex flex-col justify-start gap-2 dark:bg-gray-800 text-[#5465ff] dark:text-gray-300 font-ubuntu ">
-       <TokenExpired/>
+       {
+        navigator.onLine ? <>
+        <TokenExpired/>
         <Header setTheme={setTheme} theme={theme} />
         <Routes>
           <Route index path="/" element={<HeroSection />} />
@@ -119,6 +122,8 @@ const MyApp = () => {
           <Route path="*" element={<div>Not Found</div>}/>
         </Routes>
         <Footer />
+        </> : <ConnectionLost/>
+       }
       </div>
       <ToastContainer />
     </Suspense>

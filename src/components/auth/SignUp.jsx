@@ -36,7 +36,7 @@ const SignUp = () => {
     dispatch(signUpUser(data));
   };
   return (
-    <div className="w-full grid place-items-center mt-1 lg:mt-0">
+    <div className="w-full min-h-[560px] grid place-items-center mt-1 lg:mt-0">
       <div className="container flex flex-col justify-center lg:grid lg:grid-cols-2 items-center space-y-5 min-h-[34rem] px-2 py-1">
         <div className="hidden lg:grid lg:place-items-center">
           <img className="object-center object-cover" src={SignUpI} alt="" />
