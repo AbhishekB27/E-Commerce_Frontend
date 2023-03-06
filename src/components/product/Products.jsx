@@ -109,7 +109,7 @@ const Products = () => {
         <div className="grid grid-cols-1 lg:grid-cols-[18rem_auto] relative gap-1">
           <div
             className={`lg:px-2 p-2 lg:static text-sm md:text-base absolute bg-black/3 ${
-              filterT ? "w-[0rem] opacity-0" : "w-[70%] sm:w-[18rem] opacity-100"
+              !filterT ? "w-[0rem] opacity-0" : "w-[70%] sm:w-[18rem] opacity-100"
             } lg:w-[18rem] lg:opacity-100 z-10 bg-white dark:bg-gray-800 transition-all right-0 h-auto overflow-auto invisibleScrollBar`}
           >
             <div className="min-h-full text-left bg-purple-5">
